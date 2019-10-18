@@ -1,0 +1,27 @@
+.bg-banpais {
+    background-color: #FFEF11;
+    /* background-color: #004080; */
+    /* #004080 */
+    /* #FFEF11 */
+    /* #192A56 */
+}
+
+.txtTitle {
+    color: #004080
+}
+
+#hrTitulo {
+    width: 94%;
+}
+
+.iconoMenu {
+    color: #004080;
+    /* color: white; */
+    font-size: 20px;
+    margin: 2px;
+}
+
+.menuItem {
+    color: black
+    /* color: white */
+}

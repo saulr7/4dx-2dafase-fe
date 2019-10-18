@@ -1,0 +1,12 @@
+.icon-meta {
+    font-size: 2.5rem;
+}
+
+.text-meta {
+    font-size: 2rem;
+}
+
+#divTablaResultado {
+    max-height: 400px;
+    overflow-y: auto;
+}
