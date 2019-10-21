@@ -14,8 +14,6 @@ class EditarMetaPeriodica extends React.Component {
     {
         super(props)
 
-        console.log(this.props.Meta)
-
         this.state = {
             meta : this.props.Meta,
             editar : false,

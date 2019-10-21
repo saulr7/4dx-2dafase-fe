@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.19.0",
     "axios-middleware": "^0.3.1",
+    "bs-stepper": "^1.7.0",
     "chart": "^0.1.2",
     "chart.js": "^2.8.0",
     "chartjs-plugin-datalabels": "^0.7.0",

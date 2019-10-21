@@ -5,8 +5,8 @@ import Loading from '../../common/Loading'
 import NoData from '../../common/NoData'
 import TableroMCI from './TableroMCI'
 import MesSelect from '../../common/MesSelect'
-import TablaColaboradores from '../colaboradores/TablaColaboradores'
-import {Sidebar} from 'primereact/sidebar';
+
+import SideBarColaboradores from '../colaboradores/SideBarColaboradores'
 
 import './Tablero.css'
 
@@ -20,13 +20,6 @@ class Tablero extends React.Component {
     {
         super(props)
 
-        const { match: { params } } = this.props;
-        var IdColaboradorBase64 = params.IdColaborador
-        
-        var IdColaborador  = ""
-
-        if(IdColaboradorBase64)
-            IdColaborador = atob(IdColaboradorBase64)
 
         this.state = {
             cargando : false,
@@ -34,10 +27,12 @@ class Tablero extends React.Component {
             mci : this.props.mci,
             idTipoGrafico : 2,
             dataLineal2 : {},
-            btnRegresar : (IdColaborador ? true : false),
-            IdColaborador : (IdColaborador ? IdColaborador : ""),
+            btnRegresar : false, //(IdColaborador ? true : false),
+            IdColaborador : "",//(IdColaborador ? IdColaborador : ""),
             mesActual : this.props.mesSelected,
-            mostrarCompaneros : false
+            mostrarCompaneros : false,
+            OcultarHeader : (this.props.OcultarHeader ? this.props.OcultarHeader : false ),
+            OcultarSideBar : (this.props.OcultarSideBar ? this.props.OcultarSideBar : false )
 
         }
 
@@ -126,7 +121,7 @@ class Tablero extends React.Component {
         this.setState(state => ({ cargando: true }));
         this.setState(state => ({  IdSubArea : IdSubArea }));
 
-        axios.get('/ColaboradoresPorArea/'+IdSubArea )
+        axios.get('/GetColaboradoresSubArea/'+IdSubArea )
         .then(res => {
             
             this.setState(
@@ -154,40 +149,51 @@ class Tablero extends React.Component {
             <div>
                 <div className="container">
                     
-                    <div className="row">
-                        <div className="col">
-                            <TituloPrincipal Titulo="Tablero" BackButton={this.state.btnRegresar}/>
+                    <div className={this.state.OcultarHeader ? "d-none" : ""}>
+
+                        <div className="row">
+                            <div className="col">
+                                <TituloPrincipal Titulo="Tablero" BackButton={this.state.btnRegresar}/>
+                            </div>
                         </div>
+
+                        <div className="row">
+                            <div className="col-2">
+                                
+                                <button className="btn btn-link" onClick={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: true}) }>
+                                    <i className="fa fa-users" aria-hidden="true"></i>
+                                    Equipo
+                                </button>
+                                
+                            </div>
+                            <div className="col-10">
+                                <span>
+                                    <h5 className="font-weight-bold text-right">
+                                        {this.props.colaboradorSelected.nombreColaborador}
+                                    </h5>
+                                </span>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <div className="row">
-                        <div className="col-2">
-                            
-                            <button className="btn btn-link" onClick={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: true}) }>
-                                <i className="fa fa-users" aria-hidden="true"></i>
-                                Equipo
-                            </button>
-                            
-                        </div>
-                        <div className="col-10">
-                            <span>
-                                <h5 className="font-weight-bold text-right">
-                                    {this.props.colaboradorSelected.nombreColaborador}
-                                </h5>
-                            </span>
-                        </div>
-                    </div>
+                    {this.state.OcultarSideBar ? null : (
 
-                    <div className="row">
+                        <div className="row">
                         <div className="col">
-                            <Sidebar visible={this.props.mostrarPanelCompaneros} onHide={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: false})} style={{width: "350px", overflow: "scroll", marginTop: "30px"}}>
+                            {/* <Sidebar visible={this.props.mostrarPanelCompaneros} onHide={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: false})} style={{width: "350px", overflow: "scroll", marginTop: "30px"}}>
+                                <h4 className="font-weight-bold mt-2">
+                                    Equipo
+                                </h4>
                                 <TablaColaboradores/>
-                            </Sidebar>
+                            </Sidebar> */}
+
+                            <SideBarColaboradores/>
                             
                         </div>
-                    </div>
-                    
-                    
+                        </div>
+
+                    )}
                     
                     <div className="row m-1">
                         <div className="col-12 col-md-6 offset-md-3 text-center">

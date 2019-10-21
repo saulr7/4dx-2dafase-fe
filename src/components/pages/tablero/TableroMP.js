@@ -5,7 +5,6 @@ import TipoGrafico from '../graficas/TipoGrafico'
 import TablaResultadoMP from './TablaResultadoMP' 
 import Medicion from '../../../models/Medicion'
 import Frecuencia from '../../../models/Frecuencia'
-import TablaActividadesBrujula from  '../brujula/TablaActividadesBrujula'
 
 import { Link } from "react-router-dom";
 
@@ -44,7 +43,7 @@ class TableroMP extends React.Component {
         {
             this.FormatearDataAGraficar()
         }
-        this.ObtenerActividadesMP();
+        // this.ObtenerActividadesMP();
     }
 
 
@@ -141,7 +140,9 @@ class TableroMP extends React.Component {
                     </div>
                     <div className="col-12 col-md-8 text-right">
                         
-                        {this.state.MedidaPredictiva.MedicionId === Medicion.Resultado ?(
+                        {this.state.MedidaPredictiva.MedicionId === Medicion.Meta ?(
+                            <TablaResultadoMP MedidaPredictiva={this.state.MedidaPredictiva}/>) :
+                            (
                             <div>
                                 <Link to={{
                                     pathname: '/chart/'+ btoa(this.state.dataB64)
@@ -182,7 +183,7 @@ class TableroMP extends React.Component {
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                    <th scope="row">Meta</th>
+                                                    <th scope="row">Resultado</th>
                                                         {!this.state.dataBar.labels ? null : (
 
                                                             this.state.dataBar.datasets[0].data.map((valor, index) =>{
@@ -193,7 +194,7 @@ class TableroMP extends React.Component {
                                                         )}
                                                     </tr>
                                                     <tr>
-                                                    <th scope="row">Resultado</th>
+                                                    <th scope="row">Meta</th>
                                                     {!this.state.dataBar.labels ? null : (
 
                                                         this.state.dataBar.datasets[1].data.map((valor, index) =>{
@@ -212,15 +213,15 @@ class TableroMP extends React.Component {
 
 
                             </div>
-
-                        ) : (
-                            <TablaResultadoMP MedidaPredictiva={this.state.MedidaPredictiva}/>
+                            
+                        
+                            
                         )}
 
                     </div>
                 </div>
 
-                <div className="row">
+                <div className="row d-none">
                         
                     <div className="col">
                         <p className="text-center">
@@ -232,19 +233,6 @@ class TableroMP extends React.Component {
                                 <i className="fa fa-compass" aria-hidden="true"></i>
                             </button>
                         </p>
-                        <div className="collapse" id="divActividades">
-                            <div className="card card-body">
-                                <div className="alert alert-light alert-dismissible fade show" role="alert">
-                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                                        <span aria-hidden="true">×</span>
-                                    </button>
-                                    <strong>¡Nueva!.</strong> Para agregar actividades ve a los resultados de la MP y presiona el botón con el el ícono de la de la brújula .
-                                </div>
-
-
-                                <TablaActividadesBrujula Actividades={this.state.Actividades}/>
-                            </div>
-                        </div>
 
                     </div>
 

@@ -26,7 +26,7 @@ class EditarResultadoMedidaP extends React.Component {
             EsElDueno : (usuario.Empleado === this.props.Resultado.IdColaborador? true : false),
             editar : false,
             usuarioPerfilId : (JwtPayload().usuario.PerfilId ),
-             objBrujulaBase64 : ""
+            objBrujulaBase64 : ""
         }
 
 

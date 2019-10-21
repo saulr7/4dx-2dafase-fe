@@ -70,6 +70,7 @@ class TableroMCI extends React.Component {
                 },
                 {
                     label: "Meta",
+                    type:"line",
                     data: [],
                     fill : false,
                     backgroundColor: '#42A5F5',
@@ -191,7 +192,7 @@ class TableroMCI extends React.Component {
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                        <th scope="row">Meta</th>
+                                                        <th scope="row">Resultado</th>
                                                             {!this.state.dataLineal2.labels ? null : (
   
                                                                 this.state.dataLineal2.datasets[0].data.map((valor, index) =>{
@@ -203,7 +204,7 @@ class TableroMCI extends React.Component {
                                                             )}
                                                         </tr>
                                                         <tr>
-                                                        <th scope="row">Resultado</th>
+                                                        <th scope="row">Meta</th>
                                                         {!this.state.dataLineal2.labels ? null : (
   
                                                             this.state.dataLineal2.datasets[1].data.map((valor, index) =>{

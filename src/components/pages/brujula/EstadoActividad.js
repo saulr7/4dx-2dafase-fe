@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { axios } from "../../../config/config";
+
+import EsElUsuarioLogueado from '../../../Functions/EsElUsuarioLogueado'
+
+import { axios, JwtPayload } from "../../../config/config";
 import Swal from "sweetalert2";
 
 
@@ -17,9 +20,10 @@ class EstadoActividad extends Component {
             BrujulaId : this.props.Brujula,
             estadosBrujula : [],
             estadoSelected : 3,
-            IdColaboradorDueno : this.props.UsuarioId,
+            IdColaborador : this.props.UsuarioId,
             IdResultado : this.props.ResultadoId,
-            SePuedeEditar : (this.props.ResultadoId && this.props.UsuarioId ? true : false)
+            // SePuedeEditar : (this.props.ResultadoId && this.props.UsuarioId ? true : false)
+            SePuedeEditar : false
 
         }
 
@@ -28,6 +32,27 @@ class EstadoActividad extends Component {
         this.EstadoChangedHandler= this.EstadoChangedHandler.bind(this)
     }
 
+    componentDidMount()
+    {
+        var user = JwtPayload().usuario      
+        var esLider = user.EsLider
+        var esElDueno = false
+
+        esElDueno = EsElUsuarioLogueado(this.state.IdColaborador)
+
+        var sePuedeEditar = false
+
+
+        if(esLider && !esElDueno )
+            sePuedeEditar = true
+
+        this.setState({SePuedeEditar : sePuedeEditar})
+    }
+
+    UNSAFE_componentWillReceiveProps(newProps)
+    {
+        this.setState({Descripcion : newProps.Descripcion})
+    }
 
     toggleEditar()
     {
@@ -70,9 +95,30 @@ class EstadoActividad extends Component {
     ObtenerActividades()
     {
 
+        var usuario =""
+
+        if(this.props.colaboradorSelected.colaboradorId)
+        {
+            usuario = this.props.colaboradorSelected.colaboradorId
+        }
+        else 
+        {
+            var user = JwtPayload().usuario      
+            usuario = user.Empleado
+
+            var colaborador = {
+                nombreColaborador : user.EmpleadoNombre,
+                colaboradorId : user.Empleado
+            }
+
+            this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
+
+        }
+
+
         this.props.dispatch({type:'LOAD_BRUJULAS', data: []}) 
 
-        axios.get("/BrujulasPorMP/"+ this.state.IdColaboradorDueno+"/"+ this.state.IdResultado)
+        axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
         .then(res => {
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
             
@@ -113,7 +159,7 @@ class EstadoActividad extends Component {
                     <br/>
                     <button 
                         type="button" 
-                        className="btn btn-success m-1"
+                        className="btn btn-success "
                         onClick={this.ActualizarEstado}>
                             Guardar
                         </button>
@@ -132,7 +178,10 @@ class EstadoActividad extends Component {
                 <div>
                     <div className="form-inline">
 
-                        {this.state.Descripcion}
+                        <span className="badge badge-secondary">
+                            {this.state.Descripcion}
+
+                        </span>
                         <button 
                             className={" btn btn-info m-1 "+ (this.state.SePuedeEditar ? "" : "d-none")} 
                             data-toggle="tooltip" 
@@ -153,6 +202,7 @@ class EstadoActividad extends Component {
 function mapStateToProps(state) {
 
     return {
+        colaboradorSelected : state.ColaboradorSelectedReducer,
         estadosBrujula : state.EstadosBrujula
     };
 }

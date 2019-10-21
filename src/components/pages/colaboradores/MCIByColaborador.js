@@ -41,7 +41,19 @@ class MCIByColaborador extends React.Component {
         axios.get('/GetMedidasPredictivas/'+this.state.IdColaborador)
 
         .then(res => {
-            this.setState({metricas : res.data})
+
+            var distinct = [...new Set(res.data.map(x => x.IdMCI))]
+
+            var data = []
+
+            distinct.map((valor, indice) => {
+                data.push( res.data.filter((meta)=> {
+                    return meta.IdMCI === valor
+                }))
+                return "";
+            })
+
+            this.setState({metricas : data})
             this.setState({cargando : false})
         }).catch((error) => {
             this.setState(state => ({ cargando: false }));
@@ -79,40 +91,55 @@ class MCIByColaborador extends React.Component {
                     
                     <div className="row ">
                         <div className="col-12 col-lg-10 offset-lg-1">
-                            <table className="table table-striped bg-white">
-                                <thead >
-                                    <tr>
-                                        <th>MCI</th>
-                                        <th>Medida Predictiva</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.state.metricas.map((metrica, index)=>
-                                        {
-                                            return (
-                                            <tr key={index}>
-                                                <td>{metrica.MCI}</td>
-                                                <td>{metrica.MedidaPredictiva}</td>
-                                                <td>
-                                                    <Link to={{
-                                                        pathname: '/resultadosMedidasPredictiva/'+ btoa(metrica.IdMP),
+
+
+                            <div className="list-group">
+                            {this.state.metricas.map((metrica, index)=> {
+                                return (
+                                    <div key={index}>
+                                        <div className="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div className="d-flex w-100 justify-content-between">
+                                                <h5 className="mb-1"> {" #"+metrica[0].Orden} - {metrica[0].MCI}</h5>
+                                                <Link to={{
+                                                        pathname: '/resultadosMCI/'+ btoa(metrica[0].IdMCI),
                                                         }}>
                                                         <button 
                                                             className="btn btn-outline-primary m-2" 
                                                             data-toggle="tooltip" 
                                                             data-placement="top" 
                                                             title="Ver resultados" >
-                                                            Resultados
+                                                            Resultados MCI
                                                         </button>
                                                     </Link>
-                                                </td>
-                                            </tr>
-                                            )
-                                        })}
-                                   
-                                </tbody>
-                            </table>
+                                            </div>
+                                            {metrica.map((valor, index)=> {
+                                                    return (
+                                                        <div  key={index} className="text-center">
+                                                            <p className="mb-1">{valor.MedidaPredictiva}</p>
+                                                            <Link to={{
+                                                                pathname: '/resultadosMedidasPredictiva/'+ btoa(metrica[0].IdMP),
+                                                                }}>
+                                                                <button 
+                                                                    className="btn btn-outline-primary m-2 text-center" 
+                                                                    data-toggle="tooltip" 
+                                                                    data-placement="top" 
+                                                                    title="Ver resultados" >
+                                                                    Resultados MP
+                                                                </button>
+                                                            </Link>
+                                                        </div>
+
+                                                    )
+
+                                                })}
+                                        </div>
+                                    </div>
+                                )
+
+                            })}
+                                
+                            </div>
+
 
                         </div>
                     </div>

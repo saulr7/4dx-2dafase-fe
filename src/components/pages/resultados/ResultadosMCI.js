@@ -22,7 +22,8 @@ class IngresarResultadosMP extends React.Component {
         {
             window.location.href = "/";
         }
-
+        IdMCI = atob(IdMCI)
+        
         this.state  = {
             medidaPredictiva : {},
             resultados : [],
@@ -52,6 +53,7 @@ class IngresarResultadosMP extends React.Component {
                 this.setState({MCI : res.data[0].MCI})
 
         }).catch((error) => {
+            console.log(error)
             this.setState(state => ({ Cargando: false }));
             Swal.fire({
                 title: "Error",
@@ -98,8 +100,8 @@ class IngresarResultadosMP extends React.Component {
 
                     <div className="row mt-3 div-table-medidasp">
                         <div className="col">
-                            <table className="table bg-white">
-                                <thead className="thead-dark">
+                            <table className="table table-striped bg-white">
+                                <thead>
                                     <tr>
                                         <th>Año</th>
                                         <th>Mes</th>
@@ -113,10 +115,11 @@ class IngresarResultadosMP extends React.Component {
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
-                                
+                                <tbody>
                                     {this.state.resultados.map((resultado, index) => {
                                         return (<ResultadoMci DataKey={index} key={index} Resultado={resultado} />)
                                     })}
+                                    </tbody>
                                     
                             </table>
 

@@ -22,6 +22,7 @@ import BtnLogOut from '../login/BtnLogOut'
 import Configuracion from '../pages/configuracion/Configuracion';
 import Welcome from '../pages/welcome/Welcome';
 import Brujula from '../pages/brujula/Brujula';
+import SesionMCI from '../pages/sesion/SesionMCI';
 
 class AppRouter extends React.Component {
 
@@ -52,9 +53,17 @@ class AppRouter extends React.Component {
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item active">
                                     <Link className="nav-link font-weight-bold menuItem" to="/">
-                                        <i className="fa fa-list iconoMenu pt-1" aria-hidden="true"></i>
+                                        <i className="fa fa-line-chart iconoMenu pt-1" aria-hidden="true"></i>
                                         <span className="menuItem">
                                             Metas
+                                        </span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item active">
+                                    <Link className="nav-link font-weight-bold menuItem" to="/brujula">
+                                        <i className="fa fa-compass iconoMenu pt-1" aria-hidden="true"></i>
+                                        <span className="menuItem">
+                                            Brújula
                                         </span>
                                     </Link>
                                 </li>
@@ -74,6 +83,14 @@ class AppRouter extends React.Component {
                                         </span> 
                                     </Link>
                                 </li>
+                                <li className="nav-item active">
+                                    <Link className="nav-link font-weight-bold menuItem" to="/sesionMCI">
+                                        <i className="fa fa-flag iconoMenu pt-1" aria-hidden="true"></i>
+                                        <span className="menuItem">
+                                            Sesión MCI
+                                        </span> 
+                                    </Link>
+                                </li>
                             </ul>
                             <form className=" my-2 my-lg-0">
                                     <span className="p-2">
@@ -89,8 +106,9 @@ class AppRouter extends React.Component {
                 <Route path="/" exact component={Metas} />
                 <Route path="/chart/:data" exact component={DoughnutChartDemo} />
                 <Route path="/tablero/:IdColaborador?" exact component={Tablero} />
-                <Route path="/brujula/:IdMP?" exact component={Brujula} />
+                <Route path="/brujula" exact component={Brujula} />
                 <Route path="/login/:token?" exact component={Welcome} />
+                <Route path="/sesionMCI" exact component={SesionMCI} />
                 <Route path="/colaboradores" exact component={Colaboradores} />
                 <Route path="/mciByColaborador/:IdColaborador" exact component={MCIByColaborador} />
                 <Route path="/configuracion/:data" exact component={Configuracion} />

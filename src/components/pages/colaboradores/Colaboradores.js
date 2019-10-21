@@ -37,10 +37,10 @@ class Colaboradores extends React.Component {
         var subAreaId = JwtPayload().usuario.SubAreaId
         this.setState(state => ({ IdSubArea: subAreaId }));
 
-        this.props.dispatch({type:'CAMBIAR_SUBAREA', data: subAreaId}) 
+        // this.props.dispatch({type:'CAMBIAR_SUBAREA', data: subAreaId}) 
 
         this.ObtenerSubAreas()
-        this.ObtenerColaboradores(subAreaId)
+        this.ObtenerColaboradores()
     }
 
 
@@ -71,8 +71,7 @@ class Colaboradores extends React.Component {
         this.setState(state => ({ cargando: true }));
         this.setState(state => ({  IdSubArea : IdSubArea }));
 
-        // axios.get('/ColaboradoresPorArea/'+IdSubArea )
-        axios.get('/ColaboradoresPorArea/'+IdSubArea )
+        axios.get('/GetColaboradoresSubArea/'+IdSubArea )
         .then(res => {
 
             this.setState(
@@ -221,7 +220,7 @@ class Colaboradores extends React.Component {
                                                                     data-toggle="tooltip" 
                                                                     data-placement="top" 
                                                                     title="Ver MCIs" >
-                                                                   MCI
+                                                                   Resultados
                                                                 </button>
                                                             </Link>
                                                     </td>

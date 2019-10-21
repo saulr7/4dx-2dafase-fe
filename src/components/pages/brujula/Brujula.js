@@ -10,9 +10,8 @@ import TablaActividadesBrujula from './TablaActividadesBrujula'
 
 import TituloPrincipal from '../../common/TituloPrincipal'
 import Loading from '../../common/Loading'
-import NoData from '../../common/NoData'
 import EsElUsuarioLogueado from '../../../Functions/EsElUsuarioLogueado'
-import { axios } from "../../../config/config";
+import { axios, JwtPayload } from "../../../config/config";
 import Swal from "sweetalert2";
 
 
@@ -55,8 +54,28 @@ class Brujula extends Component {
   
     ObtenerActividades()
     {
+        var usuario =""
 
-        axios.get("/BrujulasPorMP/"+ this.state.IdColaboradorDueno+"/"+ this.state.IdResultadoMP)
+                    var user = JwtPayload().usuario      
+            usuario = user.Empleado
+
+        // if(this.props.colaboradorSelected.colaboradorId)
+        //     usuario = this.props.colaboradorSelected.colaboradorId
+        // else 
+        // {
+        //     var user = JwtPayload().usuario      
+        //     usuario = user.Empleado
+
+        //     var colaborador = {
+        //         nombreColaborador : user.EmpleadoNombre,
+        //         colaboradorId : user.Empleado
+        //     }
+
+        //     this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
+
+        //}
+
+        axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
         .then(res => {
 
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
@@ -73,6 +92,7 @@ class Brujula extends Component {
             return
         })
     }
+
 
     ObtenerEstadoBrujula()
     {
@@ -101,11 +121,12 @@ class Brujula extends Component {
                 
                     <div className="row">
                         <div className="col">
-                            <TituloPrincipal Titulo="Brújula" BackButton={true}/>
+                            <TituloPrincipal Titulo="Brújula"/>
                         </div>
                     </div>
 
-                    <div className={"row m-1 " +(this.state.EsElDueno ? "" : "d-none")}>
+                    {/* <div className={"row m-1 " +(this.state.EsElDueno ? "" : "d-none")}> */}
+                    <div className={"row m-1 "}>
 
                         <div className="col text-right ">
 
@@ -136,51 +157,6 @@ class Brujula extends Component {
                         </div>    
                     </div> 
 
-
-                    <div className="row">
-                        <div className="col text-center">
-                            <NoData NoData={this.props.actividades.length === 0 && !this.state.cargando} Mensaje="Presiona Nueva para empezar a agregar actividades"/>  
-                        </div>
-                    </div>
-
-{/* 
-                    <div className={"row " + (this.props.actividades.length === 0 ? "d-none" : "")}>
-                        <div className="col">
-                        <h3 className="text-center font-weight-bold">Actividades</h3>
-                            <table className="table table-striped bg-white">
-                                <thead>
-                                    <tr>
-                                    <th>Creada</th>
-                                    <th>Descripción</th>
-                                    <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.props.actividades.map((brujula, index)=>
-                                        {
-                                        return <tr key={index}>
-                                                <td>
-                                                    <Moment fromNow>{brujula.FechaCreada}</Moment>
-                                                </td>
-                                                <td>{brujula.Actividad}</td>
-                                                <td>
-                                                    <EstadoActividad 
-                                                        Descripcion={brujula.Descripcion} 
-                                                        Brujula={brujula.IdBrujula}
-                                                        ResultadoId={this.state.IdResultadoMP}
-                                                        UsuarioId={this.state.IdColaboradorDueno}/>
-                                                </td>
-                                            </tr>
-                                        })}
-      
-                                </tbody>
-                            </table>
-
-
-                        </div>
-                    </div> */}
-
-
                     <div>
                         <TablaActividadesBrujula 
                             ResultadoId={this.state.IdResultadoMP}
@@ -199,7 +175,8 @@ class Brujula extends Component {
 function mapStateToProps(state) {
     
     return {
-        actividades : state.BrujulaReducer
+        actividades : state.BrujulaReducer,
+        colaboradorSelected : state.ColaboradorSelectedReducer,
     };
 }
 

@@ -1,9 +1,10 @@
 import React from 'react'
 
 import Mes from '../../common/Mes'
-import {axios} from '../../../config/config'
+import {axios, JwtPayload} from '../../../config/config'
 
 import Swal from "sweetalert2";
+import SolicitarAutorizacion from './SolicitarAutorizacion'
 
 class Resultado extends React.Component {
 
@@ -11,12 +12,17 @@ class Resultado extends React.Component {
     {
         super(props)
 
+        console.log(this.props.Resultado)
+        var usuario = JwtPayload().usuario         
         
-
         this.state = {
             resultado : this.props.Resultado,
             valor : (this.props.Resultado.Valor ? this.props.Resultado.Valor : 0),
-            editar : false
+            editar : false,
+            Autorizado : this.props.Resultado.Autorizado,
+            EsElDueno : (usuario.Empleado === this.props.Resultado.IdColaborador? true : false),
+            // EsElDueno : true,
+            usuarioPerfilId : (JwtPayload().usuario.PerfilId ),
         }
 
         this.EditarHandler = this.EditarHandler.bind(this)
@@ -24,6 +30,7 @@ class Resultado extends React.Component {
         this.ValorChangeHandler = this.ValorChangeHandler.bind(this)
         this.ValidarDatosNuevaMedidaPredictiva = this.ValidarDatosNuevaMedidaPredictiva.bind(this)
         this.onEnterPress = this.onEnterPress.bind(this)
+        this.AutorizarMCI = this.AutorizarMCI.bind(this)
     }
 
 
@@ -98,10 +105,33 @@ class Resultado extends React.Component {
         this.setState(state => ({  valor : valor }));
       }
 
+
+    AutorizarMCI(idResultado)
+    {
+        axios.get("/ResultadoMCIAutorizar/"+ idResultado )
+        .then(res => {
+            Swal.fire({  
+                title: 'Información guardada exitosamente',  
+                type: 'success',  
+                text: "Éxito",  
+            });
+            this.setState(state => ({  editar : false , Autorizado: true}));
+
+        }).catch((error) => {
+            console.log(error)
+            Swal.fire({  
+                title: 'Algo ha salido mal',  
+                type: 'error',  
+                text: "Atención",  
+            });
+        })
+    }
+
     render() {
         return (
-            <tbody>
-                <tr className= { this.state.valor < this.state.resultado.Meta ? "alert-warning" :""}>
+            
+                // <tr className= { this.state.valor < this.state.resultado.Meta ? "alert-warning" :""}>
+                <tr >
                     <td>
                         {this.state.resultado.Anio}
                     </td>
@@ -145,16 +175,58 @@ class Resultado extends React.Component {
                         }
                     </td>
                     <td>
-                        <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Editar" onClick={this.EditarHandler} >
-                            <i className="fa fa-pencil" aria-hidden="true"></i>
-                            <span className="m-1">
-                                Ingresar resultado
-                            </span>
-                        </button>
+                        {(this.state.Autorizado) ? (
+
+                            <div>
+                                {this.state.EsElDueno ? (
+                                    <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Editar" onClick={this.EditarHandler} >
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        <span className="m-1">
+                                            Ingresar resultado
+                                        </span>
+                                    </button>
+                                ): (
+                                    <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Editar">
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        <span className="m-1">
+                                            Ingresar resultado
+                                        </span>
+                                    </button>
+                                )}
+                            </div>
+                            ):
+                            (
+                                <div>
+
+                                    <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Editar">
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        <span className="m-1">
+                                            Ingresar resultado
+                                        </span>
+                                    </button>
+
+                                    <SolicitarAutorizacion/>
+
+                                    {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno)?(
+                                        <button 
+                                            className=" btn btn-success m-1" 
+                                            data-toggle="tooltip" data-placement="top" 
+                                            title="Autorizar" 
+                                            name ="btnAutorizar"
+                                            onClick={() => this.AutorizarMCI(this.state.resultado.IdResultadoMCI)}
+                                            // onClick={this.AutorizarMCI(this.state.resultado.IdResultadoMCI)}
+                                            >
+                                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                        </button>
+
+                                    ):(
+                                        null
+                                    )}
+                                </div>
+                            )}
                     </td>
                 
                 </tr>
-            </tbody>
         )
     }
 }

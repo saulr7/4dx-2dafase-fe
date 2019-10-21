@@ -17,6 +17,7 @@ class TablaColaboradores extends Component {
 
         this.ObtenerColaboradores = this.ObtenerColaboradores.bind(this)
         this.ActualizarTablero = this.ActualizarTablero.bind(this)
+        this.ObtenerActividades = this.ObtenerActividades.bind(this)
     }
 
 
@@ -40,7 +41,8 @@ class TablaColaboradores extends Component {
         this.setState(state => ({ cargando: true }));
         this.setState(state => ({  IdSubArea : IdSubArea }));
 
-        axios.get('/ColaboradoresPorArea/'+IdSubArea )
+        // axios.get('/ColaboradoresPorArea/'+IdSubArea )
+        axios.get('/GetColaboradoresSubArea/'+IdSubArea )
         .then(res => {
             
             this.props.dispatch({type:'LOAD', data: res.data}) 
@@ -63,8 +65,10 @@ class TablaColaboradores extends Component {
             colaboradorId : colaboradorId
         }
 
+        this.props.dispatch({type:'LOAD_BRUJULAS', data: []}) 
         this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
         this.ObtenerResultadosMCI( colaboradorId);
+        this.ObtenerActividades( colaboradorId);
         this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: false})
     }
 
@@ -89,12 +93,29 @@ class TablaColaboradores extends Component {
         })
     }
 
+    ObtenerActividades(usuario)
+    {
+        
+
+        axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
+        .then(res => {
+            console.log(res.data)
+            this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
+            this.setState({cargando : false})
+
+        }).catch((error) => {
+            this.setState({cargando : false})
+            
+            return
+        })
+    }
+
     render() {
        
         return (
             <div>
-                <table className="table bg-white table-sm">
-                    <thead className="thead-dark">
+                <table className="table table-striped table-sm">
+                    <thead className="">
                         <tr>
                         <th>Código</th>
                         <th>Nombre</th>
@@ -115,7 +136,7 @@ class TablaColaboradores extends Component {
                                         data-placement="top" 
                                         title="Ver tablero" 
                                         onClick={() => this.ActualizarTablero(colaborador.IdColaborador, colaborador.Nombre)}>
-                                        Tablero
+                                        Ver
                                     </button>
          
                                 </td>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { axios, JwtPayload } from "../../../config/config";
-
+import {Calendar} from 'primereact/calendar';
 
 import Swal from "sweetalert2";
 
@@ -16,7 +16,9 @@ class NuevaActividad extends Component {
         this.state = {
             IdResultadoMP : this.props.IdMP,
             cargando : false,
-            txtNuevaActividad : ""
+            txtNuevaActividad : "",
+            fechaDesde : "",
+            fechaHasta : ""
         }
 
         this.GuardarNuevaActividad = this.GuardarNuevaActividad.bind(this)
@@ -47,13 +49,18 @@ class NuevaActividad extends Component {
             "IdResultadoMP": parseInt( this.state.IdResultadoMP),
             "IdColaborador":usuario.Empleado,
             "Actividad":this.state.txtNuevaActividad,
-            "IdEstado" : 3
+            "IdEstado" : 1,
+            "Desde" : this.state.fechaDesde.toISOString(),
+            "Hasta" : this.state.fechaHasta.toISOString()
         }
 
+        console.log(this.state.fechaDesde.toLocaleString())
         axios.post("/BrujulaPorMPAdd", nuevaActividad )
         .then(res => {
             this.setState({
-                txtNuevaActividad: ""
+                txtNuevaActividad: "",
+                fechaDesde : "",
+                fechaHasta : "",
               });
               this.ObtenerActividades()
             Swal.fire({  
@@ -83,7 +90,7 @@ class NuevaActividad extends Component {
 
         this.setState({cargando : true})
 
-        axios.get("/BrujulasPorMP/"+ usuario.Empleado+"/"+ this.state.IdResultadoMP)
+        axios.get("/BrujulaActividadesPorColaborador/"+ usuario.Empleado+"/NO")
         .then(res => {
 
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
@@ -113,6 +120,16 @@ class NuevaActividad extends Component {
                 });
                 return false
         }    
+        
+        if(!this.state.fechaDesde || !this.state.fechaHasta )
+        {
+            Swal.fire({  
+                    title: 'Debes ingresar una fecha válida',  
+                    type: 'warning',  
+                    text: "Atención",  
+                });
+                return false
+        }    
         return true
     }
 
@@ -131,7 +148,31 @@ class NuevaActividad extends Component {
                                 rows="3"
                                 onChange={this.handleTextChange}>
                             </textarea>
+                           
                         </div>
+                        <div className="form-group">
+                            <div className="row">
+
+                            <div className="col">
+                                <h4 className="card-title d-inline m-2">Fecha Desde:</h4>
+                            </div>
+                            <div className="col">
+                                <Calendar value={this.state.fechaDesde} onChange={(e) => this.setState({fechaDesde: e.value})} dateFormat="yy/mm/dd" icon="pi-calendar"></Calendar>
+                            </div>
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <div className="row">
+
+                            <div className="col">
+                                <h4 className="card-title d-inline m-2">Fecha Hasta:</h4>
+                            </div>
+                            <div className="col">
+                                <Calendar value={this.state.fechaHasta} onChange={(e) => this.setState({fechaHasta: e.value})} ></Calendar>
+                            </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
