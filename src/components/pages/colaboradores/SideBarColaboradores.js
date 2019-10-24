@@ -7,6 +7,16 @@ import {Sidebar} from 'primereact/sidebar';
 
 
 class SideBarColaboradores extends Component {
+
+    constructor(props)
+    {
+        super(props)
+
+        this.state = {
+            sesionMCI : this.props.SesionMCI
+        }
+    }
+
     render() {
         return (
             <div>
@@ -14,7 +24,7 @@ class SideBarColaboradores extends Component {
                     <h4 className="font-weight-bold mt-2">
                         Equipo
                     </h4>
-                    <TablaColaboradores/>
+                    <TablaColaboradores SesionMCI={this.state.sesionMCI}/>
                 </Sidebar>
             </div>
         );

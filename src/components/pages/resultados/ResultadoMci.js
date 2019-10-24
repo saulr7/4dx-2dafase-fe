@@ -5,6 +5,8 @@ import {axios, JwtPayload} from '../../../config/config'
 
 import Swal from "sweetalert2";
 import SolicitarAutorizacion from './SolicitarAutorizacion'
+import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
+import Periodicidad from '../../common/FNPeriodoEnBaseAFrecuencia'
 
 class Resultado extends React.Component {
 
@@ -12,16 +14,14 @@ class Resultado extends React.Component {
     {
         super(props)
 
-        console.log(this.props.Resultado)
         var usuario = JwtPayload().usuario         
-        
+
         this.state = {
             resultado : this.props.Resultado,
             valor : (this.props.Resultado.Valor ? this.props.Resultado.Valor : 0),
             editar : false,
             Autorizado : this.props.Resultado.Autorizado,
             EsElDueno : (usuario.Empleado === this.props.Resultado.IdColaborador? true : false),
-            // EsElDueno : true,
             usuarioPerfilId : (JwtPayload().usuario.PerfilId ),
         }
 
@@ -116,6 +116,7 @@ class Resultado extends React.Component {
                 text: "Éxito",  
             });
             this.setState(state => ({  editar : false , Autorizado: true}));
+            RegistrarEventoDelSistema("Aurtorizó el resultado: "+idResultado)
 
         }).catch((error) => {
             console.log(error)
@@ -205,7 +206,10 @@ class Resultado extends React.Component {
                                         </span>
                                     </button>
 
-                                    <SolicitarAutorizacion/>
+                                    <SolicitarAutorizacion 
+                                        Tipo="MCI" 
+                                        Periodo={Periodicidad(1,this.state.resultado.Mes)} 
+                                        Url={ "resultadosMCI/"+ btoa(this.state.resultado.IdMCI)}/>
 
                                     {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno)?(
                                         <button 

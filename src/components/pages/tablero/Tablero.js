@@ -180,17 +180,9 @@ class Tablero extends React.Component {
                     {this.state.OcultarSideBar ? null : (
 
                         <div className="row">
-                        <div className="col">
-                            {/* <Sidebar visible={this.props.mostrarPanelCompaneros} onHide={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: false})} style={{width: "350px", overflow: "scroll", marginTop: "30px"}}>
-                                <h4 className="font-weight-bold mt-2">
-                                    Equipo
-                                </h4>
-                                <TablaColaboradores/>
-                            </Sidebar> */}
-
-                            <SideBarColaboradores/>
-                            
-                        </div>
+                            <div className="col">
+                                <SideBarColaboradores/>
+                            </div>
                         </div>
 
                     )}

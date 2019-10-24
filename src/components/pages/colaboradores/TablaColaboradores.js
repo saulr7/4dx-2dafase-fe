@@ -13,6 +13,7 @@ class TablaColaboradores extends Component {
             IdSubArea : this.props.areaSelected,
             colaboradorSelected : this.props.colaboradorSelected,
             mesActual : this.props.mesSelected,
+            sesionMCI : this.props.SesionMCI,
         }
 
         this.ObtenerColaboradores = this.ObtenerColaboradores.bind(this)
@@ -70,6 +71,17 @@ class TablaColaboradores extends Component {
         this.ObtenerResultadosMCI( colaboradorId);
         this.ObtenerActividades( colaboradorId);
         this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: false})
+
+        if(this.state.sesionMCI)
+        {
+            var counterControls ={
+                start : true,
+                reset : true,
+                startMeeting : true
+            }
+    
+            this.props.dispatch({type:'STOP_SESION', data: counterControls}) 
+        }
     }
 
     
@@ -99,7 +111,6 @@ class TablaColaboradores extends Component {
 
         axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
         .then(res => {
-            console.log(res.data)
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
             this.setState({cargando : false})
 

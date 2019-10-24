@@ -54,26 +54,11 @@ class Brujula extends Component {
   
     ObtenerActividades()
     {
-        var usuario =""
+   
 
-                    var user = JwtPayload().usuario      
-            usuario = user.Empleado
+        var user = JwtPayload().usuario      
+        var usuario = user.Empleado
 
-        // if(this.props.colaboradorSelected.colaboradorId)
-        //     usuario = this.props.colaboradorSelected.colaboradorId
-        // else 
-        // {
-        //     var user = JwtPayload().usuario      
-        //     usuario = user.Empleado
-
-        //     var colaborador = {
-        //         nombreColaborador : user.EmpleadoNombre,
-        //         colaboradorId : user.Empleado
-        //     }
-
-        //     this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
-
-        //}
 
         axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
         .then(res => {

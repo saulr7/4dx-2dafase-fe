@@ -76,7 +76,7 @@ class TablaActividadesBrujula extends Component {
         })
 
         this.setState({Actividades : result})
-        // this.props.dispatch({type:'LOAD_BRUJULAS', data: result})
+        this.props.dispatch({type:'LOAD_BRUJULAS', data: result})
 
     }
 
@@ -101,7 +101,7 @@ class TablaActividadesBrujula extends Component {
 
                 <div className="row">
                     <div className="col text-center">
-                        <NoData NoData={this.state.Actividades.length === 0 && !this.state.cargando}/>
+                        <NoData NoData={this.props.Actividades.length === 0 && !this.state.cargando}/>
                     </div>
                 </div>
 

@@ -54,7 +54,6 @@ class NuevaActividad extends Component {
             "Hasta" : this.state.fechaHasta.toISOString()
         }
 
-        console.log(this.state.fechaDesde.toLocaleString())
         axios.post("/BrujulaPorMPAdd", nuevaActividad )
         .then(res => {
             this.setState({

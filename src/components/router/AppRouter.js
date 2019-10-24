@@ -5,7 +5,7 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link , Switch} from "react-router-dom";
 import { JwtPayload } from "../../config/config";
 import './AppRouter.css';
 
@@ -23,6 +23,7 @@ import Configuracion from '../pages/configuracion/Configuracion';
 import Welcome from '../pages/welcome/Welcome';
 import Brujula from '../pages/brujula/Brujula';
 import SesionMCI from '../pages/sesion/SesionMCI';
+import NotFound from '../common/NotFound';
 
 class AppRouter extends React.Component {
 
@@ -52,8 +53,8 @@ class AppRouter extends React.Component {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item active">
-                                    <Link className="nav-link font-weight-bold menuItem" to="/">
-                                        <i className="fa fa-line-chart iconoMenu pt-1" aria-hidden="true"></i>
+                                    <Link className="nav-link font-weight-bold menuItem" to="/metas">
+                                        <i className="fa fa-list-ul iconoMenu pt-1" aria-hidden="true"></i>
                                         <span className="menuItem">
                                             Metas
                                         </span>
@@ -69,7 +70,7 @@ class AppRouter extends React.Component {
                                 </li>
                                 <li className="nav-item active">
                                     <Link className="nav-link font-weight-bold menuItem" to="/tablero">
-                                        <i className="fa fa-pie-chart iconoMenu pt-1" aria-hidden="true"></i>
+                                        <i className="fa fa-list-alt iconoMenu pt-1" aria-hidden="true"></i>
                                         <span className="menuItem">
                                             Tablero
                                         </span> 
@@ -103,18 +104,23 @@ class AppRouter extends React.Component {
                     </nav>
                 </div>
 
-                <Route path="/" exact component={Metas} />
-                <Route path="/chart/:data" exact component={DoughnutChartDemo} />
-                <Route path="/tablero/:IdColaborador?" exact component={Tablero} />
-                <Route path="/brujula" exact component={Brujula} />
-                <Route path="/login/:token?" exact component={Welcome} />
-                <Route path="/sesionMCI" exact component={SesionMCI} />
-                <Route path="/colaboradores" exact component={Colaboradores} />
-                <Route path="/mciByColaborador/:IdColaborador" exact component={MCIByColaborador} />
-                <Route path="/configuracion/:data" exact component={Configuracion} />
-                <Route path="/editarMedidaPredictiva" render={(props) => <EditarMedidaPredictiva {...props} isAuthed={false} />}/>
-                <Route path="/resultadosMedidasPredictiva/:medidaPredictivaId" component={ResultadosMedidasPreventivas} />
-                <Route path="/resultadosMCI/:idMCI" component={ResultadosMCI} />
+                <Switch>
+                    <Route path="/" exact component={Tablero} />
+                    <Route path="/tablero" exact component={Tablero} />
+                    <Route path="/metas" exact component={Metas} />
+                    <Route path="/chart/:data" exact component={DoughnutChartDemo} />
+                    {/* <Route path="/tablero/:IdColaborador?" exact component={Tablero} /> */}
+                    <Route path="/brujula" exact component={Brujula} />
+                    <Route path="/login/:token?" exact component={Welcome} />
+                    <Route path="/sesionMCI" exact component={SesionMCI} />
+                    <Route path="/colaboradores" exact component={Colaboradores} />
+                    <Route path="/mciByColaborador/:IdColaborador" exact component={MCIByColaborador} />
+                    <Route path="/configuracion/:data" exact component={Configuracion} />
+                    <Route path="/editarMedidaPredictiva" render={(props) => <EditarMedidaPredictiva {...props} isAuthed={false} />}/>
+                    <Route path="/resultadosMedidasPredictiva/:medidaPredictivaId" component={ResultadosMedidasPreventivas} />
+                    <Route path="/resultadosMCI/:idMCI" component={ResultadosMCI} />
+                    <Route  component={NotFound} />
+                </Switch>
                 
             </Router>
         )

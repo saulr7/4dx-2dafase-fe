@@ -49,8 +49,11 @@ class IngresarResultadosMP extends React.Component {
 
         .then(res => {
             this.setState({resultados : res.data})
-            if(res.data)
+            
+            if(res.data && res.data.length >0)
+            {
                 this.setState({MCI : res.data[0].MCI})
+            }
 
         }).catch((error) => {
             console.log(error)

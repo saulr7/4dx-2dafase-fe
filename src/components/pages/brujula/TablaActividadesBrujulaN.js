@@ -79,64 +79,36 @@ class TablaActividadesBrujulaP extends Component {
                 </div>
                 <div className={"row " }>
                         <div className="col">
-                        <h3 className="text-center font-weight-bold">Actividades</h3>
-                        <div className="list-group">
-                                                           
-                            {this.props.Actividades.map((brujula, index)=>
-                                {
-                                    return <div key={index} className="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div className="d-flex w-100 justify-content-between">
-                                            <h5 className="mb-1">{brujula.Actividad}</h5>
-                                            <small className="text-muted"><Moment fromNow>{brujula.FechaCreada}</Moment></small>
+                            <h3 className="text-center font-weight-bold">Actividades</h3>
+                            <div className="list-group">
+                                                            
+                                {this.props.Actividades.map((brujula, index)=>
+                                    {
+                                        return <div key={index} className="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div className="d-flex w-100 justify-content-between">
+                                                <h5 className="mb-1">{brujula.Actividad}</h5>
+                                                <small className="text-muted"><Moment fromNow>{brujula.FechaCreada}</Moment></small>
+                                            </div>
+                                            <div className="col-12 col-md-3 ">
+                                                <h5><span >
+                                                    <EstadoActividad
+                                                            Descripcion={brujula.Descripcion}
+                                                            Brujula={brujula.IdBrujula}
+                                                            ResultadoId={this.state.IdColaborador}
+                                                            UsuarioId={brujula.IdColaborador} />
+                                                </span></h5>
+                                            </div>
+                                            <p className="mb-1">
+                                                Desde: <Moment format="YYYY/MM/DD">{brujula.Desde}</Moment> - 
+                                                Hasta  <Moment format="YYYY/MM/DD">{brujula.Hasta}</Moment>
+                                            </p>
+                                            <small className="text-muted">Modificada: <Moment format="YYYY/MM/DD">{brujula.FechaModificada}</Moment></small>
+                                        
                                         </div>
-                                        <div className="col-12 col-md-3 ">
-                                            <h5><span >
-                                                <EstadoActividad
-                                                        Descripcion={brujula.Descripcion}
-                                                        Brujula={brujula.IdBrujula}
-                                                        ResultadoId={this.state.IdColaborador}
-                                                        UsuarioId={brujula.IdColaborador} />
-                                            </span></h5>
-                                        </div>
-                                        <p className="mb-1">
-                                            Desde: <Moment format="YYYY/MM/DD">{brujula.Desde}</Moment> - 
-                                            Hasta  <Moment format="YYYY/MM/DD">{brujula.Hasta}</Moment>
-                                        </p>
-                                        <small className="text-muted">Modificada: <Moment format="YYYY/MM/DD">{brujula.FechaModificada}</Moment></small>
                                     
-                                    </div>
-                                
-                            })}
-                    
-                    </div>
-                            {/* <table className="table table-striped bg-white table-bordered ">
-                                <thead>
-                                    <tr>
-                                    <th>Creada</th>
-                                    <th>Descripción</th>
-                                    <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.props.Actividades.map((brujula, index)=>
-                                        {
-                                        return <tr key={index}>
-                                                <td>
-                                                    <Moment fromNow>{brujula.FechaCreada}</Moment>
-                                                </td>
-                                                <td>{brujula.Actividad}</td>
-                                                <td>
-                                                    <EstadoActividad 
-                                                        Descripcion={brujula.Descripcion} 
-                                                        Brujula={brujula.IdBrujula}
-                                                        UsuarioId={brujula.IdColaborador} />
-                                                </td>
-                                            </tr>
-                                        })}
-      
-                                </tbody>
-                            </table> */}
-
+                                    })}
+                            
+                            </div>
 
                         </div>
                     </div>

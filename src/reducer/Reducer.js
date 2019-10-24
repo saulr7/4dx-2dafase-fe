@@ -8,6 +8,8 @@ import ColaboradorSelectedReducer from './ColaboradorSelectedReducer'
 import MostrarPanelCompaneros from './MostrarPanelCompaneros'
 import BrujulaReducer from './BrujulaReducer'
 import EstadosBrujula from './EstadosBrujula'
+import SesionReducer from './SesionReducer'
+import CounterSesionReducer from './CounterSesionReducer'
 
 export default combineReducers({
     PeriodicidadReducer,
@@ -18,5 +20,7 @@ export default combineReducers({
     ColaboradorSelectedReducer,
     MostrarPanelCompaneros,
     BrujulaReducer,
-    EstadosBrujula
+    EstadosBrujula,
+    SesionReducer,
+    CounterSesionReducer
 })

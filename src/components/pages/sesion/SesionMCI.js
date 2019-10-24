@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bs-stepper/dist/css/bs-stepper.min.css';
 import Stepper from 'bs-stepper'
 
 import TituloPrincipal from '../../common/TituloPrincipal'
@@ -13,6 +11,7 @@ import SideBarColaboradores from '../colaboradores/SideBarColaboradores'
 import TablaActividadesBrujulaP from  '../brujula/TablaActividadesBrujulaP'
 import TablaActividadesBrujulaN from  '../brujula/TablaActividadesBrujulaN'
 import Tablero from '../tablero/Tablero';
+import Counter from '../../common/Counter'
 
 class SesionMCI extends Component {
 
@@ -25,6 +24,8 @@ class SesionMCI extends Component {
 
         this.ObtenerEstadoBrujula = this.ObtenerEstadoBrujula.bind(this)
         this.ObtenerActividades = this.ObtenerActividades.bind(this)
+        this.IniciarSesion = this.IniciarSesion.bind(this)
+        this.DetenerSesion = this.DetenerSesion.bind(this)
       }
     
       componentDidMount() {
@@ -36,6 +37,7 @@ class SesionMCI extends Component {
         this.ObtenerActividades()
         this.ObtenerEstadoBrujula()
       }
+
     
       onSubmit(e) {
         e.preventDefault()
@@ -76,6 +78,28 @@ class SesionMCI extends Component {
           })
       }
 
+      IniciarSesion()
+      {
+          var counterControls ={
+            start : false,
+            reset : false,
+            startMeeting : true
+        }
+        
+        this.props.dispatch({type:'START_SESION', data: counterControls}) 
+
+      }
+     
+      DetenerSesion()
+      {
+        var counterControls ={
+            start : true,
+            reset : true
+        }
+
+        this.props.dispatch({type:'STOP_SESION', data: counterControls}) 
+
+      }
 
     render() {
         return (
@@ -87,14 +111,51 @@ class SesionMCI extends Component {
                             <TituloPrincipal Titulo="Sesión MCI"/>
                         </div>
                     </div>
+                    
+                    <div className={"row "+(this.props.sesion.startMeeting ? "d-none" : "d-block") }>
+                        <div className="col-12 col-lg-10 offset-lg-1">
+                            <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <strong>¡Iniciar sesión MCI!</strong> Presiona el botón <i>Iniciar Sesión MCI</i> el cual te permitirá ver tu equipo por ende podrás empezar la rendición.
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className={"row "+(this.props.sesion.startMeeting ? "d-none" : "d-block") }>
+                        <div className="col-12  text-center">
+                            <button 
+                                type="button" 
+                                className="btn btn-success"
+                                onClick={this.IniciarSesion}>
+                                    Iniciar Sesión MCI
+                            </button>
+                            {/* <button 
+                                type="button" 
+                                className="btn btn-danger"
+                                onClick={this.DetenerSesion}>
+                                    Reset Sesión
+                            </button> */}
+                        </div>
+                    </div>
+
+                    <div className={"row "+(this.props.sesion.startMeeting ? "d-block" : "d-none") }>
+                        <div className="col-12 col-md-2 offset-md-5 text-center">
+                            <Counter/>
+                        </div>
+                    </div>
 
                     <div className="row">
                         <div className="col-2">
-                            
-                            <button className="btn btn-link" onClick={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: true}) }>
-                                <i className="fa fa-users" aria-hidden="true"></i>
-                                Equipo
-                            </button>
+                            <div className={(this.props.sesion.startMeeting ? "d-block" : "d-none") }>
+
+                                <button className="btn btn-link" onClick={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: true}) }>
+                                    <i className="fa fa-users" aria-hidden="true"></i>
+                                    Equipo
+                                </button>
+                            </div>
                             
                         </div>
                         <div className="col-10">
@@ -106,10 +167,10 @@ class SesionMCI extends Component {
                         </div>
                     </div>
 
-                    <div className="row">
+                    <div className="row ">
                         <div className="col">
                             
-                            <SideBarColaboradores/>
+                            <SideBarColaboradores SesionMCI={true}/>
                         </div>
                     </div>
                 
@@ -146,19 +207,14 @@ class SesionMCI extends Component {
                                                 <div className="row">
                                                     <div className="col text-center">
                                                          <TablaActividadesBrujulaP Actividades={this.state.Actividades} IdEstado={4}/>
-                                                         {/* <TablaActividadesBrujula Actividades={this.state.Actividades} IdEstado={4}/> */}
                                                     </div>
                                                 </div>
                                                 
                                             </div>
                                             <div id="test-l-2" className="content">
                                                     <div className="row">
-                                                        {/* <div className="col text-right">
-                                                            <button className="btn btn-primary" onClick={() => this.stepper.next()}>Next</button>
-                                                        </div> */}
                                                         <Tablero OcultarHeader={true} OcultarSideBar={true}/>
                                                     </div>
-                                                {/* <button className="btn btn-primary" onClick={() => this.stepper.next()}>Next</button> */}
                                             </div>
                                             <div id="test-l-3" className="content text-center">
                                                 <div className="row">
@@ -166,7 +222,6 @@ class SesionMCI extends Component {
                                                         <TablaActividadesBrujulaN Actividades={this.state.Actividades} IdEstado="1"/>
                                                     </div>
                                                 </div>
-                                                {/* <button type="submit" className="btn btn-primary mt-5">Submit</button> */}
                                             </div>
                                         </form>
                                     </div>
@@ -180,12 +235,15 @@ class SesionMCI extends Component {
 }
 
 function mapStateToProps(state) {
+    
     return {
         mci : state.TableroReducer,
         mesSelected : state.MesSelectReducer,
         colaboradorSelected : state.ColaboradorSelectedReducer,
         mostrarPanelCompaneros : state.MostrarPanelCompaneros,
         actividades : state.BrujulaReducer,
+        sesion : state.SesionReducer,
+        counterSesion : state.CounterSesionReducer,
     };
 }
 export default connect(

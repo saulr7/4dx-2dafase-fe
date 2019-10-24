@@ -115,12 +115,22 @@ class MetaPeriodica extends React.Component {
                         }
                     </td>
                     <td>
-                        <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta" onClick={this.EditarHandler} >
-                            <i className="fa fa-pencil" aria-hidden="true"></i>
-                            <span className="m-1 d-none d-md-inline">
-                                Actualizar Meta
-                            </span>
-                        </button>
+                        {this.state.periodo.Autorizado ? (
+                            <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta" onClick={this.EditarHandler} >
+                                <i className="fa fa-pencil" aria-hidden="true"></i>
+                                <span className="m-1 d-none d-md-inline">
+                                    Actualizar Meta
+                                </span>
+                            </button>
+
+                        ): (
+                            <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta">
+                                <i className="fa fa-pencil" aria-hidden="true"></i>
+                                <span className="m-1 d-none d-md-inline">
+                                    Actualizar Meta
+                                </span>
+                            </button>
+                        )}
                     </td>
                 </tr>
                 

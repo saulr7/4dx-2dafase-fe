@@ -5,8 +5,7 @@ import {axios, JwtPayload} from '../../../config/config'
 
 import Medicion from '../../../models/Medicion'
 import SolicitarAutorizacion from './SolicitarAutorizacion'
-
-import { Link } from "react-router-dom";
+import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
 import Swal from "sweetalert2";
 
 
@@ -147,6 +146,7 @@ class EditarResultadoMedidaP extends React.Component {
                 text: "Éxito",  
             });
             this.setState(state => ({  editar : false, Autorizado : true }));
+            RegistrarEventoDelSistema("Aurtorizó el resultado: "+this.state.resultado.IdResultado)
 
         }).catch((error) => {
             console.log(error)
@@ -220,18 +220,7 @@ class EditarResultadoMedidaP extends React.Component {
                         <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
                 </button>
                   )
-      
-            let BtnBrujula = (
-
-                <Link to={{
-                    pathname: '/brujula/'+this.state.objBrujulaBase64
-                    }}>
-                    <button className=" btn btn-primary " data-toggle="tooltip" data-placement="top" title="Brújula" >
-                    <i className="fa fa-compass" aria-hidden="true"></i>
-                    </button>
-                </Link>
-                )
-
+    
             
             let BtnEditar = (
                 (this.state.Autorizado && this.state.EsElDueno) ? 
@@ -240,7 +229,6 @@ class EditarResultadoMedidaP extends React.Component {
                         <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Ingresar resultado" onClick={this.EditarHandler} >
                             <i className="fa fa-pencil" aria-hidden="true"></i>
                         </button>
-                        {BtnBrujula}
                     </div>
                 ): (
                     <div >
@@ -249,11 +237,18 @@ class EditarResultadoMedidaP extends React.Component {
                         </button>
                         
                         {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno) ? (
-                            BtnAutorizar
+                            <span>
+                                {this.state.Autorizado ? null : (
+                                    BtnAutorizar
+
+                                )}
+                            </span>
                             ):(
-                                <SolicitarAutorizacion/>
+                                <SolicitarAutorizacion 
+                                        Tipo="MP" 
+                                        Periodo={this.state.resultado.IdFrecuencia === 2 ? ("Semana "+ this.state.resultado.Semana) : "Día " + this.state.resultado.Dia} 
+                                        Url={ "resultadosMedidasPredictiva/"+ btoa(this.state.resultado.IdMP)}/>
                             )}
-                        {BtnBrujula}
                     </div>
                 )
             )

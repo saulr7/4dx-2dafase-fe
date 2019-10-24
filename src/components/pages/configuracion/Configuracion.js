@@ -67,11 +67,7 @@ class Configuracion extends React.Component {
                         </div>
                     </div>
 
-                    {/* <div className="row bp-card my-4 ">
-                        <div className="col">
-                            <ConfigurarGrafica/>
-                        </div>
-                    </div> */}
+       
 
                 </div>
             </div>

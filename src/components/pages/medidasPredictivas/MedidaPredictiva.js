@@ -78,7 +78,7 @@ class MedidaPredictiva extends React.Component {
 
                     </div>
 
-                    <div className="row p-1">
+                    <div className="row p-0">
                         <div className="col-12 col-md-2 col-lg-1">
                             <h4 className="card-title">MCI  {" #"+this.state.metricas[0].Orden} </h4>
                         </div>

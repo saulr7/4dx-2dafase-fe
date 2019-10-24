@@ -196,8 +196,7 @@ class TableroMCI extends React.Component {
                                                             {!this.state.dataLineal2.labels ? null : (
   
                                                                 this.state.dataLineal2.datasets[0].data.map((valor, index) =>{
-                                                                    return (
-                                                                        // <td key={index}>{valor +this.state.mci.Unidad}</td>        
+                                                                    return ( 
                                                                         <td key={index}>{valor }</td>        
                                                                     )
                                                                 })
@@ -208,8 +207,7 @@ class TableroMCI extends React.Component {
                                                         {!this.state.dataLineal2.labels ? null : (
   
                                                             this.state.dataLineal2.datasets[1].data.map((valor, index) =>{
-                                                                return (
-                                                                    // <td key={index}>{valor  +this.state.mci.Unidad}</td>        
+                                                                return (    
                                                                     <td key={index}>{valor  }</td>        
                                                                 )
                                                             })

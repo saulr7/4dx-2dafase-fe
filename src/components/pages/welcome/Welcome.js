@@ -6,19 +6,6 @@ import Login from '../../login/Login'
 
 class Welcome extends React.Component {
 
-    constructor(props)
-    {
-        super(props)
-
-        // console.log( "Entro")
-
-        // const { match: { params } } = this.props;
-        // var token = params.token
-
-        // console.log(token)
-        console.log("Here we go")
-    }
-
     render() {
      
         return (

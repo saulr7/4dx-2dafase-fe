@@ -89,9 +89,10 @@ class Login extends React.Component {
                 nombreColaborador : user.EmpleadoNombre,
                 colaboradorId : user.Empleado
             }
-    
+            
             this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
-            window.location.href = "/tablero";
+            // window.location.href = "/tablero";
+            window.location.reload();
           }
         }).catch((error) => 
         {

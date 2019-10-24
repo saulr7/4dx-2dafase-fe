@@ -138,6 +138,7 @@ class EditarMeditaPredictiva extends React.Component {
         axios.get('/ResultadosMCICreate/'+this.state.medidaPredictiva.IdMCI)
 
         .then(res => {
+            console.log(res.data)
             this.setState({periodos : res.data})
             this.props.dispatch({type:'RECARGAR', data: res.data}) 
             this.setState({cargando : false})
@@ -189,7 +190,8 @@ class EditarMeditaPredictiva extends React.Component {
                                 ):
                                 (
                                     <div>
-                                        <h4 className="card-title font-weight-bold">{ PeriodicidadNombre( this.state.medidaPredictiva.Periodicidad)}</h4>
+                                        <h4 className="card-title font-weight-bold">{ PeriodicidadNombre(  this.state.medidaPredictiva.Periodicidad)}</h4>
+                                        <h4 className="card-title font-weight-bold">{ PeriodicidadNombre(  this.props.periodos[0] ? this.props.periodos[0].IdPeriocidad : ""  )}</h4>
                                     </div>
                                 )
                                 }
@@ -226,7 +228,7 @@ class EditarMeditaPredictiva extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        
+        periodos : state.PeriodicidadReducer
     }
   }
 

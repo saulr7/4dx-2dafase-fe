@@ -16,7 +16,7 @@ class BtnLogOut extends React.Component {
 
 
     render() {
-        return ( <button type = "button" className = "btn btn-danger" onClick = { this.LogOut } > < i className = "fa fa-sign-out aria - hidden = true " > </i></button>
+        return ( <button type = "button" className = "btn btn-danger" onClick = { this.LogOut } > < i className = "fa fa-times aria - hidden = true " > </i></button>
         )
     }
 }
