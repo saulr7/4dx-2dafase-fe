@@ -1,10 +1,12 @@
 import React from 'react'
 
 import Mes from '../../common/Mes'
-import {axios, JwtPayload} from '../../../config/config'
+import {axios, JwtPayload, EmailFormat } from '../../../config/config'
 
 import Swal from "sweetalert2";
 import SolicitarAutorizacion from './SolicitarAutorizacion'
+// import SendEmailService from '../../../services/SendEmailService'
+import SendEmailService from '../../../services/SendEmailService'
 import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
 import Periodicidad from '../../common/FNPeriodoEnBaseAFrecuencia'
 
@@ -31,6 +33,7 @@ class Resultado extends React.Component {
         this.ValidarDatosNuevaMedidaPredictiva = this.ValidarDatosNuevaMedidaPredictiva.bind(this)
         this.onEnterPress = this.onEnterPress.bind(this)
         this.AutorizarMCI = this.AutorizarMCI.bind(this)
+        this.SendEmail = this.SendEmail.bind(this)
     }
 
 
@@ -117,6 +120,7 @@ class Resultado extends React.Component {
             });
             this.setState(state => ({  editar : false , Autorizado: true}));
             RegistrarEventoDelSistema("Aurtorizó el resultado: "+idResultado)
+            this.SendEmail()
 
         }).catch((error) => {
             console.log(error)
@@ -128,10 +132,35 @@ class Resultado extends React.Component {
         })
     }
 
+
+    SendEmail()
+    {
+        var correoFormato = EmailFormat 
+        var filasTblResultado = this.CrearFilaTblResultadoFormatoCorreo()
+
+        correoFormato = correoFormato.replace("@filasTblColaborador", "") 
+        correoFormato = correoFormato.replace("@filasTblResultado", filasTblResultado) 
+        correoFormato = correoFormato.replace("@Url", "resultadosMCI/"+ btoa(this.state.resultado.IdMCI)) 
+        correoFormato = correoFormato.replace("@descripcion", "<h2><strong> Se ha autorizado el ingreso de datos </strong></h2>") 
+
+        SendEmailService("", "Solicitud de autorización para ingreso de resultados" , correoFormato, this.state.resultado.IdColaborador.toString())
+
+        RegistrarEventoDelSistema("Solicitó autorización para ingresar resultado")
+
+    }
+
+   
+
+    CrearFilaTblResultadoFormatoCorreo()
+    {
+        var filaTipo = " <tr> <th>Tipo</th> <td>MCI</td> </tr>"
+        var filaPeriodo = " <tr> <th>Período</th> <td>"+Periodicidad(1,this.state.resultado.Mes)+"</td> </tr>"
+        return filaTipo + filaPeriodo
+    }
+
     render() {
         return (
-            
-                // <tr className= { this.state.valor < this.state.resultado.Meta ? "alert-warning" :""}>
+        
                 <tr >
                     <td>
                         {this.state.resultado.Anio}
@@ -206,10 +235,15 @@ class Resultado extends React.Component {
                                         </span>
                                     </button>
 
+                                    {this.state.EsElDueno ? (
                                     <SolicitarAutorizacion 
                                         Tipo="MCI" 
                                         Periodo={Periodicidad(1,this.state.resultado.Mes)} 
-                                        Url={ "resultadosMCI/"+ btoa(this.state.resultado.IdMCI)}/>
+                                        Url={ "resultadosMCI/"+ btoa(this.state.resultado.IdMCI)}
+                                        ColaboradorId={this.state.resultado.IdColaborador}/>
+                                    ) : (
+                                        null
+                                    )}
 
                                     {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno)?(
                                         <button 

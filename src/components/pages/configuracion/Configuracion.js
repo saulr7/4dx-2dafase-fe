@@ -1,7 +1,7 @@
 import React from 'react'
 
 import EditarMeditaPredictiva from '../medidasPredictivas/EditarMedidaPredictiva'
-// import ConfigurarGrafica from '../graficas/ConfigurarGrafica'
+import UserSelected from '../../common/UserSelected'
 import TituloPrincipal from '../../common/TituloPrincipal'
 import EditarMetaPeriodica from '../medidasPredictivas/EditarMetaPeriodica'
 
@@ -17,7 +17,6 @@ class Configuracion extends React.Component {
             const { match: { params } } = this.props;
             var dataBase64 = params.data
             var medidaPredictiva = JSON.parse(atob(dataBase64))   
-            
         } catch (error) {
             window.location.href = "/";
         }
@@ -42,6 +41,12 @@ class Configuracion extends React.Component {
                         </div>
                     </div>
 
+                    <div className="row">
+                        <div className="col-12 text-center">
+                            <UserSelected/>
+                        </div>    
+                    </div> 
+
                     <div className="row mb-2">
                         <div className="col-12 col-md-8 offset-md-2">
                             <div className="card">
@@ -54,6 +59,8 @@ class Configuracion extends React.Component {
                             </div>
                         </div>
                     </div>
+
+                   
 
                     <div className="row ">
                         <div className="col">

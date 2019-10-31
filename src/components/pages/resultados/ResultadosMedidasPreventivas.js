@@ -7,6 +7,9 @@ import MesSelect from '../../common/MesSelect'
 import NoData from '../../common/NoData'
 import './Resultados.css'
 
+import UserSelected from '../../common/UserSelected'
+import Loading from '../../common/Loading'
+
 import {connect} from 'react-redux';
 
 import { axios } from "../../../config/config";
@@ -60,6 +63,8 @@ class IngresarResultadosMP extends React.Component {
 
     ObtenerResultados(mes=0) {
 
+        this.setState ({ Cargando: true });  
+
         var medidaId = this.state.medidaPredictivaId
 
         var mesSelect = 0
@@ -83,12 +88,13 @@ class IngresarResultadosMP extends React.Component {
                         idFrecuencia : res.data[0].IdFrecuencia,
                         IdMedicion : res.data[0].IdMedicion
                     })
-            }    
+            }   
             
+            this.setState ({ Cargando: false });            
 
         }).catch((error) => {
             console.log(error)
-            this.setState(state => ({ Cargando: false }));
+            this.setState ({ Cargando: false });
             Swal.fire({
                 title: "Error",
                 type: 'error',
@@ -110,6 +116,18 @@ class IngresarResultadosMP extends React.Component {
                             <TituloPrincipal Titulo="Resultados Medida Predictiva" BackButton={true} />
                         </div>
                     </div>
+
+                    <div className="row ">
+                        <div className="col text-center">
+                            <Loading Cargando={this.state.cargando}/>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-12 text-center">
+                            <UserSelected/>
+                        </div>    
+                    </div> 
 
                     <div className="row">
                         <div className="col-12 col-md-8 offset-md-2">

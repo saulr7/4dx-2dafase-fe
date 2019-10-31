@@ -43,6 +43,7 @@ class ListadoMedidasPredictivas extends React.Component {
         axios.get('/GetMedidasPredictivas/'+usuario.Empleado)
 
         .then(res => {
+            console.log(res.data)
             var distinct = [...new Set(res.data.map(x => x.IdMCI))]
 
             var data = []

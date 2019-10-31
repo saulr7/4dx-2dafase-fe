@@ -20,6 +20,16 @@ class Tablero extends React.Component {
     {
         super(props)
 
+        try {
+        const { match: { params } } = this.props;
+        var dataBase64 = params.data      
+        } catch (error) {
+            
+        }
+
+
+      
+
 
         this.state = {
             cargando : false,
@@ -27,7 +37,7 @@ class Tablero extends React.Component {
             mci : this.props.mci,
             idTipoGrafico : 2,
             dataLineal2 : {},
-            btnRegresar : false, //(IdColaborador ? true : false),
+            btnRegresar : (dataBase64 ? true : false),
             IdColaborador : "",//(IdColaborador ? IdColaborador : ""),
             mesActual : this.props.mesSelected,
             mostrarCompaneros : false,
@@ -197,14 +207,10 @@ class Tablero extends React.Component {
 
 
                     <div className="row ">
-                        <div className="col">
-
-                            <div className="row">
-                                <div className="col text-center">
-                                    <Loading Cargando={this.state.cargando}/>
-                                </div>
-                            </div>
+                        <div className="col text-center">
+                            <Loading Cargando={this.state.cargando}/>
                         </div>
+                
                     </div>
                 
                     <div className="row">

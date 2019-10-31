@@ -158,7 +158,8 @@ class TableroMCI extends React.Component {
                                 
                                 <TipoGrafico type={parseInt(this.state.idTipoGrafico)  } data={this.state.dataLineal2}/>
 
-                                <div className={"row "+(!this.state.mci.ResultadosMCI ? "d-none" : "")}>
+                                <div className={"row "}>
+                                {/* <div className={"row "+(!this.state.mci.ResultadosMCI ? "d-none" : "")}> */}
                                     <div className="col">
                                         <p>
                                             <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
@@ -197,7 +198,7 @@ class TableroMCI extends React.Component {
   
                                                                 this.state.dataLineal2.datasets[0].data.map((valor, index) =>{
                                                                     return ( 
-                                                                        <td key={index}>{valor }</td>        
+                                                                        <td key={index}>{valor +this.state.mci.Unidad}</td>        
                                                                     )
                                                                 })
                                                             )}
@@ -208,7 +209,7 @@ class TableroMCI extends React.Component {
   
                                                             this.state.dataLineal2.datasets[1].data.map((valor, index) =>{
                                                                 return (    
-                                                                    <td key={index}>{valor  }</td>        
+                                                                    <td key={index}>{valor +this.state.mci.Unidad }</td>        
                                                                 )
                                                             })
                                                             )}

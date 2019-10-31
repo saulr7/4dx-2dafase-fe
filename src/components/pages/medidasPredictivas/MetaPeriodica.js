@@ -1,7 +1,12 @@
 import React from 'react'
 
 import PeriodoEnBaseAFrecuencia from '../../common/PeriodoEnBaseAFrecuencia'
-import { axios } from "../../../config/config";
+import Periodicidad from '../../common/FNPeriodoEnBaseAFrecuencia'
+import SolicitarAutorizacion from '../resultados/SolicitarAutorizacion'
+// import SendEmailService from '../../../services/SendEmailService'
+import SendEmailService from '../../../services/SendEmailService'
+import { axios, JwtPayload, EmailFormat  } from "../../../config/config";
+import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
 import Swal from 'sweetalert2'
 
 class MetaPeriodica extends React.Component {
@@ -10,18 +15,24 @@ class MetaPeriodica extends React.Component {
     {
         super(props)      
 
+        var usuario = JwtPayload().usuario        
         console.log(this.props.Periodo)
 
         this.state = {
             periodo : this.props.Periodo,
+            meta : this.props.Meta,
             valor: this.props.Periodo.Meta,
-            editar : false
+            editar : false,
+            EsElDueno : (usuario.Empleado === this.props.Periodo.IdColaborador? true : false),
+            usuarioPerfilId : (JwtPayload().usuario.PerfilId ),
+            Autorizado : this.props.Periodo.Autorizado,
         }
 
         this.EditarHandler = this.EditarHandler.bind(this)
         this.ValorChangeHandler = this.ValorChangeHandler.bind(this)
         this.ActualizarMetaHanlder = this.ActualizarMetaHanlder.bind(this)
         this.onEnterPress = this.onEnterPress.bind(this)
+        this.SendEmail = this.SendEmail.bind(this)
     }
 
 
@@ -54,6 +65,55 @@ class MetaPeriodica extends React.Component {
         })
         
     
+    }
+
+    AutorizarMCI(idResultado)
+    {
+        axios.get("/ResultadoMCIAutorizar/"+ idResultado )
+        .then(res => {
+            Swal.fire({  
+                title: 'Información guardada exitosamente',  
+                type: 'success',  
+                text: "Éxito",  
+            });
+            this.setState(state => ({  editar : false , Autorizado: true}));
+            RegistrarEventoDelSistema("Aurtorizó el resultado: "+idResultado)
+            this.SendEmail()
+
+        }).catch((error) => {
+            console.log(error)
+            Swal.fire({  
+                title: 'Algo ha salido mal',  
+                type: 'error',  
+                text: "Atención",  
+            });
+        })
+    }
+
+
+    SendEmail()
+    {
+        var correoFormato = EmailFormat 
+        var filasTblResultado = this.CrearFilaTblResultadoFormatoCorreo()
+
+        correoFormato = correoFormato.replace("@filasTblColaborador", "") 
+        correoFormato = correoFormato.replace("@filasTblResultado", filasTblResultado) 
+        correoFormato = correoFormato.replace("@Url", "configuracion/"+(btoa(JSON.stringify(this.state.meta)))) 
+        correoFormato = correoFormato.replace("@descripcion", "<h2><strong> Se ha autorizado el ingreso de datos </strong></h2>") 
+
+        SendEmailService("", "Solicitud de autorización para ingreso de resultados" , correoFormato, this.state.periodo.IdColaborador.toString())
+
+        RegistrarEventoDelSistema("Solicitó autorización para ingresar resultado")
+
+    }
+
+   
+
+    CrearFilaTblResultadoFormatoCorreo()
+    {
+        var filaTipo = " <tr> <th>Tipo</th> <td>Meta MCI</td> </tr>"
+        var filaPeriodo = " <tr> <th>Período</th> <td>"+Periodicidad(this.state.periodo.IdPeriocidad, this.state.periodo.Mes)+"</td> </tr>"
+        return filaTipo + filaPeriodo
     }
 
 
@@ -115,21 +175,64 @@ class MetaPeriodica extends React.Component {
                         }
                     </td>
                     <td>
-                        {this.state.periodo.Autorizado ? (
-                            <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta" onClick={this.EditarHandler} >
-                                <i className="fa fa-pencil" aria-hidden="true"></i>
-                                <span className="m-1 d-none d-md-inline">
-                                    Actualizar Meta
-                                </span>
-                            </button>
+                        {this.state.Autorizado  ? (
+                            <div>
+                                {this.state.EsElDueno ? (
+                                    <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta" onClick={this.EditarHandler} >
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        <span className="m-1 d-none d-md-inline">
+                                            Actualizar Meta
+                                        </span>
+                                    </button>
+                                ): (
+                                    <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta">
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        <span className="m-1 d-none d-md-inline">
+                                            Actualizar Meta
+                                        </span>
+                                    </button>
+                                )}
+                            </div>
 
                         ): (
-                            <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta">
-                                <i className="fa fa-pencil" aria-hidden="true"></i>
-                                <span className="m-1 d-none d-md-inline">
-                                    Actualizar Meta
-                                </span>
-                            </button>
+                            <div>
+
+                                <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Actualizar meta">
+                                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                                    <span className="m-1 d-none d-md-inline">
+                                        Actualizar Meta
+                                    </span>
+                                </button>
+
+                                {this.state.EsElDueno ? (
+
+                                    <SolicitarAutorizacion
+                                        Tipo="Meta MCI"
+                                        Periodo={Periodicidad(this.state.periodo.IdPeriocidad, this.state.periodo.Mes)}
+                                        Url={"configuracion/"+(btoa(JSON.stringify(this.state.meta)))}
+                                        ColaboradorId={this.state.periodo.IdColaborador}/>
+                                ): (
+                                    null
+                                )}
+ 
+                                    {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno)?(
+                                        <button 
+                                            className=" btn btn-success m-1" 
+                                            data-toggle="tooltip" data-placement="top" 
+                                            title="Autorizar" 
+                                            name ="btnAutorizar"
+                                            onClick={() => this.AutorizarMCI(this.state.periodo.IdResultadoMCI)}
+                                            // onClick={this.AutorizarMCI(this.state.resultado.IdResultadoMCI)}
+                                            >
+                                                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                        </button>
+
+                                    ):(
+                                        null
+                                    )}
+
+
+                            </div>
                         )}
                     </td>
                 </tr>

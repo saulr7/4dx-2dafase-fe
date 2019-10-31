@@ -1,7 +1,8 @@
 const intialState = {
     start: false,
     reset: false,
-    startMeeting: false
+    startMeeting: false,
+    startTimer: false
 }
 
 

@@ -13,6 +13,8 @@ class EditarMeditaPredictiva extends React.Component {
         super(props)
 
         var medidaPredictiva = this.props.MedidaPredictiva
+        
+        console.log(medidaPredictiva)
 
         this.state  = {
             medidaPredictiva : medidaPredictiva,
@@ -24,7 +26,8 @@ class EditarMeditaPredictiva extends React.Component {
             medicion : (medidaPredictiva.Medicion) ? medidaPredictiva.Medicion : "",
             debeEditarMeta : true,
             periodicidades : [],
-            AutorizadoMCI : (medidaPredictiva.AutorizadoMCI)
+            AutorizadoMCI : (medidaPredictiva.AutorizadoMCI),
+            // EsElDueno : (usuario.Empleado === this.props.Periodo.IdColaborador? true : false),
         }
 
         this.ObtenerPeriodos = this.ObtenerPeriodos.bind(this)
@@ -138,7 +141,6 @@ class EditarMeditaPredictiva extends React.Component {
         axios.get('/ResultadosMCICreate/'+this.state.medidaPredictiva.IdMCI)
 
         .then(res => {
-            console.log(res.data)
             this.setState({periodos : res.data})
             this.props.dispatch({type:'RECARGAR', data: res.data}) 
             this.setState({cargando : false})
@@ -190,8 +192,10 @@ class EditarMeditaPredictiva extends React.Component {
                                 ):
                                 (
                                     <div>
-                                        <h4 className="card-title font-weight-bold">{ PeriodicidadNombre(  this.state.medidaPredictiva.Periodicidad)}</h4>
-                                        <h4 className="card-title font-weight-bold">{ PeriodicidadNombre(  this.props.periodos[0] ? this.props.periodos[0].IdPeriocidad : ""  )}</h4>
+                                        <h4 
+                                            className="card-title font-weight-bold">
+                                            { PeriodicidadNombre(  this.props.periodos[0] ? this.props.periodos[0].IdPeriocidad : this.state.medidaPredictiva.Periodicidad )}
+                                        </h4>
                                     </div>
                                 )
                                 }

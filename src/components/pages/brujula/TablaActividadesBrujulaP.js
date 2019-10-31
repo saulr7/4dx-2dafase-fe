@@ -81,7 +81,6 @@ class TablaActividadesBrujulaP extends Component {
                 </div>
                 <div className={"row " }>
                         <div className="col">
-                        <h3 className="text-center font-weight-bold">Actividades</h3>
                         <div className="list-group">
                                                            
                                 {this.props.Actividades.map((brujula, index)=>

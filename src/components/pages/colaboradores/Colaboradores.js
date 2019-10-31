@@ -4,7 +4,6 @@ import TituloPrincipal from '../../common/TituloPrincipal'
 import { axios, JwtPayload } from "../../../config/config";
 import NoData from '../../common/NoData'
 import Loading from '../../common/Loading'
-import { Link } from "react-router-dom";
 import {connect} from 'react-redux';
 
 
@@ -30,17 +29,29 @@ class Colaboradores extends React.Component {
         this.ObtenerColaboradores = this.ObtenerColaboradores.bind(this)
         this.BuscarChangedHandler = this.BuscarChangedHandler.bind(this)
         this.ActualizarTablero = this.ActualizarTablero.bind(this)
+        this.VerResultados = this.VerResultados.bind(this)
     }
 
     componentDidMount()
     {
         var subAreaId = JwtPayload().usuario.SubAreaId
-        this.setState(state => ({ IdSubArea: subAreaId }));
-
-        // this.props.dispatch({type:'CAMBIAR_SUBAREA', data: subAreaId}) 
 
         this.ObtenerSubAreas()
-        this.ObtenerColaboradores()
+
+        if(this.props.areaSelected)
+        {
+            this.setState(state => ({ IdSubArea: this.props.areaSelected }));
+            this.ObtenerColaboradores()
+
+        }
+        else 
+        {
+            this.setState(state => ({ IdSubArea: subAreaId }));
+            this.ObtenerColaboradores(subAreaId)
+
+        }
+        
+        
     }
 
 
@@ -123,11 +134,26 @@ class Colaboradores extends React.Component {
             colaboradorId : colaboradorId
         }
 
+        var nombreColaboradorB64 = btoa( colaboradorNombre)
+
         this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
-        this.props.history.push("/tablero")
+        this.props.history.push("/tablero/"+nombreColaboradorB64)
         
     }
 
+
+    VerResultados(colaboradorId, colaboradorNombre)
+    {
+        var colaborador = {
+            nombreColaborador : colaboradorNombre,
+            colaboradorId : colaboradorId
+        }
+
+        var colaboradorString  = colaboradorId.toString()
+
+        this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
+        this.props.history.push("/mciByColaborador/"+ btoa(colaboradorString))
+    }
 
 
     render() {
@@ -212,7 +238,16 @@ class Colaboradores extends React.Component {
                                                             Tablero
                                                         </button>
                                                 
-                                                        <Link to={{
+                                                        <button 
+                                                                className="btn btn-outline-primary m-2" 
+                                                                data-toggle="tooltip" 
+                                                                data-placement="top" 
+                                                                title="Ver MCIs" 
+                                                                onClick={() => this.VerResultados(colaborador.IdColaborador, colaborador.Nombre)}>
+                                                                Resultados
+                                                            </button>
+
+                                                        {/* <Link to={{
                                                                 pathname: '/mciByColaborador/'+ btoa(colaborador.IdColaborador),
                                                                 }}>
                                                                 <button 
@@ -222,7 +257,7 @@ class Colaboradores extends React.Component {
                                                                     title="Ver MCIs" >
                                                                    Resultados
                                                                 </button>
-                                                            </Link>
+                                                            </Link> */}
                                                     </td>
                                                 </tr>)
                                         })}

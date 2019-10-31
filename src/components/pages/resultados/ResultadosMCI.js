@@ -2,6 +2,9 @@ import React from 'react'
 
 import TituloPrincipal from '../../common/TituloPrincipal'
 import ResultadoMci from './ResultadoMci'
+import UserSelected from '../../common/UserSelected'
+import Loading from '../../common/Loading'
+import NoData from '../../common/NoData'
 import './Resultados.css'
 
 import { axios } from "../../../config/config";
@@ -28,7 +31,8 @@ class IngresarResultadosMP extends React.Component {
             medidaPredictiva : {},
             resultados : [],
             MCI : '',
-            idMCI : IdMCI
+            idMCI : IdMCI,
+            cargando : false
         }
 
         this.ObtenerResultados= this.ObtenerResultados.bind(this)
@@ -44,10 +48,11 @@ class IngresarResultadosMP extends React.Component {
     ObtenerResultados() {
 
         var IdMCI = this.state.idMCI
-
+        this.setState({cargando : true})
         axios.get('/GetResultadosMCI/'+IdMCI )
 
         .then(res => {
+            this.setState({cargando : false})
             this.setState({resultados : res.data})
             
             if(res.data && res.data.length >0)
@@ -87,6 +92,25 @@ class IngresarResultadosMP extends React.Component {
                             <TituloPrincipal Titulo="Resultados MCI" BackButton={true} />
                         </div>
                     </div>
+
+                    <div className="row ">
+                        <div className="col text-center">
+                            <Loading Cargando={this.state.cargando}/>
+                        </div>
+                    </div>
+
+
+                    <div className="row">
+                        <div className="col col-md-4 offset-md-4 text-center">
+                            <NoData NoData={this.state.resultados.length === 0 && !this.state.cargando}/>    
+                        </div>    
+                    </div> 
+
+                    <div className="row">
+                        <div className="col-12 text-center">
+                            <UserSelected/>
+                        </div>    
+                    </div> 
 
                     <div className="row">
                         <div className="col-12 col-md-8 offset-md-2">

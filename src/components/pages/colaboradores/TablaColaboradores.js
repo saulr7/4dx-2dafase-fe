@@ -76,11 +76,13 @@ class TablaColaboradores extends Component {
         {
             var counterControls ={
                 start : true,
+                startTimer : true,
                 reset : true,
                 startMeeting : true
             }
     
             this.props.dispatch({type:'STOP_SESION', data: counterControls}) 
+            this.props.dispatch({type:'START_COUNTING_TIMER', data: 0}) 
         }
     }
 

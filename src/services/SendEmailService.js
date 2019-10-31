@@ -1,11 +1,12 @@
 import { axios } from "../config/config";
 
-function SendEmail(recipient, subject, body) {
+function SendEmail(recipient, subject, body, colaboradorId = "") {
 
     var EmailModel = {
         "Recipients": recipient,
         "Subject": subject,
-        "Body": body
+        "Body": body,
+        "ColaboradorId": colaboradorId,
     }
 
     axios.post("/SendEmail", EmailModel)

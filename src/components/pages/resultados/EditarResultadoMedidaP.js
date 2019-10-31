@@ -1,10 +1,11 @@
 import React from 'react'
 
 import './Resultados.css'
-import {axios, JwtPayload} from '../../../config/config'
+import {axios, JwtPayload, EmailFormat } from '../../../config/config'
 
 import Medicion from '../../../models/Medicion'
 import SolicitarAutorizacion from './SolicitarAutorizacion'
+import SendEmailService from '../../../services/SendEmailService'
 import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
 import Swal from "sweetalert2";
 
@@ -34,6 +35,7 @@ class EditarResultadoMedidaP extends React.Component {
         this.ValorChangeHandler = this.ValorChangeHandler.bind(this)
         this.onEnterPress = this.onEnterPress.bind(this)
         this.AutorizarResultadoMedidaPredictiva = this.AutorizarResultadoMedidaPredictiva.bind(this)
+        this.SendEmail = this.SendEmail.bind(this)
     }
 
 
@@ -147,6 +149,8 @@ class EditarResultadoMedidaP extends React.Component {
             });
             this.setState(state => ({  editar : false, Autorizado : true }));
             RegistrarEventoDelSistema("Aurtorizó el resultado: "+this.state.resultado.IdResultado)
+            this.SendEmail()            
+
 
         }).catch((error) => {
             console.log(error)
@@ -158,6 +162,35 @@ class EditarResultadoMedidaP extends React.Component {
             return
         })
     }
+
+    SendEmail()
+    {
+        var correoFormato = EmailFormat 
+        var filasTblResultado = this.CrearFilaTblResultadoFormatoCorreo()
+
+        correoFormato = correoFormato.replace("@filasTblColaborador", "") 
+        correoFormato = correoFormato.replace("@filasTblResultado", filasTblResultado) 
+        correoFormato = correoFormato.replace("@Url", "resultadosMedidasPredictiva/"+ btoa(this.state.resultado.IdMP)) 
+        correoFormato = correoFormato.replace("@descripcion", "<h2><strong> Se ha autorizado el ingreso de datos </strong></h2>") 
+
+        SendEmailService("", "Solicitud de autorización para ingreso de resultados" , correoFormato, this.state.resultado.IdColaborador.toString())
+
+        RegistrarEventoDelSistema("Solicitó autorización para ingresar resultado")
+
+    }
+
+   
+
+    CrearFilaTblResultadoFormatoCorreo()
+    {
+        
+        var filaTipo = " <tr> <th>Tipo</th> <td>MP</td> </tr>"
+        var filaPeriodo = " <tr> <th>Período</th> <td>"+this.state.resultado.IdFrecuencia === 2 ? ("Semana "+ this.state.resultado.Semana) : "Día " + this.state.resultado.Dia+"</td> </tr>"
+
+        return filaTipo + filaPeriodo
+    }
+
+
 
     
     onEnterPress = (e) => {
@@ -244,10 +277,18 @@ class EditarResultadoMedidaP extends React.Component {
                                 )}
                             </span>
                             ):(
-                                <SolicitarAutorizacion 
-                                        Tipo="MP" 
-                                        Periodo={this.state.resultado.IdFrecuencia === 2 ? ("Semana "+ this.state.resultado.Semana) : "Día " + this.state.resultado.Dia} 
-                                        Url={ "resultadosMedidasPredictiva/"+ btoa(this.state.resultado.IdMP)}/>
+                                <div>
+                                    {this.state.EsElDueno ? (
+                                        <SolicitarAutorizacion 
+                                                Tipo="MP" 
+                                                Periodo={this.state.resultado.IdFrecuencia === 2 ? ("Semana "+ this.state.resultado.Semana) : "Día " + this.state.resultado.Dia} 
+                                                Url={ "resultadosMedidasPredictiva/"+ btoa(this.state.resultado.IdMP)}
+                                                ColaboradorId={this.state.resultado.IdColaborador}/>
+                                    ): (
+                                        null
+                                    )}
+
+                                </div>
                             )}
                     </div>
                 )

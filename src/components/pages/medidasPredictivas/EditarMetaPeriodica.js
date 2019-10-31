@@ -108,7 +108,7 @@ class EditarMetaPeriodica extends React.Component {
                                         {
                                             this.props.periodos.map((periodo, index) => {
                                                 return (
-                                                    <MetaPeriodica key={index} Periodo={periodo}/>
+                                                    <MetaPeriodica key={index} Periodo={periodo} Meta={this.state.meta}/>
                                                 )
                                             })
                                         }

@@ -1,9 +1,10 @@
 import React from 'react'
 import TituloPrincipal from '../../common/TituloPrincipal'
+import UserSelected from '../../common/UserSelected'
 import Loading from '../../common/Loading'
 import { Link } from "react-router-dom";
 import NoData from '../../common/NoData'
-import { axios } from "../../../config/config";
+import { axios, JwtPayload } from "../../../config/config";
 
 import Swal from "sweetalert2";
 
@@ -23,6 +24,7 @@ class MCIByColaborador extends React.Component {
 
         this.state = {
             IdColaborador : IdColaborador,
+            usuarioPerfilId : (JwtPayload().usuario.PerfilId ),
             metricas : []
         }
         this.getMedidasPredictivas = this.getMedidasPredictivas.bind(this)
@@ -88,6 +90,12 @@ class MCIByColaborador extends React.Component {
                             <NoData NoData={this.state.metricas.length === 0 && !this.state.cargando}/>    
                         </div>    
                     </div> 
+                   
+                    <div className="row">
+                        <div className="col-12 text-center">
+                            <UserSelected/>
+                        </div>    
+                    </div> 
                     
                     <div className="row ">
                         <div className="col-12 col-lg-10 offset-lg-1">
@@ -95,22 +103,41 @@ class MCIByColaborador extends React.Component {
 
                             <div className="list-group">
                             {this.state.metricas.map((metrica, index)=> {
+
                                 return (
                                     <div key={index}>
                                         <div className="list-group-item list-group-item-action flex-column align-items-start">
                                             <div className="d-flex w-100 justify-content-between">
                                                 <h5 className="mb-1"> {" #"+metrica[0].Orden} - {metrica[0].MCI}</h5>
+                                            </div>
+                                            <div className="text-center">
+                                                {this.state.usuarioPerfilId === 2 ? (
+
+                                                    <Link to={{
+                                                            pathname: '/configuracion/'+btoa(JSON.stringify(metrica[0])),
+                                                            }}>
+                                                            <button 
+                                                                className="btn btn-outline-primary m-2" 
+                                                                data-toggle="tooltip" 
+                                                                data-placement="top" 
+                                                                title="Ver resultados" >
+                                                                Metas MCI
+                                                            </button>
+                                                        </Link>
+                                                ) : (
+                                                    null
+                                                )}
                                                 <Link to={{
-                                                        pathname: '/resultadosMCI/'+ btoa(metrica[0].IdMCI),
-                                                        }}>
-                                                        <button 
-                                                            className="btn btn-outline-primary m-2" 
-                                                            data-toggle="tooltip" 
-                                                            data-placement="top" 
-                                                            title="Ver resultados" >
-                                                            Resultados MCI
-                                                        </button>
-                                                    </Link>
+                                                    pathname: '/resultadosMCI/'+ btoa(metrica[0].IdMCI),
+                                                    }}>
+                                                    <button 
+                                                        className="btn btn-outline-primary m-2" 
+                                                        data-toggle="tooltip" 
+                                                        data-placement="top" 
+                                                        title="Ver resultados" >
+                                                        Resultados MCI
+                                                    </button>
+                                                </Link>
                                             </div>
                                             {metrica.map((valor, index)=> {
                                                     return (

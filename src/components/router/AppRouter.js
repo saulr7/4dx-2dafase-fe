@@ -106,7 +106,7 @@ class AppRouter extends React.Component {
 
                 <Switch>
                     <Route path="/" exact component={Tablero} />
-                    <Route path="/tablero" exact component={Tablero} />
+                    <Route path="/tablero/:data?" exact component={Tablero} />
                     <Route path="/metas" exact component={Metas} />
                     <Route path="/chart/:data" exact component={DoughnutChartDemo} />
                     {/* <Route path="/tablero/:IdColaborador?" exact component={Tablero} /> */}

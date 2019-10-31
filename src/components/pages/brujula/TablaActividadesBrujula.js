@@ -84,7 +84,7 @@ class TablaActividadesBrujula extends Component {
         return (
             <div>
 
-                <div className="row">
+                <div className={"row "+ (this.props.Actividades.length ===0 ? "d-none" : "" )}>
                     <div className="col-12 col-lg-4 offset-lg-4 text-center">
                     <h4 className="card-title">Estado:</h4>
                         <select value={this.state.estadoSelected} className="custom-select " id="cmbSubAreas" onChange={ this.EstadoChangedHandler }>
