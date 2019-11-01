@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";  
 
 import './MedidasPredictivas.css'
+import Frecuencia from '../../../models/Frecuencia'
+import Medicion from '../../../models/Medicion'
 
 
 class MedidaPredictiva extends React.Component {
@@ -13,7 +15,7 @@ class MedidaPredictiva extends React.Component {
     {
         super(props)
 
-        var dataBase64 = btoa(JSON.stringify(this.props.Metrica[0]))
+        var dataBase64 = btoa(JSON.stringify(this.props.Metrica))
 
         // console.log(this.props.Metrica)
 
@@ -38,7 +40,7 @@ class MedidaPredictiva extends React.Component {
     componentDidMount()
     {
 
-        if(this.state.metricas[0].AutorizadoMCI )
+        if(!this.state.metricas.Autorizado )
         {
             this.setState({debeEditarMeta : true})
         }
@@ -80,10 +82,10 @@ class MedidaPredictiva extends React.Component {
 
                     <div className="row p-0">
                         <div className="col-12 col-md-2 col-lg-1">
-                            <h4 className="card-title">MCI  {" #"+this.state.metricas[0].Orden} </h4>
+                            <h4 className="card-title">MCI  {" #"+this.state.metricas.Orden} </h4>
                         </div>
                         <div className="col-12 col-md-11">
-                            {this.state.metricas[0].MCI }
+                            {this.state.metricas.MCI }
                         </div>
                     </div>
                     <div className="row">
@@ -95,8 +97,8 @@ class MedidaPredictiva extends React.Component {
                                    
                                 ) : (
                                     <Link to={{
-                                        pathname: '/resultadosMCI/'+btoa(this.state.metricas[0].IdMCI),
-                                        medidaPredictiva: this.state.metricas[0],
+                                        pathname: '/resultadosMCI/'+btoa(this.state.metricas.IdMCI),
+                                        medidaPredictiva: this.state.metricas,
                                         }}>
                                         <button 
                                             className="btn btn-outline-primary m-2" 
@@ -110,9 +112,9 @@ class MedidaPredictiva extends React.Component {
 
                         </div>
                     </div>
-                    {this.state.metricas.map((metrica, index)=> {
+                    {this.state.metricas.MedidaPredictiva.map((metrica, index)=> {
                         return (
-                            <div className="m-4 p-2" key={index}>
+                            <div className="m-1 p-2" key={index}>
 
                                 <div className="row p-1">
                                     <div className="col-12 col-md-2 col-lg-1">
@@ -146,11 +148,11 @@ class MedidaPredictiva extends React.Component {
                                 <div className="row p-1">
                                     <div className="col-12 col-md-6 text-center">
                                         <h4 className="card-title">Frecuencia</h4>
-                                        {metrica.Frecuencia}
+                                        {metrica.FrecuenciaId ===  Frecuencia.Diaria ? "Diaria" : "Semanal" }
                                     </div>
                                     <div className="col-12 col-md-6 text-center">
                                         <h4 className="card-title">Tipo Medición</h4>
-                                        {metrica.Medicion}
+                                        {metrica.MedicionId ===  Medicion.Meta ? "Meta" : "Resultado"}
                                     </div>
                                 </div>
 

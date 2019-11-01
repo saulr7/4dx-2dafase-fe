@@ -22,6 +22,7 @@ class ListadoMedidasPredictivas extends React.Component {
         
         this.state = {
             metricas : [],
+            metas : [],
             periodos : [],
             cargando : false
         }
@@ -40,22 +41,23 @@ class ListadoMedidasPredictivas extends React.Component {
 
         this.setState({cargando : true})
 
-        axios.get('/GetMedidasPredictivas/'+usuario.Empleado)
+        // axios.get('/GetMedidasPredictivas/'+usuario.Empleado)
+        axios.get('/GetMetasColaborador/'+usuario.Empleado)
 
         .then(res => {
             console.log(res.data)
-            var distinct = [...new Set(res.data.map(x => x.IdMCI))]
+            // var distinct = [...new Set(res.data.map(x => x.IdMCI))]
 
-            var data = []
+            // var data = []
 
-            distinct.map((valor, indice) => {
-                data.push( res.data.filter((meta)=> {
-                    return meta.IdMCI === valor
-                }))
-                return ""
-            })
+            // distinct.map((valor, indice) => {
+            //     data.push( res.data.filter((meta)=> {
+            //         return meta.IdMCI === valor
+            //     }))
+            //     return ""
+            // })
 
-            this.setState({metricas : data})
+            this.setState({metas : res.data})
             this.setState({cargando : false})
  
         }).catch((error) => {
@@ -96,15 +98,19 @@ class ListadoMedidasPredictivas extends React.Component {
                     
                     <div className="row">
                         <div className="col text-center">
-                            <NoData NoData={this.state.metricas.length === 0 && !this.state.cargando}/>
+                            <NoData NoData={this.state.metas.length === 0 && !this.state.cargando}/>
                         </div>
                     </div>
 
 
 
-                    {this.state.metricas.map((metrica, index) => {
-                        return (<MedidaPredictiva DataKey={index} key={index} Metrica={metrica} />)
+                    {this.state.metas.map((meta, index) => {
+                        return (<MedidaPredictiva DataKey={index} key={index} Metrica={meta} />)
                     })}
+
+                    {/* {this.state.metricas.map((metrica, index) => {
+                        return (<MedidaPredictiva DataKey={index} key={index} Metrica={metrica} />)
+                    })} */}
                     
                 </div>
             </div>

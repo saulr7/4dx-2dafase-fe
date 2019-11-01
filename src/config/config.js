@@ -9,10 +9,8 @@ import { Service } from 'axios-middleware';
 /* Desarrollo */
 
 const UrlBase = "http://10.1.133.2:8087"
-    /*
-        // const UrlBase = "http://localhost:8087"
-        // const UrlBase = "http://10.1.133.49:8087"
-    */
+    // const UrlBase = "http://localhost:8087"
+
 
 
 axios.defaults.baseURL = UrlBase

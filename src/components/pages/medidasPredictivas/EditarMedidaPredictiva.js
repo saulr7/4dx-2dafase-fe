@@ -26,7 +26,7 @@ class EditarMeditaPredictiva extends React.Component {
             medicion : (medidaPredictiva.Medicion) ? medidaPredictiva.Medicion : "",
             debeEditarMeta : true,
             periodicidades : [],
-            AutorizadoMCI : (medidaPredictiva.AutorizadoMCI),
+            AutorizadoMCI : (!medidaPredictiva.Autorizado),
             // EsElDueno : (usuario.Empleado === this.props.Periodo.IdColaborador? true : false),
         }
 
