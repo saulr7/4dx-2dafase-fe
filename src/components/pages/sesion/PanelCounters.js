@@ -114,7 +114,7 @@ class PanelCounters extends Component {
 
       axios.post("/UpdateTiempoReunion", reunionMCI)
           .then(res => {
-              console.log(res.data)
+
   
           }).catch((error) => {
               console.log(error)

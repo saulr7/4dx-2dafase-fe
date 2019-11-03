@@ -109,10 +109,10 @@ class AppRouter extends React.Component {
                     <Route path="/tablero/:data?" exact component={Tablero} />
                     <Route path="/metas" exact component={Metas} />
                     <Route path="/chart/:data" exact component={DoughnutChartDemo} />
-                    {/* <Route path="/tablero/:IdColaborador?" exact component={Tablero} /> */}
+                    <Route path="/sesionMCI" exact  component={SesionMCI} /> 
                     <Route path="/brujula" exact component={Brujula} />
                     <Route path="/login/:token?" exact component={Welcome} />
-                    <Route path="/sesionMCI" exact component={SesionMCI} />
+                    <Route path="/sesionMCI" render={() => { alert('dd"');      return <SesionMCI  /> }} />
                     <Route path="/colaboradores" exact component={Colaboradores} />
                     <Route path="/mciByColaborador/:IdColaborador" exact component={MCIByColaborador} />
                     <Route path="/configuracion/:data" exact component={Configuracion} />
@@ -125,6 +125,7 @@ class AppRouter extends React.Component {
             </Router>
         )
     }
+    
    
 
 }

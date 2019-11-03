@@ -17,6 +17,7 @@ class EstadoActividad extends Component {
             cargando : false,
             editar : false,
             Descripcion : this.props.Descripcion,
+            ActividadComoLider : this.props.ActividadComoLider,
             BrujulaId : this.props.Brujula,
             estadosBrujula : [],
             estadoSelected : 3,
@@ -43,8 +44,17 @@ class EstadoActividad extends Component {
         var sePuedeEditar = false
 
 
-        if(esLider && !esElDueno )
+        if(this.state.ActividadComoLider)
+        {
             sePuedeEditar = true
+        }
+        else
+        {
+            if(esLider && !esElDueno )
+                sePuedeEditar = true
+
+        }
+
 
         this.setState({SePuedeEditar : sePuedeEditar})
     }

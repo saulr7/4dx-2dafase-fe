@@ -3,7 +3,6 @@ import React from 'react'
 import PeriodoEnBaseAFrecuencia from '../../common/PeriodoEnBaseAFrecuencia'
 import Periodicidad from '../../common/FNPeriodoEnBaseAFrecuencia'
 import SolicitarAutorizacion from '../resultados/SolicitarAutorizacion'
-// import SendEmailService from '../../../services/SendEmailService'
 import SendEmailService from '../../../services/SendEmailService'
 import { axios, JwtPayload, EmailFormat  } from "../../../config/config";
 import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
@@ -16,7 +15,6 @@ class MetaPeriodica extends React.Component {
         super(props)      
 
         var usuario = JwtPayload().usuario        
-        console.log(this.props.Periodo)
 
         this.state = {
             periodo : this.props.Periodo,

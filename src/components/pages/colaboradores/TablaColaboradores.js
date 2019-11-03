@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { axios, JwtPayload } from "../../../config/config";
 
+
 class TablaColaboradores extends Component {
 
     constructor(props)
@@ -109,9 +110,16 @@ class TablaColaboradores extends Component {
 
     ObtenerActividades(usuario)
     {
-        
+        var esLider = "NO"
 
-        axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
+        var user = JwtPayload().usuario
+        
+        if( user.EsLider)
+        {
+            esLider = "SI"
+        }
+
+        axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO/"+esLider)
         .then(res => {
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
             this.setState({cargando : false})

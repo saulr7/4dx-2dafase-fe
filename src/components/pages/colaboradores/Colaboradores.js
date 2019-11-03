@@ -5,6 +5,7 @@ import { axios, JwtPayload } from "../../../config/config";
 import NoData from '../../common/NoData'
 import Loading from '../../common/Loading'
 import {connect} from 'react-redux';
+import EsAdmin from '../../../Functions/EsAdmin';
 
 
 class Colaboradores extends React.Component {
@@ -21,7 +22,8 @@ class Colaboradores extends React.Component {
             subAreas : [],
             colaboradores : [],
             colaboradoresLoaded : [],
-            txtBuscar: ""
+            txtBuscar: "",
+            esAdmin : EsAdmin()
             }
 
         this.AreaChangedHandler = this.AreaChangedHandler.bind(this)
@@ -238,26 +240,19 @@ class Colaboradores extends React.Component {
                                                             Tablero
                                                         </button>
                                                 
-                                                        <button 
-                                                                className="btn btn-outline-primary m-2" 
-                                                                data-toggle="tooltip" 
-                                                                data-placement="top" 
-                                                                title="Ver MCIs" 
-                                                                onClick={() => this.VerResultados(colaborador.IdColaborador, colaborador.Nombre)}>
-                                                                Resultados
-                                                            </button>
+                                                        {this.state.esAdmin ? (
 
-                                                        {/* <Link to={{
-                                                                pathname: '/mciByColaborador/'+ btoa(colaborador.IdColaborador),
-                                                                }}>
-                                                                <button 
+                                                            <button 
                                                                     className="btn btn-outline-primary m-2" 
                                                                     data-toggle="tooltip" 
                                                                     data-placement="top" 
-                                                                    title="Ver MCIs" >
-                                                                   Resultados
+                                                                    title="Ver MCIs" 
+                                                                    onClick={() => this.VerResultados(colaborador.IdColaborador, colaborador.Nombre)}>
+                                                                    Resultados
                                                                 </button>
-                                                            </Link> */}
+                                                        ) : (
+                                                            null
+                                                        )}
                                                     </td>
                                                 </tr>)
                                         })}
