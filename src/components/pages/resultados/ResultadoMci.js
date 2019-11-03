@@ -1,7 +1,8 @@
 import React from 'react'
 
-import Mes from '../../common/Mes'
 import {axios, JwtPayload, EmailFormat } from '../../../config/config'
+
+import PeriodoEnBaseAFrecuencia from '../../common/PeriodoEnBaseAFrecuencia'
 
 import Swal from "sweetalert2";
 import SolicitarAutorizacion from './SolicitarAutorizacion'
@@ -166,7 +167,8 @@ class Resultado extends React.Component {
                         {this.state.resultado.Anio}
                     </td>
                     <td>
-                       <Mes Mes={this.state.resultado.Mes}/>
+                       {/* <Mes Mes={this.state.resultado.Mes}/> */}
+                       <PeriodoEnBaseAFrecuencia Periodicidad={this.state.resultado.IdPeriocidad} Periodo={this.state.resultado.Mes} />
                     </td>
                     <td>
                        {this.state.resultado.Meta + " " + this.state.resultado.Unidad}

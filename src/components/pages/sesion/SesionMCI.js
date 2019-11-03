@@ -12,8 +12,6 @@ import TablaActividadesBrujulaP from  '../brujula/TablaActividadesBrujulaP'
 import TablaActividadesBrujulaN from  '../brujula/TablaActividadesBrujulaN'
 import Tablero from '../tablero/Tablero';
 import PanelCounters from './PanelCounters';
-// import Counter from '../../common/Counter'
-// import Timer from '../../common/Timer'
 
 class SesionMCI extends Component {
 
@@ -55,6 +53,11 @@ class SesionMCI extends Component {
         }
       }
 
+      componentWillUnmount()
+      {
+          window.location.reload()
+      }
+
     
       onSubmit(e) {
         e.preventDefault()
@@ -83,7 +86,7 @@ class SesionMCI extends Component {
             var user = JwtPayload().usuario      
             var  usuario = user.Empleado
   
-          axios.get("/BrujulaActividadesPorColaborador/"+ usuario + "/NO")
+          axios.get("/BrujulaActividadesPorColaborador/"+ usuario + "/NO/NO")
           .then(res => {
               this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
               this.setState({cargando : false, Actividades : res.data})
@@ -222,77 +225,6 @@ class SesionMCI extends Component {
                         </div>
                     </div>
                     
-                    {/* <div className="row">
-                        <div className="col-2">
-                            <div className={(this.state.idReunion > 0 && this.state.esLider? "d-block" : "d-none") }>
-
-                                <button className="btn btn-link" onClick={(e) => this.props.dispatch({type:'MOSTRAR_PANEL_COMPANEROS', data: true}) }>
-                                    <i className="fa fa-users" aria-hidden="true"></i>
-                                    Equipo
-                                </button>
-                            </div>
-                            
-                        </div>
-                        <div className="col-10">
-                            <span>
-                                <h5 className="font-weight-bold text-right">
-                                    {this.props.colaboradorSelected.nombreColaborador}
-                                </h5>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div className={"row "+(this.state.idReunion === 0 && this.state.esLider ? "d-block" : "d-none") }>
-                        <div className="col-12 col-lg-10 offset-lg-1">
-                            <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                                <strong>¡Iniciar sesión MCI!</strong> Presiona el botón <i>Iniciar Sesión MCI</i> el cual te permitirá ver tu equipo por ende podrás empezar la rendición.
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div className={"row "+(this.state.idReunion === 0 && this.state.esLider ? "d-block" : "d-none") }>
-                        <div className="col-12  text-center">
-                            <button 
-                                type="button" 
-                                className="btn btn-success"
-                                onClick={this.IniciarSesion}>
-                                    Iniciar Sesión MCI
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className={"row "+( this.state.esLider ? "d-block" : "d-none") }>
-                        
-                        <div className="col text-center">
-                            <div className="row text-center">
-                                <div className="col-12 col-md-3 offset-md-3 text-center">
-                                    <Timer/>
-                                    <button 
-                                        type="button" 
-                                        // className={"btn btn-warning " + (this.props.counterTimer > 0 && this.props.sesion.startTimer ? "" : "d-none")}
-                                        className={"btn btn-warning " + (this.props.sesion.startTimer ? "" : "d-none")}
-                                        onClick={(e) => this.GuardarTiempoColaborador()}>
-                                            Finalizar Colaborador
-                                        </button>
-                                </div>
-                                <div className="col-12 col-md-3 text-center">
-                                    <Counter/>
-                                    <button 
-                                        type="button" 
-                                        className={"btn btn-danger " +(this.props.counterSesion.totalSeconds > 0 ? "" : "d-none" ) }
-                                        onClick={(e) => this.FinalizarReunion()}>
-                                            Finalizar Sesión
-                                        </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-
-
 
                     <div className="row ">
                         <div className="col">

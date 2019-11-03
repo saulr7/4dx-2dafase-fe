@@ -52,7 +52,7 @@ class TablaActividadesBrujulaP extends Component {
 
         }
 
-        axios.get("/BrujulaActividadesPorColaborador/"+ usuario + "/4")
+        axios.get("/BrujulaActividadesPorColaborador/"+ usuario + "/4/NO")
         .then(res => {
             // this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
             console.log(res.data)
@@ -70,6 +70,8 @@ class TablaActividadesBrujulaP extends Component {
         })
     }
 
+
+
     render() {
         return (
             <div>
@@ -81,6 +83,7 @@ class TablaActividadesBrujulaP extends Component {
                 </div>
                 <div className={"row " }>
                         <div className="col">
+
                         <div className="list-group">
                                                            
                                 {this.props.Actividades.map((brujula, index)=>
@@ -90,15 +93,20 @@ class TablaActividadesBrujulaP extends Component {
                                                 <h5 className="mb-1">{brujula.Actividad}</h5>
                                                 <small className="text-muted"><Moment fromNow>{brujula.FechaCreada}</Moment></small>
                                             </div>
-                                            <div className="col-12 col-md-3 ">
-                                                <h5><span className="">
-                                                    <EstadoActividad
-                                                            Descripcion={brujula.Descripcion}
-                                                            Brujula={brujula.IdBrujula}
-                                                            ResultadoId={this.state.IdColaborador}
-                                                            UsuarioId={brujula.IdColaborador} />
-                                                </span></h5>
-                                            </div>
+                                            <div className="row">
+                                                    <div className="col-12 col-md-3 ">
+                                                        <EstadoActividad
+                                                                Descripcion={brujula.Descripcion}
+                                                                Brujula={brujula.IdBrujula}
+                                                                ResultadoId={this.state.IdColaborador}
+                                                                ActividadComoLider={brujula.ActividadComoLider}
+                                                                UsuarioId={brujula.IdColaborador} />
+                                                    </div>
+                                                    <div className={"col text-right " + (brujula.ActividadComoLider ? "" : "d-none") }>
+
+                                                        <span className="badge badge-warning">Actividad como líder</span>
+                                                    </div>
+                                                </div>
                                             <p className="mb-1">
                                                 Desde: <Moment format="YYYY/MM/DD">{brujula.Desde}</Moment> - 
                                                 Hasta  <Moment format="YYYY/MM/DD">{brujula.Hasta}</Moment>

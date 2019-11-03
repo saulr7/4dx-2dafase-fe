@@ -11,6 +11,7 @@ import EstadosBrujula from './EstadosBrujula'
 import SesionReducer from './SesionReducer'
 import CounterSesionReducer from './CounterSesionReducer'
 import TimerReducer from './TimerReducer'
+import TotalActividadesNuevasReducer from './TotalActividadesNuevasReducer'
 
 export default combineReducers({
     PeriodicidadReducer,
@@ -24,5 +25,6 @@ export default combineReducers({
     EstadosBrujula,
     SesionReducer,
     CounterSesionReducer,
-    TimerReducer
+    TimerReducer,
+    TotalActividadesNuevasReducer
 })

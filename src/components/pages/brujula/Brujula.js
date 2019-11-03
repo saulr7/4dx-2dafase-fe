@@ -37,7 +37,9 @@ class Brujula extends Component {
             IdColaboradorDueno: objBrujula.IdColaborador,
             EsElDueno : EsElUsuarioLogueado(objBrujula.IdColaborador),
             cargando : false,
-            brujulas : []
+            brujulas : [],
+            totalActividadesNuevas : this.props.totalActividadesNuevas,
+            totalActividadesNuevasLider : this.props.totalActividadesNuevasLider
         }
 
         this.ObtenerActividades = this.ObtenerActividades.bind(this)
@@ -53,15 +55,34 @@ class Brujula extends Component {
 
   
     ObtenerActividades()
-    {
-   
-
+    {  
         var user = JwtPayload().usuario      
         var usuario = user.Empleado
 
-
         axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
         .then(res => {
+
+            if(res.data)
+            {
+                var contadorDeActividadesNuevas = 0
+                var contadorDeActividadesNuevasLider = 0
+                res.data.map((actividad, index) => {
+                    if(actividad.IdEstado === 1 && !actividad.ActividadComoLider )
+                    {
+                        contadorDeActividadesNuevas++
+                    }
+                    if(actividad.IdEstado === 1 && actividad.ActividadComoLider )
+                    {
+                        contadorDeActividadesNuevasLider++
+                    }
+                    return actividad.IdEstado
+                })
+                var contador = {
+                    totalActividadesNuevas : contadorDeActividadesNuevas,
+                    totalActividadesNuevasLider : contadorDeActividadesNuevasLider
+                }
+                this.props.dispatch({type:'LOAD_ACTIVIDADES_NUEVAS', data: contador})
+            }
 
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
             this.setState({cargando : false})
@@ -110,27 +131,48 @@ class Brujula extends Component {
                         </div>
                     </div>
 
-                    {/* <div className={"row m-1 " +(this.state.EsElDueno ? "" : "d-none")}> */}
-                    <div className={"row m-1 "}>
+                    <div className={"row m-1 " +(this.props.ActividadesNuevas.totalActividadesNuevas>= 3 ? "d-none" : "" ) }>
 
                         <div className="col text-right ">
 
-                        <button className="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-                            <span className="m-1">
-                                Nueva
-                            </span>
-                            <i className="fa fa-plus-circle" aria-hidden="true"></i>
-                        </button>
+                            <button className="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                                <span className="m-1">
+                                    Nueva
+                                </span>
+                                <i className="fa fa-plus-circle" aria-hidden="true"></i>
+                            </button>
                         </div>
 
                     </div>
 
-                    <div className="row m-2">
+                    <div className="row">
+                        <div className="col text-center">
+                            <div>
+                                <h4>Actividades nuevas <span className="badge badge-secondary">{this.props.ActividadesNuevas.totalActividadesNuevas}/3</span></h4>
+                            </div>
+                            <div>
+                                {/* <h4>Actividades nuevas como líder <span className="badge badge-secondary">{this.props.ActividadesNuevas.totalActividadesNuevasLider}/3</span></h4> */}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={"row "+(this.props.ActividadesNuevas.totalActividadesNuevas  >= 3  ? "" : "d-none" ) }>
+                        <div className="col-12 col-md-10 offset-md-1">
+                            <div className="alert alert-primary alert-dismissible fade show" role="alert">
+                                <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <strong>¡Holy guacamole!</strong> Ya tienes 3 actividades nuevas.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className={"row m-2 "+(this.props.ActividadesNuevas.totalActividadesNuevas >= 3 ? "d-none" : "" ) }>
                         <div className="col-12 col-md-6 offset-md-3 ">
                             
                             <div className="collapse " id="collapseExample" >
                                 <div className="card card-body">
-                                    <NuevaActividad IdMP={this.state.IdResultadoMP}/>
+                                    <NuevaActividad User={0}/>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +204,7 @@ function mapStateToProps(state) {
     return {
         actividades : state.BrujulaReducer,
         colaboradorSelected : state.ColaboradorSelectedReducer,
+        ActividadesNuevas : state.TotalActividadesNuevasReducer,
     };
 }
 
