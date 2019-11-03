@@ -17,7 +17,7 @@ class Resultado extends React.Component {
         super(props)
 
         var usuario = JwtPayload().usuario         
-
+        //console.log(this.props.Resultado)
         this.state = {
             resultado : this.props.Resultado,
             valor : (this.props.Resultado.Valor ? this.props.Resultado.Valor : 0),
@@ -168,6 +168,9 @@ class Resultado extends React.Component {
                     <td>
                        <Mes Mes={this.state.resultado.Mes}/>
                     </td>
+                    {/* <td>
+                       {this.state.resultado.Descripcion}
+                    </td> */}
                     <td>
                        {this.state.resultado.Meta + " " + this.state.resultado.Unidad}
                     </td>

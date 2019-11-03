@@ -18,7 +18,7 @@ class TableroMP extends React.Component {
     constructor(props)
     {
         super(props)
-
+//console.log(this.props.TableroMP)
         this.state = {
             MedidaPredictiva : this.props.MedidaPredictiva,
             unidad : (this.props.MedidaPredictiva.ResultadosMP ? this.props.MedidaPredictiva.ResultadosMP[0].Unidad : "" ),
@@ -133,7 +133,7 @@ class TableroMP extends React.Component {
             <div>
                  <div className="row my-4">
                     <div className="col-12 col-md-4">
-                        <h5 className="font-weight-bold">Medida Predictiva</h5>
+                        <h5 className="font-weight-bold">MP {" #"+ this.state.MedidaPredictiva.OrdenMP}</h5>
                         <p className="card-text">
                             {this.state.MedidaPredictiva.MedidaPredictiva}
                         </p>

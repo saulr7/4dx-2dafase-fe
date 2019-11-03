@@ -164,7 +164,7 @@ class IngresarResultadosMP extends React.Component {
                                     <thead className="">
                                         <tr>
                                             <th>Año</th>
-                                            <th>Mes</th>
+                                            <th>Mes</th>                                            
                                             {this.state.idFrecuencia === Frecuencia.Semanal ?
                                             (
                                                 <th>Semana</th>
@@ -172,7 +172,8 @@ class IngresarResultadosMP extends React.Component {
                                             ):
                                             (
                                                 <th>Día</th>
-                                            )}
+                                            )}   
+                                             <th>Periodo</th>                                         
                                             {this.state.IdMedicion === Medicion.Resultado ?
                                             (
                                                 <th>Meta</th>
@@ -180,6 +181,7 @@ class IngresarResultadosMP extends React.Component {
                                             ):null}
                                             <th>Resultado</th>
                                             <th>Acciones</th>
+                                           
                                         </tr>
                                     </thead>
                                     

@@ -15,7 +15,7 @@ class TableroMCI extends React.Component {
     constructor(props)
     {
         super(props)
-
+        console.log(this.props.MCI)
         this.state = {
             cargando : false,
             mci : this.props.MCI,
@@ -180,8 +180,6 @@ class TableroMCI extends React.Component {
                                                         <tr>
                                                             <th>Valor</th>
                                                             {!this.state.dataLineal2.labels ? null : (
-
-                                                            
                                                             this.state.dataLineal2.labels.map((label, index) =>{
                                                                 return (
                                                                     <th key={index}>{label}</th>        

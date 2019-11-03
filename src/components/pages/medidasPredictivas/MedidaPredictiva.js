@@ -17,7 +17,7 @@ class MedidaPredictiva extends React.Component {
 
         var dataBase64 = btoa(JSON.stringify(this.props.Metrica))
 
-        // console.log(this.props.Metrica)
+         console.log(this.props.Metrica)
 
         this.state = {
             metricas : this.props.Metrica,
@@ -118,7 +118,7 @@ class MedidaPredictiva extends React.Component {
 
                                 <div className="row p-1">
                                     <div className="col-12 col-md-2 col-lg-1">
-                                        <h4 className="card-title">MP</h4>
+                                        <h4 className="card-title">MP {" #"+metrica.OrdenMP}</h4>
                                         
                                     </div>
                                     <div className="col-12 col-md-11">

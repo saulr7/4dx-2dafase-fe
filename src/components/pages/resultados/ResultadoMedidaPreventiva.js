@@ -14,7 +14,7 @@ class Resultado extends React.Component {
 
     constructor(props) {
         super(props)
-
+        console.log(this.props.Resultado)
         this.state = {
             resultado: this.props.Resultado,
             valor: (this.props.Resultado.Valor ? this.props.Resultado.Valor : 0),
@@ -96,8 +96,8 @@ class Resultado extends React.Component {
 
                         )
                 }
-
                 </td> 
+                <td> { this.state.resultado.Periodo } </td> 
                 
                 {this.state.resultado.IdMedicion === Medicion.Resultado ?
                     (
@@ -112,6 +112,7 @@ class Resultado extends React.Component {
                 <td colSpan = { 2 }>
                     <EditarResultadoMedidaP Resultado = { this.state.resultado }/> 
                 </td> 
+                
             </tr> 
         </tbody>
         )

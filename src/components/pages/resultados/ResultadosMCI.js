@@ -132,6 +132,7 @@ class IngresarResultadosMP extends React.Component {
                                     <tr>
                                         <th>Año</th>
                                         <th>Mes</th>
+                                        {/* <th>Periodo</th> */}
                                         <th>
                                             <span className="m-1">
                                                 Meta 
