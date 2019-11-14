@@ -198,7 +198,8 @@ class Colaboradores extends React.Component {
                                     type="text" 
                                     placeholder="Nombre..."
                                     value={ this.state.txtBuscar }
-                                    onChange={this.BuscarChangedHandler}/>
+                                    onChange={this.BuscarChangedHandler}
+                                    />
 
                             )}
                         </div>

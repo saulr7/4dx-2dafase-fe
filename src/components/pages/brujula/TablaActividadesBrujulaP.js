@@ -118,33 +118,6 @@ class TablaActividadesBrujulaP extends Component {
                                 })}
                         
                         </div>
-                            {/* <table className="table table-striped bg-white table-bordered ">
-                                <thead>
-                                    <tr>
-                                    <th>Creada</th>
-                                    <th>Descripción</th>
-                                    <th>Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {this.props.Actividades.map((brujula, index)=>
-                                        {
-                                        return <tr key={index}>
-                                                <td>
-                                                    <Moment fromNow>{brujula.FechaCreada}</Moment>
-                                                </td>
-                                                <td>{brujula.Actividad}</td>
-                                                <td>
-                                                    <EstadoActividad 
-                                                        Descripcion={brujula.Descripcion} 
-                                                        Brujula={brujula.IdBrujula}
-                                                        UsuarioId={brujula.IdColaborador} />
-                                                </td>
-                                            </tr>
-                                        })}
-      
-                                </tbody>
-                            </table> */}
 
 
                         </div>
