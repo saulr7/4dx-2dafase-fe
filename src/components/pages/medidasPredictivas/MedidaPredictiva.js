@@ -17,7 +17,7 @@ class MedidaPredictiva extends React.Component {
 
         var dataBase64 = btoa(JSON.stringify(this.props.Metrica))
 
-         console.log(this.props.Metrica)
+         //console.log(this.props.Metrica)
 
         this.state = {
             metricas : this.props.Metrica,

@@ -192,8 +192,8 @@ class TablaActividadesBrujula extends Component {
         
     }
 
-    render() {
-        return (
+    render() {        
+        return (           
             <div>
 
                 <div className={"row "+ (this.props.Actividades.length ===0 ? "" : "" )}>

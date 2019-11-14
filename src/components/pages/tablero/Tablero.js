@@ -25,12 +25,7 @@ class Tablero extends React.Component {
         var dataBase64 = params.data      
         } catch (error) {
             
-        }
-
-
-      
-
-
+        }      
         this.state = {
             cargando : false,
             data : [],
@@ -100,6 +95,7 @@ class Tablero extends React.Component {
         axios.get('/TableroColaborador/'+usuario+"/"+mes)
 
         .then(res => {
+            console.log(res.data)
             if(res.data)
             {
                 this.props.dispatch({type:'LOAD_TABLERO', data: res.data}) 

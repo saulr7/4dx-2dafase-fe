@@ -162,7 +162,7 @@ class Brujula extends Component {
                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
-                                <strong>¡Holy guacamole!</strong> Ya tienes 3 actividades nuevas.
+                                <strong>¡Atención!</strong> Ya tienes 3 actividades nuevas.
                             </div>
                         </div>
                     </div>

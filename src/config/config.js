@@ -3,12 +3,12 @@ import { Service } from 'axios-middleware';
 
 
 /* PRUEBAS */
-const UrlBase = "http://10.100.203.46:8087"
+//const UrlBase = "http://10.100.203.46:8087"
 
 
 /* Desarrollo */
 
-//const UrlBase = "http://10.1.133.2:8087"
+const UrlBase = "http://10.1.133.49:8087"
 // const UrlBase = "http://localhost:8087"
 
 

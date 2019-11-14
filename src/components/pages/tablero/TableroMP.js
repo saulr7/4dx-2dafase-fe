@@ -18,7 +18,7 @@ class TableroMP extends React.Component {
     constructor(props)
     {
         super(props)
-//console.log(this.props.TableroMP)
+        //console.log(this.props.TableroMP)
         this.state = {
             MedidaPredictiva : this.props.MedidaPredictiva,
             unidad : (this.props.MedidaPredictiva.ResultadosMP ? this.props.MedidaPredictiva.ResultadosMP[0].Unidad : "" ),
@@ -29,11 +29,10 @@ class TableroMP extends React.Component {
             dataB64 : "",
             Actividades : [],
             mesSelected : this.props.mesSelected,
+            dataPeriodo : []
         }
-
         this.FormatearDataAGraficar = this.FormatearDataAGraficar.bind(this)
         this.ObtenerActividadesMP = this.ObtenerActividadesMP.bind(this)
-
     }
     
 
@@ -90,9 +89,11 @@ class TableroMP extends React.Component {
                     borderWidth: 2,
                     borderColor: '#2196F3',
                     data: []
-                }
+                }                
             ] 
         };
+
+        var dataPeriodo =[]
 
       
         if(!this.state.MedidaPredictiva.ResultadosMP)
@@ -101,11 +102,11 @@ class TableroMP extends React.Component {
             dataBar.datasets[1].data.push(this.state.MedidaPredictiva.MetaMP)
             this.setState({dataBar : dataBar, dataB64 : JSON.stringify(dataBar)})
             return
-
         }
 
         this.state.MedidaPredictiva.ResultadosMP.map((resultado, index) => {
 
+            
             if(this.state.MedidaPredictiva.FrecuenciaId === Frecuencia.Semanal)
                 dataBar.labels.push("Semana " +resultado.Semana)
             else
@@ -117,29 +118,30 @@ class TableroMP extends React.Component {
             dataBar.datasets[0].backgroundColor.push(ObtenerCriterio(resultado.Valor,criterioV, criterioR))
 
             dataBar.datasets[0].data.push(resultado.Valor)
+            
 
             dataBar.datasets[1].data.push(this.state.MedidaPredictiva.MetaMP)
+            
+            dataPeriodo.push(resultado.Periodo)
             return ""
-        })
-        
-        this.setState({dataBar : dataBar, dataB64 : JSON.stringify(dataBar)})
-
+        })        
+        this.setState({dataBar : dataBar, dataB64 : JSON.stringify(dataBar), dataPeriodo})
     }
 
 
 
     render(){
+        //console.log(this.state.MedidaPredictiva.ResultadosMP)
         return (
             <div>
                  <div className="row my-4">
-                    <div className="col-12 col-md-4">
+                    <div className="col-12 col-md-4">                    
                         <h5 className="font-weight-bold">MP {" #"+ this.state.MedidaPredictiva.OrdenMP}</h5>
                         <p className="card-text">
                             {this.state.MedidaPredictiva.MedidaPredictiva}
                         </p>
                     </div>
-                    <div className="col-12 col-md-8 text-right">
-                        
+                    <div className="col-12 col-md-8 text-right">                        
                         {this.state.MedidaPredictiva.MedicionId === Medicion.Meta ?(
                             <TablaResultadoMP MedidaPredictiva={this.state.MedidaPredictiva}/>) :
                             (
@@ -150,8 +152,6 @@ class TableroMP extends React.Component {
                                     <i className="fa fa-arrows-alt" aria-hidden="true"></i>
                                 </Link>
                                 <TipoGrafico type={3} data={this.state.dataBar}/>
-
-
                                 <p>
                                     <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#divTablaMP" aria-expanded="false" aria-controls="collapseExample">
                                         <i className="fa fa-table" aria-hidden="true"></i>
@@ -165,22 +165,29 @@ class TableroMP extends React.Component {
                                         <div style={{overflowX: "auto"}}>
 
                                             <table className="table table-bordered table-sm">
-
+                                           
                                                 <thead>
+                                                    
                                                     <tr>
-                                                        <th>Valor</th>
-                                                        {!this.state.dataBar.labels ? null : (
-
-                                                        
+                                                        <th>Valor</th>                                                                
+                                                        {!this.state.dataBar.labels ? null : (                                                        
                                                         this.state.dataBar.labels.map((label, index) =>{
-                                                            return (
-                                                                <th key={index}>{label }</th>        
+                                                            return (                                                                
+                                                                <th key={index}>{label }</th>                                                                  
                                                                 )
                                                             })
-                                                        )}
-
-                                                    </tr>
+                                                        )}                                                        
+                                                    </tr>  
+                                                    <tr>
+                                                        <th>Periodo</th>
+                                                        {this.state.dataPeriodo.map((periodo, index)=> {
+                                                            return(
+                                                                <td key={index}>{periodo }</td>        
+                                                            )
+                                                        })}
+                                                    </tr>                                            
                                                 </thead>
+
                                                 <tbody>
                                                     <tr>
                                                     <th scope="row">Resultado</th>
@@ -204,6 +211,7 @@ class TableroMP extends React.Component {
                                                         })
                                                         )}
                                                     </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                             </div>

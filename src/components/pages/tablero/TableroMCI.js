@@ -15,7 +15,7 @@ class TableroMCI extends React.Component {
     constructor(props)
     {
         super(props)
-        console.log(this.props.MCI)
+        //console.log(this.props.MCI)
         this.state = {
             cargando : false,
             mci : this.props.MCI,

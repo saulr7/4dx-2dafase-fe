@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { axios, JwtPayload } from "../../../config/config";
-import {Calendar} from 'primereact/calendar';
+//import {Calendar} from 'primereact/calendar';
 
 import Swal from "sweetalert2";
 
@@ -73,8 +73,8 @@ class NuevaActividad extends Component {
             "IdColaborador": userId,
             "Actividad":this.state.txtNuevaActividad,
             "IdEstado" : 1,
-            "Desde" : this.state.fechaDesde.toISOString(),
-            "Hasta" : this.state.fechaHasta.toISOString(),
+            //"Desde" : this.state.fechaDesde.toISOString(),
+            //"Hasta" : this.state.fechaHasta.toISOString(),
             "ActividadComoLider": this.state.ActividadComoLider,
             "CreatedBy" : usuario.Empleado
         }
@@ -191,15 +191,15 @@ class NuevaActividad extends Component {
                 return false
         }    
         
-        if(!this.state.fechaDesde || !this.state.fechaHasta )
-        {
-            Swal.fire({  
-                    title: 'Debes ingresar una fecha válida',  
-                    type: 'warning',  
-                    text: "Atención",  
-                });
-                return false
-        }    
+        // if(!this.state.fechaDesde || !this.state.fechaHasta )
+        // {
+        //     Swal.fire({  
+        //             title: 'Debes ingresar una fecha válida',  
+        //             type: 'warning',  
+        //             text: "Atención",  
+        //         });
+        //         return false
+        // }    
         return true
     }
 
@@ -220,7 +220,7 @@ class NuevaActividad extends Component {
                             </textarea>
                            
                         </div>
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <div className="row">
 
                             <div className="col">
@@ -230,10 +230,10 @@ class NuevaActividad extends Component {
                                 <Calendar value={this.state.fechaDesde} onChange={(e) => this.setState({fechaDesde: e.value})} dateFormat="yy/mm/dd" icon="pi-calendar"></Calendar>
                             </div>
                             </div>
-                        </div>
+                        </div> */}
 
 
-                        <div className="form-group">
+                        {/* <div className="form-group">
                             <div className="row">
 
                             <div className="col">
@@ -243,7 +243,7 @@ class NuevaActividad extends Component {
                                 <Calendar value={this.state.fechaHasta} onChange={(e) => this.setState({fechaHasta: e.value})} ></Calendar>
                             </div>
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>

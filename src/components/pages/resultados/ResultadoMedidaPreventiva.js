@@ -14,7 +14,7 @@ class Resultado extends React.Component {
 
     constructor(props) {
         super(props)
-        console.log(this.props.Resultado)
+        //console.log(this.props.Resultado)
         this.state = {
             resultado: this.props.Resultado,
             valor: (this.props.Resultado.Valor ? this.props.Resultado.Valor : 0),
@@ -36,7 +36,7 @@ class Resultado extends React.Component {
             "IdMP": this.state.resultado.IdMP,
             "Anio": this.state.resultado.Anio,
             "Mes": this.state.resultado.mes,
-            "Semana": this.state.resultado.Semana,
+            "Semana": this.state.resultado.Semana,            
             "Dia": this.state.resultado.Dia,
             "Valor": parseInt(this.state.valor),
             "LlegoAMeta": this.state.LlegoAMeta,
