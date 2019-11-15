@@ -121,6 +121,7 @@ class TablaColaboradores extends Component {
 
         axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO/"+esLider)
         .then(res => {
+            console.log(res.data)
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
             this.setState({cargando : false})
 

@@ -95,7 +95,7 @@ class Tablero extends React.Component {
         axios.get('/TableroColaborador/'+usuario+"/"+mes)
 
         .then(res => {
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data)
             {
                 this.props.dispatch({type:'LOAD_TABLERO', data: res.data}) 

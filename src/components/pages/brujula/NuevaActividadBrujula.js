@@ -135,7 +135,6 @@ class NuevaActividad extends Component {
                 var contadorDeActividadesNuevas = 0
                 var contadorDeActividadesNuevasLider = 0
                 res.data.map((actividad, index) => {
-                    console.log(actividad)
                     if(actividad.IdEstado === 1 && !actividad.ActividadComoLider )
                     {
                         contadorDeActividadesNuevas++
@@ -190,16 +189,7 @@ class NuevaActividad extends Component {
                 });
                 return false
         }    
-        
-        // if(!this.state.fechaDesde || !this.state.fechaHasta )
-        // {
-        //     Swal.fire({  
-        //             title: 'Debes ingresar una fecha válida',  
-        //             type: 'warning',  
-        //             text: "Atención",  
-        //         });
-        //         return false
-        // }    
+          
         return true
     }
 
@@ -220,30 +210,7 @@ class NuevaActividad extends Component {
                             </textarea>
                            
                         </div>
-                        {/* <div className="form-group">
-                            <div className="row">
-
-                            <div className="col">
-                                <h4 className="card-title d-inline m-2">Fecha Desde:</h4>
-                            </div>
-                            <div className="col">
-                                <Calendar value={this.state.fechaDesde} onChange={(e) => this.setState({fechaDesde: e.value})} dateFormat="yy/mm/dd" icon="pi-calendar"></Calendar>
-                            </div>
-                            </div>
-                        </div> */}
-
-
-                        {/* <div className="form-group">
-                            <div className="row">
-
-                            <div className="col">
-                                <h4 className="card-title d-inline m-2">Fecha Hasta:</h4>
-                            </div>
-                            <div className="col">
-                                <Calendar value={this.state.fechaHasta} onChange={(e) => this.setState({fechaHasta: e.value})} ></Calendar>
-                            </div>
-                            </div>
-                        </div> */}
+                        
 
                     </div>
                 </div>

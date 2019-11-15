@@ -130,7 +130,25 @@ class EstadoActividad extends Component {
 
         axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO")
         .then(res => {
-            this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
+
+            if(!res.data)
+                return 
+
+            var Actividades= res.data.filter((actividad) => {
+                if(EsElUsuarioLogueado(actividad.IdColaborador))
+                {
+                    return true
+                }
+                else{
+                    if (! actividad.ActividadComoLider)
+                        return true
+                    else
+                        return ""
+                }
+               
+            })
+
+            this.props.dispatch({type:'LOAD_BRUJULAS', data: Actividades}) 
             
 
         }).catch((error) => {

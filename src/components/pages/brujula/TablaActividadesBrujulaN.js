@@ -77,7 +77,9 @@ class TablaActividadesBrujulaP extends Component {
 
         axios.get("/BrujulaActividadesPorColaborador/" + usuario + "/1/NO")
             .then(res => {
-                this.setState({ cargando: false, Actividades: res.data, ActividadesLoaded: res.data })
+ 
+                 this.setState({ cargando: false, Actividades: res.data, ActividadesLoaded: res.data })
+
 
             }).catch((error) => {
                 this.setState({ cargando: false })
@@ -95,6 +97,7 @@ class TablaActividadesBrujulaP extends Component {
     ActividadesComoLiderHanlder(event) {
         const filtroComoLider = event.target.checked
         var result = []
+
 
         if (filtroComoLider) {
             result = this.state.ActividadesLoaded.filter((actividad) => {
@@ -202,10 +205,20 @@ function mapStateToProps(state) {
 
     return {
         Actividades: state.BrujulaReducer.filter((actividad) => {
-            if (actividad.IdEstado === 1)
+            if(EsElUsuarioLogueado(actividad.IdColaborador))
+            {
+                if (actividad.IdEstado === 1 && actividad.ActividadComoLider)
                 return true
             else
                 return ""
+            }
+            else {
+                if (actividad.IdEstado === 1 )
+                    return true
+                else
+                    return ""
+            }
+          
         }),
         colaboradorSelected: state.ColaboradorSelectedReducer,
     };
