@@ -22,10 +22,12 @@ class SesionMCI extends Component {
         var user = JwtPayload().usuario 
 
         super();
+        console.log(this.state)
         this.state = {
           name: 'React',
           esLider : user.EsLider,
-          idReunion : 0
+          idReunion : 0,
+          TiempoTotal: ''
         };
 
         this.ObtenerEstadoBrujula = this.ObtenerEstadoBrujula.bind(this)
@@ -50,6 +52,7 @@ class SesionMCI extends Component {
         if(this.state.esLider)
         {
             this.ObtenerReunionDelDia()
+            this.ObtenerReunionesSemanales()
         }
       }
 
@@ -107,6 +110,22 @@ class SesionMCI extends Component {
         axios.get("/GetReunionDelDia/"+usuario)
             .then(res => {
                this.setState({idReunion: res.data.IdReunion})
+    
+            }).catch((error) => {
+                console.log(error)
+    
+            })
+      }
+
+      ObtenerReunionesSemanales()
+      {
+  
+        var user = JwtPayload().usuario      
+        var  usuario = user.Empleado
+  
+        axios.get("/GetReunionSemanal/"+usuario)
+            .then(res => {
+               this.setState({TiempoTotal: res.data.TiempoTotal})
     
             }).catch((error) => {
                 console.log(error)
