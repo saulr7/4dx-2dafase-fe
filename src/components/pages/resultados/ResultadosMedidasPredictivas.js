@@ -1,7 +1,7 @@
 import React from 'react'
 
 import TituloPrincipal from '../../common/TituloPrincipal'
-import Resultado from './ResultadoMedidaPreventiva'
+import Resultado from './ResultadoMedidaPredictiva'
 import Frecuencia from '../../../models/Frecuencia'
 import MesSelect from '../../common/MesSelect'
 import NoData from '../../common/NoData'
@@ -160,7 +160,7 @@ class IngresarResultadosMP extends React.Component {
                         <div className="col">
                             {this.state.resultados.length === 0 ? null : (
 
-                                <table className="table table-striped bg-white ">
+                                <table className="table table-striped table-hover bg-white ">
                                     <thead className="">
                                         <tr>
                                             <th>Año</th>

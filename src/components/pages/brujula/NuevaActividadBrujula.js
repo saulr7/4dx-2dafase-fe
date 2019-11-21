@@ -73,8 +73,6 @@ class NuevaActividad extends Component {
             "IdColaborador": userId,
             "Actividad":this.state.txtNuevaActividad,
             "IdEstado" : 1,
-            //"Desde" : this.state.fechaDesde.toISOString(),
-            //"Hasta" : this.state.fechaHasta.toISOString(),
             "ActividadComoLider": this.state.ActividadComoLider,
             "CreatedBy" : usuario.Empleado
         }

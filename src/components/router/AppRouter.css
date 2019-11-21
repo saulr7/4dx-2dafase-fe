@@ -1,5 +1,6 @@
 .bg-banpais {
-    background-color: #FFEF11;
+    background-color: #192A56;
+    /* background-color: #FFEF11; */
     /* background-color: #004080; */
     /* #004080 */
     /* #FFEF11 */
@@ -7,7 +8,9 @@
 }
 
 .txtTitle {
-    color: #004080
+    color: #DEDEDE;
+    /* color: white; */
+    /* color: #004080 */
 }
 
 #hrTitulo {
@@ -15,13 +18,15 @@
 }
 
 .iconoMenu {
-    color: #004080;
+    color: #1ABC9C;
+    /* color: #004080; */
     /* color: white; */
     font-size: 20px;
     margin: 2px;
 }
 
 .menuItem {
-    color: black
+    /* color: black */
     /* color: white */
+    color: #DEDEDE;
 }

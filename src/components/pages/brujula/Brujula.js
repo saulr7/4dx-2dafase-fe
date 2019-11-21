@@ -4,7 +4,6 @@ import Moment from 'react-moment';
 import 'moment-timezone';
 import 'moment/locale/es';
 
-import NuevaActividad from './NuevaActividadBrujula'
 
 import TablaActividadesBrujula from './TablaActividadesBrujula'
 
@@ -131,27 +130,11 @@ class Brujula extends Component {
                         </div>
                     </div>
 
-                    <div className={"row m-1 " +(this.props.ActividadesNuevas.totalActividadesNuevas>= 3 ? "d-none" : "" ) }>
-
-                        <div className="col text-right ">
-
-                            <button className="btn btn-primary text-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
-                                <span className="m-1">
-                                    Nueva
-                                </span>
-                                <i className="fa fa-plus-circle" aria-hidden="true"></i>
-                            </button>
-                        </div>
-
-                    </div>
 
                     <div className="row">
                         <div className="col text-center">
                             <div>
-                                <h4>Actividades nuevas <span className="badge badge-secondary">{this.props.ActividadesNuevas.totalActividadesNuevas}/3</span></h4>
-                            </div>
-                            <div>
-                                {/* <h4>Actividades nuevas como líder <span className="badge badge-secondary">{this.props.ActividadesNuevas.totalActividadesNuevasLider}/3</span></h4> */}
+                                <h4>Actividades <i>Nuevas</i>  <span className="badge badge-secondary">{this.props.ActividadesNuevas.totalActividadesNuevas}/3</span></h4>
                             </div>
                         </div>
                     </div>
@@ -167,7 +150,7 @@ class Brujula extends Component {
                         </div>
                     </div>
 
-                    <div className={"row m-2 "+(this.props.ActividadesNuevas.totalActividadesNuevas >= 3 ? "d-none" : "" ) }>
+                    {/* <div className={"row m-2 "+(this.props.ActividadesNuevas.totalActividadesNuevas >= 3 ? "d-none" : "" ) }>
                         <div className="col-12 col-md-6 offset-md-3 ">
                             
                             <div className="collapse " id="collapseExample" >
@@ -176,7 +159,7 @@ class Brujula extends Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="row">
                         <div className="col text-center">

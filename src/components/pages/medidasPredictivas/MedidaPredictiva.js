@@ -65,24 +65,10 @@ class MedidaPredictiva extends React.Component {
         <div className="col-12">
             <div className="card bp-card">
                 <div className="card-body p-0">
-                    
-                    <div className="row mb-1">
-                        <div className="col text-right">
-                            <Link to={{
-                                pathname: '/configuracion/'+this.state.urlParams
-                                }}>
-                                <button className=" btn btn-info m-1 " data-toggle="tooltip" data-placement="top" title="Configurar medida" >
-                                    <i className="fa fa-wrench m-1" aria-hidden="true"></i>
-                                    Configurar
-                                </button>
-                            </Link>
-                        </div>
-
-                    </div>
-
+                 
                     <div className="row p-0">
                         <div className="col-12 col-md-2 col-lg-1">
-                            <h4 className="card-title">MCI  {" #"+this.state.metricas.Orden} </h4>
+                            <h4 className="card-title">MCI  {" #"+this.state.metricas.Orden} </h4> 
                         </div>
                         <div className="col-12 col-md-11">
                             {this.state.metricas.MCI }
@@ -114,7 +100,7 @@ class MedidaPredictiva extends React.Component {
                     </div>
                     {this.state.metricas.MedidaPredictiva.map((metrica, index)=> {
                         return (
-                            <div className="m-1 p-2" key={index}>
+                            <div className="m-1 p-1" key={index}>
 
                                 <div className="row p-1">
                                     <div className="col-12 col-md-2 col-lg-1">

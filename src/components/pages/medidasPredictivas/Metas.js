@@ -46,17 +46,6 @@ class ListadoMedidasPredictivas extends React.Component {
 
         .then(res => {
             console.log(res.data)
-            // var distinct = [...new Set(res.data.map(x => x.IdMCI))]
-
-            // var data = []
-
-            // distinct.map((valor, indice) => {
-            //     data.push( res.data.filter((meta)=> {
-            //         return meta.IdMCI === valor
-            //     }))
-            //     return ""
-            // })
-
             this.setState({metas : res.data})
             this.setState({cargando : false})
  
@@ -88,6 +77,7 @@ class ListadoMedidasPredictivas extends React.Component {
                             <Loading Cargando={this.state.cargando}/>
                         </div>
                     </div>
+
                     
                     <div className="row">
                         <div className="col-12 col-md-10 offset-md-1 text-center">
