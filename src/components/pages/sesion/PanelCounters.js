@@ -14,10 +14,12 @@ class PanelCounters extends Component {
         var user = JwtPayload().usuario 
 
         super(props);
+        //console.log(this.props)
         this.state = {
           name: 'React',
           esLider : user.EsLider,
-          idReunion : 0
+          idReunion : 0,
+          TiempoTotal: ''
         };
 
         this.IniciarSesion = this.IniciarSesion.bind(this)
@@ -34,6 +36,7 @@ class PanelCounters extends Component {
         if(this.state.esLider)
         {
             this.ObtenerReunionDelDia()
+            this.ObtenerReunionesSemanales()
         }
       }
 
@@ -53,6 +56,22 @@ class PanelCounters extends Component {
   
           })
     }
+    ObtenerReunionesSemanales()
+    {
+
+      var user = JwtPayload().usuario      
+      var  usuario = user.Empleado
+
+      axios.get("/GetReunionSemanal/"+usuario)
+          .then(res => {
+             this.setState({TiempoTotal: res.data.TiempoTotal})
+  
+          }).catch((error) => {
+              console.log(error)
+  
+          })
+    }
+
 
     IniciarSesion()
     {
@@ -149,8 +168,8 @@ class PanelCounters extends Component {
     }
 
     render() {
-        return (
-            <div>
+        return (      
+            <div> 
                     <div className="row">
                         <div className="col-2">
                             <div className={(this.state.idReunion > 0 && this.state.esLider? "d-block" : "d-none") }>
@@ -168,6 +187,12 @@ class PanelCounters extends Component {
                                     {this.props.colaboradorSelected.nombreColaborador}
                                 </h5>
                             </span>
+                            <span>
+                                <h5 className="font-weight-bold text-right text-info">
+                                      {this.state.TiempoTotal}
+                                </h5>
+                            </span>
+
                         </div>
                     </div>
 
@@ -197,7 +222,8 @@ class PanelCounters extends Component {
                     <div className={"row "+( this.state.esLider ? "d-block" : "d-none") }>
                         
                         <div className="col text-center">
-                            <div className="row text-center">
+                            <div className="row text-center">                              
+
                                 <div className="col-12 col-md-3 offset-md-3 text-center">
                                     <Timer/>
                                     <button 
@@ -216,7 +242,7 @@ class PanelCounters extends Component {
                                         onClick={(e) => this.FinalizarReunion()}>
                                             Finalizar Sesión
                                         </button>
-                                </div>
+                                </div>                                                               
                             </div>
                         </div>
                     </div>
