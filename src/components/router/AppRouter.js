@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Route, Link , Switch} from "react-router-dom";
 import { JwtPayload } from "../../config/config";
 import './AppRouter.css';
 
-import {estilos} from './estilos'
+import {Estilos} from './estilos'
 
 import Metas from '../pages/medidasPredictivas/Metas'
 import EditarMedidaPredictiva from '../pages/medidasPredictivas/EditarMedidaPredictiva'
@@ -37,10 +37,11 @@ class AppRouter extends React.Component {
         super(props)
 
         var user = JwtPayload().usuario      
-
         this.state = {
             EmpleadoNombre: user.EmpleadoNombre,
-            estilos: null
+            codigoEmpleado : user.Empleado,
+            estilos: null,
+            temaBanpais : false
         }
 
         this.SetearTema = this.SetearTema.bind(this)
@@ -50,27 +51,20 @@ class AppRouter extends React.Component {
     
     componentDidMount()
     {
-        this.SetearTema();
+        var tema = localStorage.getItem("tema")
+        this.setState({temaBanpais : (tema === "4dx" ? false: true) })     
     }
 
 
-    SetearTema()
+    SetearTema(event)
     {
-        var temaBanpais = {
-            "backgroundColor": "#FFEF11",
-            "color" : "black",
-            "bgBanpais" : {
-                "backgroundColor": "#FFEF11",
-            }
+        const target = event.target;
+        const value = target.checked 
+        
+        localStorage.setItem("tema", (value ? "banpais": "4dx"))
 
-        }
-
-        var tema4dx = {
-            "backgroundColor": "#192A56" 
-
-        }
-
-        this.setState({estilos : temaBanpais})
+        var tema = localStorage.getItem("tema")
+        this.setState({temaBanpais : (tema === "4dx" ? false: true) })      
     }
    
 
@@ -79,8 +73,8 @@ class AppRouter extends React.Component {
             <Router>
 
                 <div>
-                    <nav className={"navbar navbar-expand-lg navbar-light bg-banpais"} >
-                        <span className="navbar-brand font-weight-bold menuItem text-light">4DX <span className="font-italic">Tablero  </span>  </span>
+                    <nav className={"navbar navbar-expand-lg navbar-light "} style={Estilos().bgBanpais} >
+                        <span className="navbar-brand font-weight-bold menuItem " style={Estilos().txtColor}>4DX <span className="font-italic">Tablero  </span>  </span>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -89,33 +83,34 @@ class AppRouter extends React.Component {
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item active ">
 
-                                    <div className={"dropdown bg-banpais " } >
+                                    <div className={"dropdown" }  style={Estilos().bgBanpais}> 
                                         <button 
-                                            className="btn dropdown-toggle text-white" 
+                                            className="btn dropdown-toggle" style={Estilos().txtColor}
                                             type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i className="fa fa-cog iconoMenu pt-1" aria-hidden="true"></i>
-                                            <span className="menuItem font-weight-bold">
+                                            <i className="fa fa-cog pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                            <span className="font-weight-bold" style={Estilos().menuItem}>
                                                 Configurar Tablero
                                             </span>
                                         </button>
-                                        <div className="dropdown-menu bg-banpais " aria-labelledby="dropdownMenu1">
+                                        <div className="dropdown-menu " aria-labelledby="dropdownMenu1"  style={Estilos().bgBanpais}>
                                             
-                                            <Link className="nav-link font-weight-bold menuItem bg-banpais" to="/lineaDeMeta">
-                                                <i className="fa fa-external-link-square iconoMenu pt-1" aria-hidden="true"></i>
-                                                <span className="menuItem">
+                                            <Link className="nav-link font-weight-bold  " to="/lineaDeMeta"  style={Estilos().bgBanpais}>
+                                                <i className="fa fa-external-link-square  pt-1" aria-hidden="true" style={Estilos().iconoMenu}>    
+                                                </i>
+                                                <span style={Estilos().menuItem}>
                                                     Línea de meta
                                                 </span>
                                                 
                                             </Link>
-                                            <Link className="nav-link font-weight-bold menuItem bg-banpais" to="/resultados">
-                                                <i className="fa fa-list-ol iconoMenu pt-1" aria-hidden="true"></i>
-                                                <span className="menuItem">
+                                            <Link className="nav-link font-weight-bold  " to="/resultados" style={Estilos().bgBanpais} >
+                                                <i className="fa fa-list-ol  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                                <span style={Estilos().menuItem}>
                                                     Resultados
                                                 </span>
                                             </Link>
-                                            <Link className="nav-link font-weight-bold menuItem bp-banpais" to="/tablero">
-                                                <i className="fa fa-line-chart iconoMenu pt-1" aria-hidden="true"></i>
-                                                <span className="menuItem">
+                                            <Link className="nav-link font-weight-bold" to="/tablero" style={Estilos().menuItem}>
+                                                <i className="fa fa-line-chart  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                                <span style={Estilos().menuItem}>
                                                     Tablero
                                                 </span>
                                             </Link>
@@ -125,73 +120,90 @@ class AppRouter extends React.Component {
                                 </li>
                                 
                                 <li className="nav-item active">
-                                <div className="dropdown bg-banpais">
-                                        <button className="btn dropdown-toggle text-white" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i className="fa fa-compass iconoMenu pt-1" aria-hidden="true"></i>
-                                            <span className="menuItem font-weight-bold">
+                                <div className="dropdown " style={Estilos().bgBanpais}>
+                                        <button className="btn dropdown-toggle " style={Estilos().txtColor}
+                                            type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i className="fa fa-compass  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                            <span className="font-weight-bold" style={Estilos().menuItem}>
                                                 Brújula
                                             </span>
                                         </button>
-                                        <div className="dropdown-menu bg-banpais " aria-labelledby="dropdownMenu1">
+                                        <div className="dropdown-menu bg-banpais " aria-labelledby="dropdownMenu1" style={Estilos().bgBanpais}>
                                             
-                                            <Link className="nav-link font-weight-bold menuItem bg-banpais" to="/nuevasActividades">
-                                                <i className="fa fa-plus-square iconoMenu pt-1" aria-hidden="true"></i>
-                                                <span className="menuItem">
+                                            <Link className="nav-link font-weight-bold menuItem bg-banpais" to="/nuevasActividades" style={Estilos().bgBanpais}>
+                                                <i className="fa fa-plus-square  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                                <span style={Estilos().menuItem}>
                                                     Nuevos compromisos
                                                 </span>
                                                 
                                             </Link>
-                                            <Link className="nav-link font-weight-bold menuItem bg-banpais" to="/brujula">
-                                                <i className="fa fa-list-ul iconoMenu pt-1" aria-hidden="true"></i>
-                                                <span className="menuItem">
+                                            <Link className="nav-link font-weight-bold menuItem bg-banpais" to="/brujula" style={Estilos().bgBanpais}>
+                                                <i className="fa fa-list-ul pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                                <span style={Estilos().menuItem}>
                                                     Ver compromisos
                                                 </span>
                                             </Link>
                                         </div>
                                     </div>
                                 </li>
-                                {/* <li className="nav-item active">
-                                    <Link className="nav-link font-weight-bold menuItem" to="/brujula">
-                                        <i className="fa fa-compass iconoMenu pt-1" aria-hidden="true"></i>
-                                        <span className="menuItem">
-                                            Brújula
-                                        </span>
-                                    </Link>
-                                </li> */}
-                                {/* <li className="nav-item active">
-                                    <Link className="nav-link font-weight-bold menuItem" to="/tablero">
-                                        <i className="fa fa-list-alt iconoMenu pt-1" aria-hidden="true"></i>
-                                        <span className="menuItem">
-                                            Tablero
-                                        </span> 
-                                    </Link>
-                                </li> */}
+   
                                 <li className="nav-item active">
                                     <Link className="nav-link font-weight-bold menuItem" to="/colaboradores">
-                                        <i className="fa fa-users iconoMenu pt-1" aria-hidden="true"></i>
-                                        <span className="menuItem">
+                                        <i className="fa fa-users  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                        <span style={Estilos().menuItem}>
                                             Colaboradores
                                         </span> 
                                     </Link>
                                 </li>
                                 <li className="nav-item active">
-                                    <Link className="nav-link font-weight-bold menuItem" to="/sesionMCI">
-                                        <i className="fa fa-flag iconoMenu pt-1" aria-hidden="true"></i>
-                                        <span className="menuItem">
+                                    <Link className="nav-link font-weight-bold " to="/sesionMCI" style={Estilos().menuItem}>
+                                        <i className="fa fa-flag  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                        <span style={Estilos().menuItem}>
                                             Sesión MCI
                                         </span> 
                                     </Link>
                                 </li>
                             </ul>
-                            <form className=" my-2 my-lg-0 text-white">
-                                    <span className="p-2">
-                                        {this.state.EmpleadoNombre}
-                                    </span>
-                                <BtnLogOut></BtnLogOut>
+                            <form className=" my-2 my-lg-0 " style={Estilos().txtColor}>
+
+                                <button type="button" className="btn btn-link text-info" data-toggle="modal" data-target="#exampleModal3">
+                                    <i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
+                                </button>
 
                             </form>
                         </div>
                     </nav>
+
+                    <div className="modal fade" id="exampleModal3" tabIndex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+                        <div className="modal-dialog" role="document">
+                            <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="exampleModal3Label">Perfil</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <strong>{this.state.codigoEmpleado}</strong> -
+                                <span className="p-2">
+                                    {this.state.EmpleadoNombre}
+                                </span>
+                                <div className="custom-control custom-switch">
+                                    <input type="checkbox" className="custom-control-input" id="customSwitch1" onClick={this.SetearTema} value={this.state.temaBanpais}/>
+                                    <label className="custom-control-label" htmlFor="customSwitch1">Tema</label>
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <BtnLogOut></BtnLogOut>
+                                <button type="button" className="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                {/* <button type="button" className="btn btn-primary">Save changes</button> */}
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
 
                 <Switch>

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { axios, JwtPayload } from "../../../config/config";
+import {  JwtPayload } from "../../../config/config";
 import Swal from "sweetalert2";
 
 import EsLider from '../../../Functions/EsLider'
-import UsuarioLogueadoId from '../../../Functions/UsuarioLogueadoId'
+import {NuevaActividadService, ObtenerActividadesPeriodoActualService} from '../../../services/BrujulaService'
 
 class NuevaActividadComoLider extends Component {
 
@@ -56,29 +56,40 @@ class NuevaActividadComoLider extends Component {
 
     ObtenerActividadesPeridoActual()
     {
-        var colaboradorId= UsuarioLogueadoId()
-        axios.get("/GetBrujulaCantidad/"+colaboradorId )
+
+        ObtenerActividadesPeriodoActualService()
         .then(res => {
-
-            if(!res.data)
-                return
-
-            var actividadesFaltantes = ( 3- res.data.Cantidad )
-            var actividadesFaltantesComoLider= (3 - res.data.CantidadComoLider)
-
-            actividadesFaltantes = (actividadesFaltantes >0 ? actividadesFaltantes : 0)
-            actividadesFaltantesComoLider = (actividadesFaltantesComoLider >0 ? actividadesFaltantesComoLider : 0)
-
-            this.setState({actividadesFaltantesComoLider, actividadesFaltantes})
-
-        }).catch((error) => {
-            console.log(error)
-            Swal.fire({  
-                title: 'Algo ha salido mal',  
-                type: 'error',  
-                text: "Atención",  
-            });
+            console.log(res)
+            this.setState({actividadesFaltantesComoLider : res.actividadesFaltantesComoLider, actividadesFaltantes: res.actividadesFaltantes})
         })
+        .catch((err)=> {
+            console.log(err)
+        })
+
+
+        // var colaboradorId= UsuarioLogueadoId()
+        // axios.get("/GetBrujulaCantidad/"+colaboradorId )
+        // .then(res => {
+
+        //     if(!res.data)
+        //         return
+
+        //     var actividadesFaltantes = ( 3- res.data.Cantidad )
+        //     var actividadesFaltantesComoLider= (3 - res.data.CantidadComoLider)
+
+        //     actividadesFaltantes = (actividadesFaltantes >0 ? actividadesFaltantes : 0)
+        //     actividadesFaltantesComoLider = (actividadesFaltantesComoLider >0 ? actividadesFaltantesComoLider : 0)
+
+        //     this.setState({actividadesFaltantesComoLider, actividadesFaltantes})
+
+        // }).catch((error) => {
+        //     console.log(error)
+        //     Swal.fire({  
+        //         title: 'Algo ha salido mal',  
+        //         type: 'error',  
+        //         text: "Atención",  
+        //     });
+        // })
     }
 
 
@@ -170,24 +181,25 @@ class NuevaActividadComoLider extends Component {
             "CreatedBy" : usuario.Empleado
         }
 
-        axios.post("/BrujulaPorMPAdd", nuevaActividad )
-        .then(res => {
+        NuevaActividadService(nuevaActividad)
+        // axios.post("/BrujulaPorMPAdd", nuevaActividad )
+        // .then(res => {
 
-            Swal.fire({  
-                title: 'Información guardada exitosamente',  
-                type: 'success',  
-                text: "Éxito",  
-            });
+        //     Swal.fire({  
+        //         title: 'Información guardada exitosamente',  
+        //         type: 'success',  
+        //         text: "Éxito",  
+        //     });
 
-        }).catch((error) => {
-            console.log(error)
-            Swal.fire({  
-                title: 'Algo ha salido mal',  
-                type: 'error',  
-                text: "Atención",  
-            });
-            return
-        })
+        // }).catch((error) => {
+        //     console.log(error)
+        //     Swal.fire({  
+        //         title: 'Algo ha salido mal',  
+        //         type: 'error',  
+        //         text: "Atención",  
+        //     });
+        //     return
+        // })
     }
 
 

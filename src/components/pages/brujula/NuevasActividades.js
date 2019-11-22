@@ -55,7 +55,7 @@ class NuevasActividades extends Component {
             this.setState({items})
         }
 
-        this.ObtenerActividadesPeridoActual();
+        // this.ObtenerActividadesPeridoActual();
         
     }
 
@@ -65,7 +65,6 @@ class NuevasActividades extends Component {
         var colaboradorId= UsuarioLogueadoId()
         axios.get("/GetBrujulaCantidad/"+colaboradorId )
         .then(res => {
-            console.log(res.data)
             if(!res.data)
                 return
 
