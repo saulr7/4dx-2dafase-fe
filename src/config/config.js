@@ -12,8 +12,13 @@ import { Service } from 'axios-middleware';
 /* Desarrollo */
 
 
+<<<<<<< HEAD
 //const UrlBase = "http://10.1.133.2:8087"
  const UrlBase = "http://localhost:8087"
+=======
+    const UrlBase = "http://10.1.133.2:8087"
+    // const UrlBase = "http://localhost:8087"
+>>>>>>> e20ac23c2c180be5694c8feb27e22c16669f1e14
 
 //const UrlBase = "http://10.1.133.2:8087"
  //const UrlBase = "http://localhost:8087"

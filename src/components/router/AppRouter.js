@@ -11,6 +11,7 @@ import './AppRouter.css';
 
 import {Estilos} from './estilos'
 
+
 import Metas from '../pages/medidasPredictivas/Metas'
 import EditarMedidaPredictiva from '../pages/medidasPredictivas/EditarMedidaPredictiva'
 import ResultadosMedidasPreventivas from '../pages/resultados/ResultadosMedidasPredictivas'
@@ -166,7 +167,10 @@ class AppRouter extends React.Component {
                             </ul>
                             <form className=" my-2 my-lg-0 " style={Estilos().txtColor}>
 
-                                <button type="button" className="btn btn-link text-info" data-toggle="modal" data-target="#exampleModal3">
+                                <button 
+                                    type="button" 
+                                    className="btn btn-link " data-toggle="modal" data-target="#exampleModal3"
+                                    style={Estilos().iconoMenu}>
                                     <i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
                                 </button>
 
@@ -203,7 +207,6 @@ class AppRouter extends React.Component {
                     </div>
 
 
-
                 </div>
 
                 <Switch>
@@ -231,9 +234,9 @@ class AppRouter extends React.Component {
         )
     }
     
-   
-
 }
+
+
 
 
 

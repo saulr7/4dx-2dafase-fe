@@ -29,3 +29,4 @@ yarn-debug.log*
 yarn-error.log*
 src/config/config.js
 vscode/
+src/config/config.js

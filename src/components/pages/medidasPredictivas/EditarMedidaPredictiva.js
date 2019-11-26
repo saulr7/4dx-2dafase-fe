@@ -13,8 +13,6 @@ class EditarMeditaPredictiva extends React.Component {
         super(props)
 
         var medidaPredictiva = this.props.MedidaPredictiva
-        
-        console.log(medidaPredictiva)
 
         this.state  = {
             medidaPredictiva : medidaPredictiva,
