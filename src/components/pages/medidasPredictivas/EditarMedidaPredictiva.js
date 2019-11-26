@@ -202,7 +202,7 @@ class EditarMeditaPredictiva extends React.Component {
 
                               
                                 <br/>
-                                <span className="badge badge-warning mt-2">Una vez configurada, no podras modificarla</span>
+                                <span className="badge badge-warning mt-2">Una vez configurada, no podrás modificarla</span>
                             </div>
                            
                         </div>

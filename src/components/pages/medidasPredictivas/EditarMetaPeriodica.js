@@ -70,7 +70,7 @@ class EditarMetaPeriodica extends React.Component {
                     <div className="card-body">
                         <div className="row">
                             <div className="col-12 col-md-6 offset-md-3 text-center">
-                                <h4 className="card-title">Metas por MCI</h4>
+                                <h4 className="card-title">Línea de meta por MCI</h4>
                                 <p className="card-text">
                                     Las metas que irás midiendo a través de la periocidad que configuraste.
                                 </p>
