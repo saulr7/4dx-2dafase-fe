@@ -11,6 +11,7 @@ import './AppRouter.css';
 
 import {Estilos} from './estilos'
 
+
 import Metas from '../pages/medidasPredictivas/Metas'
 import EditarMedidaPredictiva from '../pages/medidasPredictivas/EditarMedidaPredictiva'
 import ResultadosMedidasPreventivas from '../pages/resultados/ResultadosMedidasPredictivas'
@@ -203,7 +204,6 @@ class AppRouter extends React.Component {
                     </div>
 
 
-
                 </div>
 
                 <Switch>
@@ -231,9 +231,9 @@ class AppRouter extends React.Component {
         )
     }
     
-   
-
 }
+
+
 
 
 

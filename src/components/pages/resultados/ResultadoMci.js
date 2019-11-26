@@ -196,9 +196,6 @@ class Resultado extends React.Component {
                                 
                                 <button     
                                     className=" btn btn-primary m-1"  
-                                    data-toggle="tooltip" 
-                                    data-placement="top" 
-                                    title="Guardar" 
                                     type="button"
                                     onClick={this.ActualizarResultadoMedidaPredictiva}>
                                     Guardar
@@ -214,14 +211,14 @@ class Resultado extends React.Component {
 
                             <div>
                                 {this.state.EsElDueno ? (
-                                    <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Editar" onClick={this.EditarHandler} >
+                                    <button className=" btn btn-info m-1" onClick={this.EditarHandler} >
                                         <i className="fa fa-pencil" aria-hidden="true"></i>
                                         <span className="m-1">
                                             Ingresar resultado
                                         </span>
                                     </button>
                                 ): (
-                                    <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Editar">
+                                    <button className=" btn btn-secondary m-1">
                                         <i className="fa fa-pencil" aria-hidden="true"></i>
                                         <span className="m-1">
                                             Ingresar resultado
@@ -233,7 +230,7 @@ class Resultado extends React.Component {
                             (
                                 <div>
 
-                                    <button className=" btn btn-secondary m-1" data-toggle="tooltip" data-placement="top" title="Editar">
+                                    <button className=" btn btn-secondary m-1"  >
                                         <i className="fa fa-pencil" aria-hidden="true"></i>
                                         <span className="m-1">
                                             Ingresar resultado
@@ -253,8 +250,6 @@ class Resultado extends React.Component {
                                     {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno)?(
                                         <button 
                                             className=" btn btn-success m-1" 
-                                            data-toggle="tooltip" data-placement="top" 
-                                            title="Autorizar" 
                                             name ="btnAutorizar"
                                             onClick={() => this.AutorizarMCI(this.state.resultado.IdResultadoMCI)}
                                             // onClick={this.AutorizarMCI(this.state.resultado.IdResultadoMCI)}
