@@ -5,7 +5,7 @@ import ResultadoMci from './ResultadoMci'
 import UserSelected from '../../common/UserSelected'
 import Loading from '../../common/Loading'
 import NoData from '../../common/NoData'
-// import './Resultados.css'
+import './Resultados.css'
 
 import { axios } from "../../../config/config";
 import Swal from "sweetalert2";  

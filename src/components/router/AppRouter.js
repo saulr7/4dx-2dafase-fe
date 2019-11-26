@@ -167,7 +167,10 @@ class AppRouter extends React.Component {
                             </ul>
                             <form className=" my-2 my-lg-0 " style={Estilos().txtColor}>
 
-                                <button type="button" className="btn btn-link text-info" data-toggle="modal" data-target="#exampleModal3">
+                                <button 
+                                    type="button" 
+                                    className="btn btn-link " data-toggle="modal" data-target="#exampleModal3"
+                                    style={Estilos().iconoMenu}>
                                     <i className="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
                                 </button>
 
