@@ -2,6 +2,9 @@ import React from 'react'
 import {Animated} from "react-animated-css";
 import './Welcome.css'
 
+import {Estilos} from '../../router/estilos'
+
+
 import Login from '../../login/Login'
 
 class Welcome extends React.Component {
@@ -11,8 +14,8 @@ class Welcome extends React.Component {
         return (
 
             <div>
-                <nav className="navbar navbar-light bg-banpais" id="navBadNoLogged">
-                    { <span className="navbar-brand font-weight-bold">4DX</span> }
+                <nav className="navbar navbar-light " id="navBadNoLogged" style={Estilos().bgBanpais}>
+                    { <span className="navbar-brand font-weight-bold" style={Estilos().txtColor}>4DX</span> }
                 </nav>
 
                 <div className="container" >

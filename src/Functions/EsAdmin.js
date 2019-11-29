@@ -4,8 +4,6 @@ function EsAdmin() {
 
     var usuario = JwtPayload().usuario
 
-    console.log(usuario)
-
     if (usuario.PerfilId === 2) {
         return true
     } else {

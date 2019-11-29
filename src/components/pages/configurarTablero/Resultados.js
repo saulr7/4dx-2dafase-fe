@@ -37,11 +37,9 @@ class Resultados extends Component {
 
         this.setState({cargando : true})
 
-        // axios.get('/GetMedidasPredictivas/'+usuario.Empleado)
         axios.get('/GetMetasColaborador/'+usuario.Empleado)
 
         .then(res => {
-            console.log(res.data)
             this.setState({metas : res.data})
             this.setState({cargando : false})
  

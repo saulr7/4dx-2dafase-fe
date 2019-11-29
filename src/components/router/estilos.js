@@ -15,23 +15,29 @@ export function Estilos()
 
     switch (tema) {
         case "banpais":
+            backgroundColor = "#FFEF11"
+            colortxtTitle = "#DEDEDE"
+            coloriconoMenu = "#004080"
+            fontSize= "20px"
+            margin= "2px"
+            color= "black"   
+        break;
+    case "4dx":
             backgroundColor = "#192A56"
             colortxtTitle = "#004080"
             coloriconoMenu = "#1ABC9C"
             fontSize= "20px"
             margin= "2px"
             color= "white"
-            break;
-    case "4dx":
-            backgroundColor = "#FFEF11"
-            colortxtTitle = "#DEDEDE"
-            coloriconoMenu = "#004080"
+        break
+    default:
+            backgroundColor = "#192A56"
+            colortxtTitle = "#004080"
+            coloriconoMenu = "#1ABC9C"
             fontSize= "20px"
             margin= "2px"
-            color= "black"
-    break
-        default:
-            break;
+            color= "white"
+        break;
     }
 
         estilo = {

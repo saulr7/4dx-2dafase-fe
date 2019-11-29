@@ -39,14 +39,10 @@ class LineaDeMeta extends Component {
 
         this.setState({cargando : true})
 
-        // axios.get('/GetMedidasPredictivas/'+usuario.Empleado)
         axios.get('/GetMetasColaborador/'+usuario.Empleado)
 
         .then(res => {
-            console.log(res.data)
-            this.setState({metas : res.data})
-            this.setState({cargando : false})
- 
+            this.setState({metas : res.data, cargando : false})
         }).catch((error) => {
             this.setState(state => ({ cargando: false }));
             Swal.fire({
@@ -78,13 +74,6 @@ class LineaDeMeta extends Component {
                         </div>
                     </div>
 
-                    
-                    {/* <div className="row">
-                        <div className="col-12 col-md-10 offset-md-1 text-center">
-                            <AlertaEditarMedida />
-                        </div>
-                    </div> */}
-                    
                     
                     <div className="row">
                         <div className="col text-center">

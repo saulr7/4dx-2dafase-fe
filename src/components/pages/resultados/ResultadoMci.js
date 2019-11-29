@@ -66,7 +66,7 @@ class Resultado extends React.Component {
                 type: 'success',  
                 text: "Éxito",  
             });
-            this.setState(state => ({  editar : false }));
+            this.setState(state => ({  editar : false , Autorizado: false}));
 
         }).catch((error) => {
             console.log(error)
@@ -167,12 +167,8 @@ class Resultado extends React.Component {
                         {this.state.resultado.Anio}
                     </td>
                     <td>
-                       {/* <Mes Mes={this.state.resultado.Mes}/> */}
                        <PeriodoEnBaseAFrecuencia Periodicidad={this.state.resultado.IdPeriocidad} Periodo={this.state.resultado.Mes} />
                     </td>
-                    {/* <td>
-                       {this.state.resultado.Descripcion}
-                    </td> */}
                     <td>
                        {this.state.resultado.Meta + " " + this.state.resultado.Unidad}
                     </td>

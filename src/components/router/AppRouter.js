@@ -53,7 +53,7 @@ class AppRouter extends React.Component {
     componentDidMount()
     {
         var tema = localStorage.getItem("tema")
-        this.setState({temaBanpais : (tema === "4dx" ? false: true) })     
+        this.setState({temaBanpais : (tema === "banpais" ? true: false) })     
     }
 
 
@@ -193,8 +193,8 @@ class AppRouter extends React.Component {
                                     {this.state.EmpleadoNombre}
                                 </span>
                                 <div className="custom-control custom-switch">
-                                    <input type="checkbox" className="custom-control-input" id="customSwitch1" onClick={this.SetearTema} value={this.state.temaBanpais}/>
-                                    <label className="custom-control-label" htmlFor="customSwitch1">Tema</label>
+                                    <input type="checkbox" className="custom-control-input" id="customSwitch1" onChange={this.SetearTema} checked={this.state.temaBanpais}/>
+                                    <label className="custom-control-label" htmlFor="customSwitch1">Tema Banpais</label>
                                 </div>
                             </div>
                             <div className="modal-footer">
