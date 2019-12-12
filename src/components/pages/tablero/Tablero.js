@@ -13,6 +13,7 @@ import './Tablero.css'
 import {connect} from 'react-redux';
 import { axios, JwtPayload } from "../../../config/config";
 import Swal from "sweetalert2";
+import CustomizeTablero from './CustomizeTablero'
 
 class Tablero extends React.Component {
 
@@ -214,6 +215,13 @@ class Tablero extends React.Component {
                             <NoData NoData={this.props.mci.length === 0 && !this.state.cargando}/>    
                         </div>    
                     </div> 
+
+                    <div className="row">
+                        <div className="col text-left">
+                            <CustomizeTablero></CustomizeTablero>
+                        </div>
+                    </div>
+
                   
                     <div>
                         {this.props.mci.map((mci, index) =>{

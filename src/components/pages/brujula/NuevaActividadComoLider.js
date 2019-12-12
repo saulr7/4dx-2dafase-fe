@@ -67,29 +67,6 @@ class NuevaActividadComoLider extends Component {
         })
 
 
-        // var colaboradorId= UsuarioLogueadoId()
-        // axios.get("/GetBrujulaCantidad/"+colaboradorId )
-        // .then(res => {
-
-        //     if(!res.data)
-        //         return
-
-        //     var actividadesFaltantes = ( 3- res.data.Cantidad )
-        //     var actividadesFaltantesComoLider= (3 - res.data.CantidadComoLider)
-
-        //     actividadesFaltantes = (actividadesFaltantes >0 ? actividadesFaltantes : 0)
-        //     actividadesFaltantesComoLider = (actividadesFaltantesComoLider >0 ? actividadesFaltantesComoLider : 0)
-
-        //     this.setState({actividadesFaltantesComoLider, actividadesFaltantes})
-
-        // }).catch((error) => {
-        //     console.log(error)
-        //     Swal.fire({  
-        //         title: 'Algo ha salido mal',  
-        //         type: 'error',  
-        //         text: "Atención",  
-        //     });
-        // })
     }
 
 
@@ -181,25 +158,26 @@ class NuevaActividadComoLider extends Component {
             "CreatedBy" : usuario.Empleado
         }
 
+        this.setState({cargando: true})
+
         NuevaActividadService(nuevaActividad)
-        // axios.post("/BrujulaPorMPAdd", nuevaActividad )
-        // .then(res => {
-
-        //     Swal.fire({  
-        //         title: 'Información guardada exitosamente',  
-        //         type: 'success',  
-        //         text: "Éxito",  
-        //     });
-
-        // }).catch((error) => {
-        //     console.log(error)
-        //     Swal.fire({  
-        //         title: 'Algo ha salido mal',  
-        //         type: 'error',  
-        //         text: "Atención",  
-        //     });
-        //     return
-        // })
+        .then(res => {
+            this.ObtenerActividadesPeridoActual();
+            Swal.fire({  
+                title: 'Información guardada exitosamente',  
+                type: 'success',  
+                text: "Éxito",  
+            });
+            this.setState({actividades : [], cargando : false})
+    
+        }).catch((error) => {
+            this.setState({ cargando : false})
+            Swal.fire({  
+                title: 'Algo ha salido mal',  
+                type: 'error',  
+                text: "Atención",  
+            });
+        })
     }
 
 

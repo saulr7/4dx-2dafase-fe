@@ -136,8 +136,8 @@ class TableroMP extends React.Component {
             <div>
                  <div className="row my-4">
                     <div className="col-12 col-md-4">                    
-                        <h5 className="font-weight-bold">MP {" #"+ this.state.MedidaPredictiva.OrdenMP}</h5>
-                        <p className="card-text">
+                        <h5 className="font-weight-bold" style={ this.props.estilosTablero.Titulo}>MP {" #"+ this.state.MedidaPredictiva.OrdenMP}</h5>
+                        <p className="card-text" style={ this.props.estilosTablero.Texto}>
                             {this.state.MedidaPredictiva.MedidaPredictiva}
                         </p>
                     </div>
@@ -291,6 +291,7 @@ function mapStateToProps(state) {
     return {
         actividades : state.BrujulaReducer,
         mesSelected : state.MesSelectReducer,
+        estilosTablero : state.EstilosTableroReducer
     };
 }
 

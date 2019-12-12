@@ -12,6 +12,7 @@ import SesionReducer from './SesionReducer'
 import CounterSesionReducer from './CounterSesionReducer'
 import TimerReducer from './TimerReducer'
 import TotalActividadesNuevasReducer from './TotalActividadesNuevasReducer'
+import EstilosTableroReducer from './EstilosTableroReducer'
 
 export default combineReducers({
     PeriodicidadReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
     SesionReducer,
     CounterSesionReducer,
     TimerReducer,
-    TotalActividadesNuevasReducer
+    TotalActividadesNuevasReducer,
+    EstilosTableroReducer
 })

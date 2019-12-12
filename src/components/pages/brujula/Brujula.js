@@ -150,16 +150,7 @@ class Brujula extends Component {
                         </div>
                     </div>
 
-                    {/* <div className={"row m-2 "+(this.props.ActividadesNuevas.totalActividadesNuevas >= 3 ? "d-none" : "" ) }>
-                        <div className="col-12 col-md-6 offset-md-3 ">
-                            
-                            <div className="collapse " id="collapseExample" >
-                                <div className="card card-body">
-                                    <NuevaActividad User={0}/>
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
+        
 
                     <div className="row">
                         <div className="col text-center">

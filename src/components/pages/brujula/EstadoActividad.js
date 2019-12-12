@@ -206,7 +206,7 @@ class EstadoActividad extends Component {
                 <div>
                     <div className="form-inline">
 
-                        <span className="badge badge-secondary">
+                        <span className="badge badge-info">
                             {this.state.Descripcion}
 
                         </span>

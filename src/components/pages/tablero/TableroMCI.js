@@ -1,4 +1,6 @@
 import React from 'react'
+import { connect } from 'react-redux';
+
 import TipoGrafico from '../graficas/TipoGrafico'
 import Loading from '../../common/Loading'
 
@@ -6,6 +8,7 @@ import { Link } from "react-router-dom";
 
 import FNPeriodoEnBaseAFrecuencia from '../../common/FNPeriodoEnBaseAFrecuencia'
 
+import {EstilosTablero} from './CustomizeTablero'
 
 import TableroMP from './TableroMP'
 
@@ -15,7 +18,6 @@ class TableroMCI extends React.Component {
     constructor(props)
     {
         super(props)
-        //console.log(this.props.MCI)
         this.state = {
             cargando : false,
             mci : this.props.MCI,
@@ -107,7 +109,7 @@ class TableroMCI extends React.Component {
         return (
 
             <div>
-                    <div className="row bp-card mb-4 bg-white">
+                    <div className="row bp-card mb-4 bg-white-" style={ this.props.estilosTablero.bgTablero}>
                         <div className="col">
                
 
@@ -139,9 +141,9 @@ class TableroMCI extends React.Component {
 
 
                         <div className="row">
-                            <div className="col-12 col-md-4">
-                                <h5 className="font-weight-bold">MCI { "#"+this.state.mci.Orden}</h5>
-                                <p className="card-text">
+                            <div className="col-12 col-md-4" >
+                                <h5 className="font-weight-bold" style={ this.props.estilosTablero.Titulo}>MCI { "#"+this.state.mci.Orden}</h5>
+                                <p className="card-text" style={ this.props.estilosTablero.Texto}>
                                     {this.state.mci.MCI}
                                 </p>
                             </div>
@@ -256,4 +258,13 @@ class TableroMCI extends React.Component {
 
 }
 
-export default TableroMCI
+function mapStateToProps(state) {
+    return {
+        estilosTablero : state.EstilosTableroReducer
+    };
+}
+
+
+export default connect(
+    mapStateToProps,
+)(TableroMCI);

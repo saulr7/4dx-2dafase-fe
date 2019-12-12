@@ -198,7 +198,7 @@ class TablaActividadesBrujula extends Component {
 
                 <div className={"row "+ (this.props.Actividades.length ===0 ? "" : "" )}>
                     <div className="col-12 col-lg-4 offset-lg-4 text-center">
-                    <h4 className="card-title">Estado:</h4>
+                    <h4 className="card-title">Filtrar por Estado:</h4>
                         <select value={this.state.estadoSelected} className="custom-select " id="cmbSubAreas" onChange={ this.EstadoChangedHandler }>
                             { this.props.estadosBrujula.map((estado, index) => <option key={index} name={estado.Descripcion} value={estado.IdEstado}>{estado.Descripcion}</option>) }
                         </select>
@@ -230,18 +230,34 @@ class TablaActividadesBrujula extends Component {
 
                 <div className="row" >
                         <div className="col">
-                        <h3 className={"text-center font-weight-bold " + (this.props.Actividades.length === 0 ? "d-none" : "") } >Actividades</h3>
+                        <h3 className={"font-weight-bold " + (this.props.Actividades.length === 0 ? "d-none" : "") } >Compromisos:</h3>
 
                         <div className="list-group">
                                                            
                                 {this.props.Actividades.map((brujula, index)=>
                                     {
                                         return <div key={index} className="list-group-item list-group-item-action flex-column align-items-start">
+                                        {/* return <div key={index} className="mt-3"> */}
+                                            {/* <p className="text-primary mb-1 border border-primary border-bottom-2 border-left-0 border-right-0 border-top-0"> */}
+                                            <p className="text-primary mb-1 ">
+                                                Semana del: <Moment format="YYYY/MM/DD">{brujula.Desde}</Moment> - 
+                                                Hasta  <Moment format="YYYY/MM/DD">{brujula.Hasta}</Moment>
+                                            </p>
                                             <div className="d-flex w-100 justify-content-between">
-                                                <h5 className="mb-1">{brujula.Actividad}</h5>
-                                                <small className="text-muted"><Moment fromNow>{brujula.FechaCreada}</Moment></small>
+                                                <h4 className="text-dark mb-1">{brujula.Actividad}</h4>
+                                                {/* <h5> */}
+                                                    <EstadoActividad
+                                                            Descripcion={brujula.Descripcion}
+                                                            Brujula={brujula.IdBrujula}
+                                                            ResultadoId={this.state.IdColaborador}
+                                                            UsuarioId={brujula.IdColaborador} />
+                                                {/* </h5> */}
+                                                {/* <small className="text-muted"><Moment fromNow>{brujula.FechaCreada}</Moment></small> */}
                                             </div>
-                                            <div className="row">
+                                            <div className={"col text-right " + (brujula.ActividadComoLider ? "" : "d-none") }>
+                                                <span className="badge badge-warning">Actividad como líder</span>
+                                            </div>
+                                            {/* <div className="row">
                                                 <div className="col-12 col-md-3 ">
                                                     <h5><span className="badge badge-secondary">
                                                         <EstadoActividad
@@ -255,12 +271,8 @@ class TablaActividadesBrujula extends Component {
 
                                                     <span className="badge badge-warning">Actividad como líder</span>
                                                 </div>
-                                            </div>
-                                            <p className="mb-1">
-                                                Desde: <Moment format="YYYY/MM/DD">{brujula.Desde}</Moment> - 
-                                                Hasta  <Moment format="YYYY/MM/DD">{brujula.Hasta}</Moment>
-                                            </p>
-                                            <small className="text-muted">Modificada: <Moment format="YYYY/MM/DD">{brujula.FechaModificada}</Moment></small>
+                                            </div> */}
+                                            {/* <small className="text-muted">Modificada: <Moment format="YYYY/MM/DD">{brujula.FechaModificada}</Moment></small> */}
                                         
                                         </div>
                                     

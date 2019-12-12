@@ -4,23 +4,7 @@ import Swal from "sweetalert2";
 
 export const NuevaActividadService = (nuevaActividad)=>
 {
-    axios.post("/BrujulaPorMPAdd", nuevaActividad )
-    .then(res => {
-
-        Swal.fire({  
-            title: 'Información guardada exitosamente',  
-            type: 'success',  
-            text: "Éxito",  
-        });
-
-    }).catch((error) => {
-        Swal.fire({  
-            title: 'Algo ha salido mal',  
-            type: 'error',  
-            text: "Atención",  
-        });
-        return
-    })
+    return axios.post("/BrujulaPorMPAdd", nuevaActividad )
             
 }
 

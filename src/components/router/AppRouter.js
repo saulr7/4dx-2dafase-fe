@@ -86,14 +86,14 @@ class AppRouter extends React.Component {
 
                                     <div className={"dropdown" }  style={Estilos().bgBanpais}> 
                                         <button 
-                                            className="btn dropdown-toggle" style={Estilos().txtColor}
+                                            className="btn dropdown-toggle m-1" style={Estilos().txtColor}
                                             type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fa fa-cog pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
                                             <span className="font-weight-bold" style={Estilos().menuItem}>
                                                 Configurar Tablero
                                             </span>
                                         </button>
-                                        <div className="dropdown-menu " aria-labelledby="dropdownMenu1"  style={Estilos().bgBanpais}>
+                                        <div className="dropdown-menu" aria-labelledby="dropdownMenu1"  style={Estilos().bgBanpais}>
                                             
                                             <Link className="nav-link font-weight-bold  " to="/lineaDeMeta"  style={Estilos().bgBanpais}>
                                                 <i className="fa fa-external-link-square  pt-1" aria-hidden="true" style={Estilos().iconoMenu}>    
@@ -122,7 +122,7 @@ class AppRouter extends React.Component {
                                 
                                 <li className="nav-item active">
                                 <div className="dropdown " style={Estilos().bgBanpais}>
-                                        <button className="btn dropdown-toggle " style={Estilos().txtColor}
+                                        <button className="btn dropdown-toggle m-1" style={Estilos().txtColor}
                                             type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i className="fa fa-compass  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
                                             <span className="font-weight-bold" style={Estilos().menuItem}>
@@ -149,7 +149,7 @@ class AppRouter extends React.Component {
                                 </li>
    
                                 <li className="nav-item active">
-                                    <Link className="nav-link font-weight-bold menuItem" to="/colaboradores">
+                                    <Link className="nav-link font-weight-bold menuItem m-1" to="/colaboradores">
                                         <i className="fa fa-users  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
                                         <span style={Estilos().menuItem}>
                                             Colaboradores
@@ -157,7 +157,7 @@ class AppRouter extends React.Component {
                                     </Link>
                                 </li>
                                 <li className="nav-item active">
-                                    <Link className="nav-link font-weight-bold " to="/sesionMCI" style={Estilos().menuItem}>
+                                    <Link className="nav-link font-weight-bold m-1" to="/sesionMCI" style={Estilos().menuItem}>
                                         <i className="fa fa-flag  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
                                         <span style={Estilos().menuItem}>
                                             Sesión MCI

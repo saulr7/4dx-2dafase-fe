@@ -28,7 +28,7 @@ class NuevasActividades extends Component {
             txtMetricaDescripcion : "",
             ActividadComoLider : false,
             items: [
-                {label: 'Nueva actividad', icon: 'pi pi-fw pi-plus', command:()=> this.ToggleActividaComoLider(false)},
+                {label: 'Nueva actividad',  command:()=> this.ToggleActividaComoLider(false)},
                 
             ]
         }
@@ -50,7 +50,7 @@ class NuevasActividades extends Component {
         if(EsLider() )
         {
             var items = this.state.items
-            var opcionLider = {label: 'Nueva actividad como líder', icon: 'pi pi-fw pi-plus', command:()=> this.ToggleActividaComoLider(true)}
+            var opcionLider = {label: 'Nueva actividad como líder',  command:()=> this.ToggleActividaComoLider(true)}
             items.push(opcionLider)
             this.setState({items})
         }
