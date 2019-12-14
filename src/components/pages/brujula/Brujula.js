@@ -132,7 +132,7 @@ class Brujula extends Component {
 
 
                     <div className="row">
-                        <div className="col text-center">
+                        <div className="col text-center d-print-none">
                             <div>
                                 <h4>Actividades <i>Nuevas</i>  <span className="badge badge-secondary">{this.props.ActividadesNuevas.totalActividadesNuevas}/3</span></h4>
                             </div>
@@ -140,7 +140,7 @@ class Brujula extends Component {
                     </div>
 
                     <div className={"row "+(this.props.ActividadesNuevas.totalActividadesNuevas  >= 3  ? "" : "d-none" ) }>
-                        <div className="col-12 col-md-10 offset-md-1">
+                        <div className="col-12 col-md-10 offset-md-1 d-print-none">
                             <div className="alert alert-primary alert-dismissible fade show" role="alert">
                                 <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                                     <span aria-hidden="true">×</span>

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Loading from '../../common/Loading'
 
 import EstadoActividad from './EstadoActividad'
+import BtnPDF from '../../common/BtnPDF';
 
 
 
@@ -197,7 +198,7 @@ class TablaActividadesBrujula extends Component {
             <div>
 
                 <div className={"row "+ (this.props.Actividades.length ===0 ? "" : "" )}>
-                    <div className="col-12 col-lg-4 offset-lg-4 text-center">
+                    <div className="col-12 col-lg-4 offset-lg-4 text-center d-print-none">
                     <h4 className="card-title">Filtrar por Estado:</h4>
                         <select value={this.state.estadoSelected} className="custom-select " id="cmbSubAreas" onChange={ this.EstadoChangedHandler }>
                             { this.props.estadosBrujula.map((estado, index) => <option key={index} name={estado.Descripcion} value={estado.IdEstado}>{estado.Descripcion}</option>) }
@@ -207,7 +208,7 @@ class TablaActividadesBrujula extends Component {
                 </div>
 
                 <div className={"row " +(this.state.esLider ? "" : "d-none") }>
-                    <div className="col">
+                    <div className="col d-print-none">
                         <div className="custom-control custom-switch text-center">
                             <input type="checkbox" className="custom-control-input" id="swActividadesComoLider" onChange={this.ActividadesComoLiderHanlder}/>
                             <label className="custom-control-label" htmlFor="swActividadesComoLider">Actividades como líder</label>
@@ -227,6 +228,11 @@ class TablaActividadesBrujula extends Component {
                     </div>
                 </div>
 
+                <div className="row">
+                    <div className="col text-right">
+                        <BtnPDF></BtnPDF>
+                    </div>
+                </div>
 
                 <div className="row" >
                         <div className="col">

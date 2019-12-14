@@ -152,7 +152,18 @@ class TableroMP extends React.Component {
                                     <i className="fa fa-arrows-alt" aria-hidden="true"></i>
                                 </Link>
                                 <TipoGrafico type={3} data={this.state.dataBar}/>
-                                <p>
+                            </div>
+                            
+                        
+                            
+                        )}
+
+                    </div>
+                </div>
+
+                <div className="row">
+                    <div className="col">
+                    <p>
                                     <button className="btn btn-link" type="button" data-toggle="collapse" data-target="#divTablaMP" aria-expanded="false" aria-controls="collapseExample">
                                         <i className="fa fa-table" aria-hidden="true"></i>
                                         <span className="m-1">
@@ -217,14 +228,6 @@ class TableroMP extends React.Component {
                                             </div>
                                     </div>
                                 </div>
-
-
-
-                            </div>
-                            
-                        
-                            
-                        )}
 
                     </div>
                 </div>

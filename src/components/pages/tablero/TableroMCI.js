@@ -8,8 +8,6 @@ import { Link } from "react-router-dom";
 
 import FNPeriodoEnBaseAFrecuencia from '../../common/FNPeriodoEnBaseAFrecuencia'
 
-import {EstilosTablero} from './CustomizeTablero'
-
 import TableroMP from './TableroMP'
 
 class TableroMCI extends React.Component {
@@ -159,7 +157,20 @@ class TableroMCI extends React.Component {
 
                                 
                                 <TipoGrafico type={parseInt(this.state.idTipoGrafico)  } data={this.state.dataLineal2}/>
+                                
+                                <h4 className="card-title d-inline m-2">Tipo de gráfica:</h4>
 
+                                <select value={this.state.idTipoGrafico}  className="custom-select col-12 col-md-4 form-inline" id="cmbSubAreas" onChange={this.handleTextChange} >
+                                    <option value={2} >Línea</option>
+                                    <option value={3} >Barra</option>
+                                </select>
+                                    
+
+
+                            </div>
+                        </div>    
+
+                        
                                 <div className={"row "}>
                                 {/* <div className={"row "+(!this.state.mci.ResultadosMCI ? "d-none" : "")}> */}
                                     <div className="col">
@@ -221,21 +232,7 @@ class TableroMCI extends React.Component {
                                         </div>
 
                                     </div>
-                                </div>
-
-                               
-                                
-                                <h4 className="card-title d-inline m-2">Tipo de gráfica:</h4>
-
-                                <select value={this.state.idTipoGrafico}  className="custom-select col-12 col-md-4 form-inline" id="cmbSubAreas" onChange={this.handleTextChange} >
-                                    <option value={2} >Línea</option>
-                                    <option value={3} >Barra</option>
-                                </select>
-                                    
-
-
-                            </div>
-                        </div>                      
+                                </div>                  
 
                         <div className="">
                             
