@@ -74,6 +74,8 @@ class LineaDeMeta extends Component {
                         </div>
                     </div>
 
+                    <h3 className={"font-weight-bold py-2" } >MCI'S:</h3>
+
                     
                     <div className="row">
                         <div className="col text-center">

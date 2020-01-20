@@ -30,6 +30,8 @@ import NotFound from '../common/NotFound';
 import LineaDeMeta from '../pages/configurarTablero/LineaDeMeta';
 import Resultados from '../pages/configurarTablero/Resultados';
 import NuevasActividades from '../pages/brujula/NuevasActividades';
+import Mantenimientos from '../pages/mantenimientos/Mantenimientos';
+import EsAdmin from '../../Functions/EsAdmin';
 
 class AppRouter extends React.Component {
 
@@ -148,19 +150,28 @@ class AppRouter extends React.Component {
                                     </div>
                                 </li>
    
-                                <li className="nav-item active">
+                                {/* <li className="nav-item active">
                                     <Link className="nav-link font-weight-bold menuItem m-1" to="/colaboradores">
                                         <i className="fa fa-users  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
                                         <span style={Estilos().menuItem}>
                                             Colaboradores
                                         </span> 
                                     </Link>
-                                </li>
+                                </li> */}
                                 <li className="nav-item active">
                                     <Link className="nav-link font-weight-bold m-1" to="/sesionMCI" style={Estilos().menuItem}>
                                         <i className="fa fa-flag  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
                                         <span style={Estilos().menuItem}>
                                             Sesión MCI
+                                        </span> 
+                                    </Link>
+                                </li>
+                               
+                                <li className={"nav-item active " + (EsAdmin() ? "" : "d-none")}>
+                                    <Link className="nav-link font-weight-bold m-1" to="/settings" style={Estilos().menuItem}>
+                                        <i className="fa fa-cog  pt-1" aria-hidden="true" style={Estilos().iconoMenu}></i>
+                                        <span style={Estilos().menuItem}>
+                                            Mantenimientos
                                         </span> 
                                     </Link>
                                 </li>
@@ -227,6 +238,7 @@ class AppRouter extends React.Component {
                     <Route path="/editarMedidaPredictiva" render={(props) => <EditarMedidaPredictiva {...props} isAuthed={false} />}/>
                     <Route path="/resultadosMedidasPredictiva/:medidaPredictivaId" component={ResultadosMedidasPreventivas} />
                     <Route path="/resultadosMCI/:idMCI" component={ResultadosMCI} />
+                    <Route path="/settings" component={Mantenimientos} />
                     <Route  component={NotFound} />
                 </Switch>
                 

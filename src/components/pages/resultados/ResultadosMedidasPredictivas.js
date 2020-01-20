@@ -160,7 +160,7 @@ class IngresarResultadosMP extends React.Component {
                         <div className="col">
                             {this.state.resultados.length === 0 ? null : (
 
-                                <table className="table table-striped table-hover bg-white ">
+                                <table className="table table-striped table-hover  bg-white ">
                                     <thead className="">
                                         <tr>
                                             <th>Año</th>

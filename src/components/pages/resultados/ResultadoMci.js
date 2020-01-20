@@ -5,8 +5,6 @@ import {axios, JwtPayload, EmailFormat } from '../../../config/config'
 import PeriodoEnBaseAFrecuencia from '../../common/PeriodoEnBaseAFrecuencia'
 
 import Swal from "sweetalert2";
-import SolicitarAutorizacion from './SolicitarAutorizacion'
-// import SendEmailService from '../../../services/SendEmailService'
 import SendEmailService from '../../../services/SendEmailService'
 import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
 import Periodicidad from '../../common/FNPeriodoEnBaseAFrecuencia'
@@ -23,7 +21,7 @@ class Resultado extends React.Component {
             resultado : this.props.Resultado,
             valor : (this.props.Resultado.Valor ? this.props.Resultado.Valor : 0),
             editar : false,
-            Autorizado : this.props.Resultado.Autorizado,
+            Autorizado : this.props.Resultado.AutorizaIngreso,
             EsElDueno : (usuario.Empleado === this.props.Resultado.IdColaborador? true : false),
             usuarioPerfilId : (JwtPayload().usuario.PerfilId ),
         }
@@ -233,7 +231,7 @@ class Resultado extends React.Component {
                                         </span>
                                     </button>
 
-                                    {this.state.EsElDueno ? (
+                                    {/* {this.state.EsElDueno ? (
                                     <SolicitarAutorizacion 
                                         Tipo="MCI" 
                                         Periodo={Periodicidad(1,this.state.resultado.Mes)} 
@@ -241,7 +239,7 @@ class Resultado extends React.Component {
                                         ColaboradorId={this.state.resultado.IdColaborador}/>
                                     ) : (
                                         null
-                                    )}
+                                    )} */}
 
                                     {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno)?(
                                         <button 

@@ -115,7 +115,6 @@ class Brujula extends Component {
                 type: 'error',  
                 text: "Atención",  
             });
-            return
         })
     }
 

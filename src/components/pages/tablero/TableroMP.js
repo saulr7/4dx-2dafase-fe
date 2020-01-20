@@ -135,7 +135,7 @@ class TableroMP extends React.Component {
         return (
             <div>
                  <div className="row my-4">
-                    <div className="col-12 col-md-4">                    
+                    <div className={"col-12 col-md-4 " + (this.props.estilosTablero.textoALaDerecha  ? "order-2" : "" ) } >
                         <h5 className="font-weight-bold" style={ this.props.estilosTablero.Titulo}>MP {" #"+ this.state.MedidaPredictiva.OrdenMP}</h5>
                         <p className="card-text" style={ this.props.estilosTablero.Texto}>
                             {this.state.MedidaPredictiva.MedidaPredictiva}

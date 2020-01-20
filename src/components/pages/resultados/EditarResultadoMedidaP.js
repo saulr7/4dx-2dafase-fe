@@ -4,7 +4,6 @@ import './Resultados.css'
 import {axios, JwtPayload, EmailFormat } from '../../../config/config'
 
 import Medicion from '../../../models/Medicion'
-import SolicitarAutorizacion from './SolicitarAutorizacion'
 import SendEmailService from '../../../services/SendEmailService'
 import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
 import Swal from "sweetalert2";
@@ -149,7 +148,7 @@ class EditarResultadoMedidaP extends React.Component {
             });
             this.setState(state => ({  editar : false, Autorizado : true }));
             RegistrarEventoDelSistema("Aurtorizó el resultado: "+this.state.resultado.IdResultado)
-            this.SendEmail()            
+            //this.SendEmail()            
 
 
         }).catch((error) => {
@@ -251,6 +250,7 @@ class EditarResultadoMedidaP extends React.Component {
                     name ="btnAutorizar"
                     onClick={this.AutorizarResultadoMedidaPredictiva} >
                         <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        Autorizar
                 </button>
                   )
     
@@ -259,8 +259,12 @@ class EditarResultadoMedidaP extends React.Component {
                 (this.state.Autorizado && this.state.EsElDueno) ? 
                 (
                     <div>
-                        <button className=" btn btn-info m-1" data-toggle="tooltip" data-placement="top" title="Ingresar resultado" onClick={this.EditarHandler} >
+                        <button className=" btn btn-info " data-toggle="tooltip" data-placement="top" title="Ingresar resultado" onClick={this.EditarHandler} >
                             <i className="fa fa-pencil" aria-hidden="true"></i>
+                            <span className="mx-2">
+                                Resultado
+                            </span>
+
                         </button>
                     </div>
                 ): (
@@ -278,7 +282,7 @@ class EditarResultadoMedidaP extends React.Component {
                             </span>
                             ):(
                                 <div>
-                                    {this.state.EsElDueno ? (
+                                    {/* {this.state.EsElDueno ? (
                                         <SolicitarAutorizacion 
                                                 Tipo="MP" 
                                                 Periodo={this.state.resultado.IdFrecuencia === 2 ? ("Semana "+ this.state.resultado.Semana) : "Día " + this.state.resultado.Dia} 
@@ -286,7 +290,7 @@ class EditarResultadoMedidaP extends React.Component {
                                                 ColaboradorId={this.state.resultado.IdColaborador}/>
                                     ): (
                                         null
-                                    )}
+                                    )} */}
 
                                 </div>
                             )}

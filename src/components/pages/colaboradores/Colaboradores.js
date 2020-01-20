@@ -261,8 +261,6 @@ class Colaboradores extends React.Component {
                                 </table>
                             )}
 
-
-
                         </div>
                     </div>             
 

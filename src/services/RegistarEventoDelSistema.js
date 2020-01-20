@@ -1,4 +1,4 @@
-import { axios, JwtPayload } from "../config/config";
+import { axios, JwtPayload, Token } from "../config/config";
 
 function RegistrarEventoDelSistema(evento) {
 
@@ -8,13 +8,13 @@ function RegistrarEventoDelSistema(evento) {
         "IdColaborador": usuario.Empleado,
         "Evento": evento
     }
+    axios.defaults.headers.common['Authorization'] = `Bearer ${Token()}`
+
 
     axios.post("/RegistrarEventoDelSistema", nuevoEvento)
         .then(res => {
-
         }).catch((error) => {
             console.log(error)
-
         })
 
 }

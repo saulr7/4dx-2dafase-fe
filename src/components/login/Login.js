@@ -9,6 +9,7 @@ import axios from 'axios';
 import { JwtPayload } from "../../config/config";
 import {connect} from 'react-redux';
 import Swal from "sweetalert2";  
+import RegistrarEventoDelSistema from '../../services/RegistarEventoDelSistema';
 
 class Login extends React.Component {
 
@@ -89,7 +90,7 @@ class Login extends React.Component {
                 nombreColaborador : user.EmpleadoNombre,
                 colaboradorId : user.Empleado
             }
-            
+            RegistrarEventoDelSistema("Inicio de sesión; Navegador:"+ window.navigator.userAgent)
             this.props.dispatch({type:'ACTUALIZAR_COLABORADOR', data: colaborador}) 
             // window.location.href = "/tablero";
             window.location.reload();

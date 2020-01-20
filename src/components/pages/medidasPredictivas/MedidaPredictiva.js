@@ -49,7 +49,7 @@ class MedidaPredictiva extends React.Component {
     MostrarAlertaConfigurar()
     {
         Swal.fire({
-            title: "Debes configurar tus metas para poder acceder a tus resultados",
+            title: "Debes configurar tu línea de meta para poder acceder a tus resultados.",
             type: 'warning',
             text: "Atención",
         });

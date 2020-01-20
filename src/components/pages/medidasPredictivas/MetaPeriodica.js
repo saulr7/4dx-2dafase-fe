@@ -2,7 +2,6 @@ import React from 'react'
 
 import PeriodoEnBaseAFrecuencia from '../../common/PeriodoEnBaseAFrecuencia'
 import Periodicidad from '../../common/FNPeriodoEnBaseAFrecuencia'
-import SolicitarAutorizacion from '../resultados/SolicitarAutorizacion'
 import SendEmailService from '../../../services/SendEmailService'
 import { axios, JwtPayload, EmailFormat  } from "../../../config/config";
 import RegistrarEventoDelSistema from '../../../services/RegistarEventoDelSistema'
@@ -51,7 +50,7 @@ class MetaPeriodica extends React.Component {
                 type: 'success',  
                 text: "Éxito",  
             });
-            this.setState({cargando : false,  editar : false})
+            this.setState({cargando : false,  editar : false, Autorizado: false})
         }).catch((error) => {
             console.log(error)
             Swal.fire({  
@@ -202,7 +201,7 @@ class MetaPeriodica extends React.Component {
                                     </span>
                                 </button>
 
-                                {this.state.EsElDueno ? (
+                                {/* {this.state.EsElDueno ? (
 
                                     <SolicitarAutorizacion
                                         Tipo="Meta MCI"
@@ -211,7 +210,7 @@ class MetaPeriodica extends React.Component {
                                         ColaboradorId={this.state.periodo.IdColaborador}/>
                                 ): (
                                     null
-                                )}
+                                )} */}
  
                                     {(this.state.usuarioPerfilId === 2 && !this.state.EsElDueno)?(
                                         <button 

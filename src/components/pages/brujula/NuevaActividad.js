@@ -146,7 +146,10 @@ class NuevaActividad extends Component {
             "Actividades":this.state.actividades,
             "IdEstado" : 1,
             "ActividadComoLider": this.state.ActividadComoLider,
-            "CreatedBy" : usuario.Empleado
+            "CreatedBy" : usuario.Empleado,
+            "IdBrujula" : 0,
+	        "Actividad": ""
+
         }
 
         this.setState({cargando: true})

@@ -80,6 +80,7 @@ class Resultado extends React.Component {
     render() {
         return ( 
         <tbody>
+            {/* <tr className = { this.state.resultado.Autorizado ? "bg-white" : "" }> */}
             <tr className = { this.state.resultado.Autorizado ? "bg-white" : "" }>
                 <td> { this.state.resultado.Anio } </td> 
                 <td>

@@ -40,8 +40,7 @@ class TablaColaboradores extends Component {
         else 
             IdSubArea = idSubArea
 
-        this.setState(state => ({ cargando: true }));
-        this.setState(state => ({  IdSubArea : IdSubArea }));
+        this.setState(state => ({  IdSubArea : IdSubArea, cargando: true }));
 
         // axios.get('/ColaboradoresPorArea/'+IdSubArea )
         axios.get('/GetColaboradoresSubArea/'+IdSubArea )
@@ -100,6 +99,21 @@ class TablaColaboradores extends Component {
             {
                 this.props.dispatch({type:'LOAD_TABLERO', data: res.data}) 
             }
+
+            axios.get('/GetEstiloTablero/'+usuario)
+            .then(res => {
+                if(res.data)
+                {
+                    this.props.dispatch({type:'SET_STYLES', data: JSON.parse(res.data)})
+                }
+                else {
+                    var data ={ BgTablero : {
+                        backgroundColor : 'white'
+                    }}
+                    this.props.dispatch({type:'SET_STYLES', data})
+                }
+            })
+
             this.setState({cargando : false})
         }).catch((error) => {
             console.log(error)
@@ -121,7 +135,6 @@ class TablaColaboradores extends Component {
 
         axios.get("/BrujulaActividadesPorColaborador/"+ usuario+"/NO/"+esLider)
         .then(res => {
-            console.log(res.data)
             this.props.dispatch({type:'LOAD_BRUJULAS', data: res.data}) 
             this.setState({cargando : false})
 

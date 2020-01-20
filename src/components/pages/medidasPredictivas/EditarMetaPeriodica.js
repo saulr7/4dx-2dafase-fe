@@ -82,6 +82,20 @@ class EditarMetaPeriodica extends React.Component {
                                 <Loading Cargando={this.state.cargando}/>
                             </div>
                         </div>
+
+                        <div className="row">
+                            <div className="col-10 offset-1">
+
+                                <div className="alert alert-warning alert-dismissible fade show" role="alert">
+                                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                    <strong>Atención</strong> Una vez actualices el resultado, no podras modificarlo.
+                                </div>
+
+
+                            </div>
+                        </div>
    
                         
                         <div className="row">

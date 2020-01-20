@@ -74,7 +74,9 @@ class NuevaActividad extends Component {
             "Actividad":this.state.txtNuevaActividad,
             "IdEstado" : 1,
             "ActividadComoLider": this.state.ActividadComoLider,
-            "CreatedBy" : usuario.Empleado
+            "CreatedBy" : usuario.Empleado,
+            "IdBrujula" : 0,
+            "Actividades": null
         }
 
         axios.post("/BrujulaPorMPAdd", nuevaActividad )

@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import { axios, JwtPayload } from "../../../config/config";
 import Swal from "sweetalert2";
 import CustomizeTablero from './CustomizeTablero'
+import EsElUsuarioLogueado from '../../../services/EsElUsuarioLogueado'
 
 class Tablero extends React.Component {
 
@@ -101,6 +102,17 @@ class Tablero extends React.Component {
             {
                 this.props.dispatch({type:'LOAD_TABLERO', data: res.data}) 
             }
+
+            axios.get('/GetEstiloTablero/'+usuario)
+            .then(res => {
+                if(res.data)
+                {
+                    this.props.dispatch({type:'SET_STYLES', data: JSON.parse(res.data)})
+                }
+            })
+
+            
+
             this.setState({cargando : false})
         }).catch((error) => {
             console.log(error)
@@ -216,7 +228,7 @@ class Tablero extends React.Component {
                         </div>    
                     </div> 
 
-                    <div className="row">
+                    <div className={"row "+ (EsElUsuarioLogueado(this.props.colaboradorSelected.colaboradorId) ? "" : "d-none") }>
                         <div className="col text-left">
                             <CustomizeTablero></CustomizeTablero>
                         </div>

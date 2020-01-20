@@ -107,7 +107,7 @@ class TableroMCI extends React.Component {
         return (
 
             <div>
-                    <div className="row bp-card mb-4 bg-white-" style={ this.props.estilosTablero.bgTablero}>
+                    <div className="row bp-card mb-4 bg-white-" style={ this.props.estilosTablero.BgTablero}>
                         <div className="col">
                
 
@@ -139,7 +139,7 @@ class TableroMCI extends React.Component {
 
 
                         <div className="row">
-                            <div className="col-12 col-md-4" >
+                            <div className={"col-12 col-md-4 " + (this.props.estilosTablero.textoALaDerecha  ? "order-2" : "" ) } >
                                 <h5 className="font-weight-bold" style={ this.props.estilosTablero.Titulo}>MCI { "#"+this.state.mci.Orden}</h5>
                                 <p className="card-text" style={ this.props.estilosTablero.Texto}>
                                     {this.state.mci.MCI}
@@ -147,15 +147,12 @@ class TableroMCI extends React.Component {
                             </div>
                             <div className="col-12 col-md-8 text-right">
 
-                            
-
                                 <Link to={{
                                     pathname: '/chart/'+ btoa(this.state.dataB64)
                                     }}>
                                         <i className="fa fa-arrows-alt" aria-hidden="true"></i>
                                 </Link>
 
-                                
                                 <TipoGrafico type={parseInt(this.state.idTipoGrafico)  } data={this.state.dataLineal2}/>
                                 
                                 <h4 className="card-title d-inline m-2">Tipo de gráfica:</h4>
@@ -164,8 +161,6 @@ class TableroMCI extends React.Component {
                                     <option value={2} >Línea</option>
                                     <option value={3} >Barra</option>
                                 </select>
-                                    
-
 
                             </div>
                         </div>    

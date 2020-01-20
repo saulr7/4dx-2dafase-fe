@@ -52,8 +52,7 @@ class IngresarResultadosMP extends React.Component {
         axios.get('/GetResultadosMCI/'+IdMCI )
 
         .then(res => {
-            this.setState({cargando : false})
-            this.setState({resultados : res.data})
+            this.setState({cargando : false, resultados : res.data})
             
             if(res.data && res.data.length >0)
             {
@@ -75,7 +74,7 @@ class IngresarResultadosMP extends React.Component {
     ShowHelp(event)
     {
         Swal.fire({
-            title: "Para ingresar la meta debes ir a la pantalla de configuración",
+            title: "Para ingresar la meta debes ir a la pantalla de línea de meta",
             text: "Ayuda",
         });
     }

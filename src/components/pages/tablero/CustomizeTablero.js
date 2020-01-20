@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { SketchPicker } from 'react-color'
+import { ActualizarEstiloTableroService } from '../../../services/EstiloTableroService';
+import Swal from "sweetalert2";
 
 class CustomizeTablero extends Component {
 
@@ -14,45 +16,53 @@ class CustomizeTablero extends Component {
             fontSize : 'larger',
             fontSizes : ["medium","xx-small","x-small","small","large","x-large","xx-large","smaller","larger"],
             fontFamily : '',
-            fontFamilies : ["-webkit-pictograph", "auto", "cursive", "fantasy", "initial","monospace", "sans-serif", "serif", ""]
+            fontFamilies : ["-webkit-pictograph", "auto", "cursive", "fantasy", "initial","monospace", "sans-serif", "serif", ""],
+            textoALaDerecha : false
             
         }
       }
 
       BackgroundColorHandle = (color) => {
         this.setState({ backgroundColor: color.hex });
-        this.GuardarEstilosTablero()
+        this.VisualizarEstilosTablero()
       };
     
      
       TextColorHandle = (color) => {
         this.setState({ textColor: color.hex });
-        this.GuardarEstilosTablero()
+        this.VisualizarEstilosTablero()
       };
         
       TituloColorHandle = (color) => {
         this.setState({ tituloColor: color.hex });
-        this.GuardarEstilosTablero()
+        this.VisualizarEstilosTablero()
       };
      
       TextoTamanoHandle = (event) => {
         var size = event.target.value    
         this.setState({ fontSize: size});
-        this.GuardarEstilosTablero()
+        this.VisualizarEstilosTablero()
       };
       
       TextoFamilyHandle = (event) => {
         var font = event.target.value    
         this.setState({ fontFamily: font});
-        this.GuardarEstilosTablero()
+        this.VisualizarEstilosTablero()
+      };
+      
+      LayoutHandler = (event) => {
+        var textoALaDerecha = event.target.checked     
+        this.setState({ textoALaDerecha }, () => {
+            this.VisualizarEstilosTablero()
+          })
       };
 
 
-      GuardarEstilosTablero = () => {
+      VisualizarEstilosTablero = () => {
         var estilo = {}
 
         estilo = {
-            bgTablero : {
+            BgTablero : {
                 backgroundColor : this.state.backgroundColor
             },
             Titulo : {
@@ -62,7 +72,8 @@ class CustomizeTablero extends Component {
                 color : this.state.textColor,
                 fontSize : this.state.fontSize,
                 fontFamily : this.state.fontFamily
-            }
+            },
+            textoALaDerecha : this.state.textoALaDerecha
 
         }
         
@@ -72,7 +83,7 @@ class CustomizeTablero extends Component {
       ResetearEstilos = () =>
       {
           var estilo = {
-            bgTablero : {
+            BgTablero : {
                 backgroundColor : 'white'
             },
             Titulo : {
@@ -80,12 +91,57 @@ class CustomizeTablero extends Component {
             },
             Texto : {
                 color : ''
-            }
+            },
+            textoALaDerecha : false
           }
+          this.GuardarEstilosTablero()
           this.props.dispatch({type:'SET_STYLES', data: estilo})
       }
       
 
+      GuardarEstilosTablero = () => {
+        var estilos = {}
+
+        estilos = {
+            BgTablero : {
+                backgroundColor : this.state.backgroundColor
+            },
+            Titulo : {
+                color : this.state.tituloColor
+            },
+            Texto : {
+                color : this.state.textColor,
+                fontSize : this.state.fontSize,
+                fontFamily : this.state.fontFamily
+            },
+            textoALaDerecha : this.state.textoALaDerecha
+
+        }
+
+        var data ={
+            Estilo : JSON.stringify(estilos),
+            Colaborador : 0
+        }
+
+        ActualizarEstiloTableroService(data)
+        .then(res => {
+            Swal.fire({  
+                title: 'Información actualizada exitosamente',  
+                type: 'success',  
+                text: "Éxito",  
+            });
+
+
+        }).catch((error) => {
+            console.log(error)
+            Swal.fire({  
+                title: 'Algo ha salido mal',  
+                type: 'error',  
+                text: "Atención",  
+            });
+        })
+        
+      }
     
 
     render() {
@@ -207,6 +263,34 @@ class CustomizeTablero extends Component {
 
                                 </div>
                             </li>
+                            <li className="list-group-item ">
+                                <div>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        Layout:
+                                        <button className="btn btn-link" data-toggle="collapse" href="#clpLayout" aria-expanded="true" aria-controls="clpTextColor">
+                                            <i className="fa fa-pencil" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                    <div className="collapse " id="clpLayout">
+                                        <div className="card card-body">
+                                            <div className="row">
+                                                <div className="col text-center">
+                                                    <div className="custom-control custom-switch">
+                                                        <input 
+                                                            type="checkbox" 
+                                                            className="custom-control-input" id="customCheck1"
+                                                            onChange={this.LayoutHandler}/>
+                                                        <label className="custom-control-label" htmlFor="customCheck1">Texto a la derecha</label>
+                                                    </div>
+
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </li>
                            
                         </ul>
 
@@ -218,13 +302,13 @@ class CustomizeTablero extends Component {
                             onClick={this.ResetearEstilos}>
                             Reset
                         </button>
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button 
                             type="button" 
                             className="btn btn-primary"
                             onClick={this.GuardarEstilosTablero}>
                                 Guardar
                         </button>
+                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
                     </div>
                 </div>
